@@ -39,8 +39,34 @@ class App extends Component {
         .catch((err) => {
           console.log(err)
         })
-}
+  }
 
+  handleGoogleSuccess= (data) => {
+
+	this.setState({
+		showLoading: true
+	})
+
+	const {givenName, familyName, email, imageUrl, googleId} = data.profileObj
+	let newUser = {
+		firstName: givenName,
+		lastName: familyName,
+		email,
+		imageAccount: imageUrl,
+		googleId
+	}
+
+	axios.post(`${API_URL}/api/google/info`, newUser , {withCredentials: true})
+		.then((response) => {
+			this.setState({
+				loggedInUser: response.data.data,
+				error: null,
+				showLoading: false
+			}, () => {
+				this.props.history.push('/')
+			});
+		})
+  }
   render() {
     return (
       <>
@@ -50,7 +76,7 @@ class App extends Component {
                 return <Home/>
               }} />
               <Route path={'/auth'}  render={(routeProps) => {
-                return <Auth onFacebookResponse={this.handleFacebookResponse}/>
+                return <Auth onFacebookResponse={this.handleFacebookResponse} onGoogleResponse={this.handleGoogleSuccess}/>
               }} />
               <Route component={NotFound} />
             </Switch>
