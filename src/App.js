@@ -89,6 +89,12 @@ class App extends Component {
     }
   }
 
+  //this will change the state of the user when a sign in or sign up is done
+  handleUserState = (data) => {
+    this.setState({
+      user: data
+    })
+  }
   render() {
     return (
       <>
@@ -98,7 +104,12 @@ class App extends Component {
                 return <Home/>
               }} />
               <Route path={'/auth'}  render={(routeProps) => {
-                return <Auth onFacebookResponse={this.handleFacebookResponse} onGoogleResponse={this.handleGoogleSuccess}/>
+                return <Auth 
+                  user={this.state.user} 
+                  onFacebookResponse={this.handleFacebookResponse} 
+                  onGoogleResponse={this.handleGoogleSuccess}
+                  onSignIn={this.handleUserState}
+                />
               }} />
               <Route component={NotFound} />
             </Switch>

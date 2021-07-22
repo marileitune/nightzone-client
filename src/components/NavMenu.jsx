@@ -17,11 +17,10 @@ const theme = createTheme({
   });
 
 
+
 class NavMenu extends Component {
 
     render() {
-        console.log(this.props.user)
-
         //don't show the navbar in the signin/signup form
         if (this.props.location.pathname === '/auth') {
             return null
