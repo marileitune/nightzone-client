@@ -14,25 +14,29 @@ import Auth from "./components/Auth";
 class App extends Component {
   
   state = {
-     user: null //it means that te
+     user: null,
+     error: null
   }
 
   handleFacebookResponse = (data) => {
-    this.setState({
-        showLoading: true
-    })
+    // this.setState({
+    //     showLoading: true
+    // })
 
     const {name, email, picture: {data: {url}}, userID} = data
-    let newUser = {name, email, image: url, facebookId: userID}
+    console.log(data, "aqui")
+    let newUser = {name, email, imageAccount: url, facebookId: userID}
 
     axios.post(`${API_URL}/api/facebook/info`, newUser , {withCredentials: true})
         .then((response) => {
+          console.log(response.data)
             this.setState({
-                loggedInUser: response.data.data,
+                user: response.data.data,
                 error: null,
                 showLoading: false
             }, () => {
               console.log(this.props)
+               console.log(this.state.user.imageAccount)
                 this.props.history.push('/')
             });
         })
@@ -43,34 +47,52 @@ class App extends Component {
 
   handleGoogleSuccess= (data) => {
 
-	this.setState({
-		showLoading: true
-	})
+    // this.setState({
+    //   showLoading: true
+    // })
 
-	const {givenName, familyName, email, imageUrl, googleId} = data.profileObj
-	let newUser = {
-		firstName: givenName,
-		lastName: familyName,
-		email,
-		imageAccount: imageUrl,
-		googleId
-	}
+    const {givenName, familyName, email, imageUrl, googleId} = data.profileObj
+    let newUser = {
+      firstName: givenName,
+      lastName: familyName,
+      email,
+      imageAccount: imageUrl,
+      googleId
+    }
 
-	axios.post(`${API_URL}/api/google/info`, newUser , {withCredentials: true})
-		.then((response) => {
-			this.setState({
-				loggedInUser: response.data.data,
-				error: null,
-				showLoading: false
-			}, () => {
-				this.props.history.push('/')
-			});
-		})
+    axios.post(`${API_URL}/api/google/info`, newUser , {withCredentials: true})
+      .then((response) => {
+        this.setState({
+          user: response.data.data,
+          error: null,
+          showLoading: false
+        }, () => {
+          this.props.history.push('/')
+        });
+      })
   }
+
+  handleLogOut = async () => {
+    try {
+      await axios.post(`${API_URL}/api/logout`, {}, {withCredentials: true})
+      // clearing the user once they logout
+      this.setState({
+        user: null
+      } , () => {
+
+        this.props.history.push('/')
+      })
+
+    }
+    catch(err) {
+      console.log('Logout failed', err)
+    }
+  }
+
   render() {
     return (
       <>
-            <NavMenu user={this.state.user} />
+            <NavMenu user={this.state.user} onLogOut={this.handleLogOut}/>
             <Switch>
               <Route exact path={'/'}  render={(routeProps) => {
                 return <Home/>

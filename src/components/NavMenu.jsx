@@ -18,7 +18,10 @@ const theme = createTheme({
 
 
 class NavMenu extends Component {
+
     render() {
+        console.log(this.props.user)
+
         //don't show the navbar in the signin/signup form
         if (this.props.location.pathname === '/auth') {
             return null
@@ -40,7 +43,7 @@ class NavMenu extends Component {
                                         <NavDropdown.Item href="/account/:userId">My tickets</NavDropdown.Item>
                                         <NavDropdown.Item href="/account/:userId">Edit account</NavDropdown.Item>
                                         <NavDropdown.Divider />
-                                        <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={this.props.onLogOut}>Logout</NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav>
                             </Navbar.Collapse>
