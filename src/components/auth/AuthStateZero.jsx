@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import {Link, withRouter} from  'react-router-dom';
+import {Link} from  'react-router-dom';
 import { Button } from '@material-ui/core';
 import FacebookButton from './FacebookButton'
-import axios from 'axios';
 import GoogleButton from './GoogleButton';
 
 class AuthStateZero extends Component {

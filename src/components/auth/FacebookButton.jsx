@@ -2,7 +2,6 @@
 import React from 'react'
 import { withRouter} from  'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
-import axios from 'axios';
 
 function FacebookButton(props) {
 

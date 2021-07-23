@@ -18,7 +18,7 @@ class PasswordInputSignUp extends Component {
                 <Button variant="contained" color="primary"onClick={onRegister}>SIGN UP</Button>
 
                 {
-                    error ? <p className="error-p">{error}</p> : null
+                    error && <p className="error-p">{error}</p> 
                 }
             </div>
         )

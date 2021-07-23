@@ -9,13 +9,16 @@ import Home from './components/Home';
 import NavMenu from './components/NavMenu';
 import NotFound from "./components/NotFound";
 import Auth from "./components/auth/Auth";
+import EventsList from "./components/events/EventsList.jsx";
+import EventDetail from "./components/events/EventDetail.jsx";
 
 
 class App extends Component {
   
   state = {
      user: null,
-     error: null
+     error: null,
+     //showLoading?
   }
 
   handleFacebookResponse = (data) => {
@@ -33,7 +36,7 @@ class App extends Component {
             this.setState({
                 user: response.data.data,
                 error: null,
-                showLoading: false
+                // showLoading: false
             }, () => {
               console.log(this.props)
                console.log(this.state.user.imageAccount)
@@ -65,7 +68,7 @@ class App extends Component {
         this.setState({
           user: response.data.data,
           error: null,
-          showLoading: false
+          // showLoading: false
         }, () => {
           this.props.history.push('/')
         });
@@ -112,6 +115,15 @@ class App extends Component {
                   onGoogleResponse={this.handleGoogleSuccess}
                   onAuth={this.handleUserState}
                 />
+              }} />
+              <Route exact path={'/events'}  render={(routeProps) => {
+                return <EventsList 
+                  user={this.state.user} 
+                  onAuth={this.handleUserState}
+                />
+              }} />
+              <Route exact path={'/events/:eventId'}  render={(routeProps) => {
+                return <EventDetail {...routeProps}/>
               }} />
               <Route component={NotFound} />
             </Switch>

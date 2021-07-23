@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import {Link, withRouter} from  'react-router-dom';
-import { Button } from '@material-ui/core';
-import FacebookButton from './FacebookButton'
+import {withRouter} from  'react-router-dom';
 import axios from 'axios';
-import GoogleButton from './GoogleButton';
 import AuthStateZero from './AuthStateZero';
 import PasswordInputSignIn from './PasswordInputSignIn';
 import {API_URL} from '../../config.js'
@@ -86,6 +83,13 @@ class Auth extends Component {
                 password: password
             }
             const response = await axios.post(`${API_URL}/api/signin`, myUser, {withCredentials: true})
+            //if inside the response we have an error, grab the error from backend
+            if (response.data.errorMessage) {
+                await this.setState({...this.state, error: response.data.errorMessage})
+                 console.log(this.state)
+                 return
+             }
+            
             //this is for changing the state of the user (from null to the response.data):
             const {onAuth} = this.props
             onAuth(response.data)
@@ -114,7 +118,7 @@ class Auth extends Component {
             }
             const response = await axios.post(`${API_URL}/api/signup`, newUser, {withCredentials: true})
             console.log(response.data.errorMessage)
-            //if inside the response 
+            //if inside the response we have an error, grab the error from backend
             if (response.data.errorMessage) {
                await this.setState({...this.state, error: response.data.errorMessage})
                 console.log(this.state)
@@ -133,34 +137,29 @@ class Auth extends Component {
     render() {
         const {onFacebookResponse, onGoogleResponse} = this.props
         const { step } = this.state;
-        const { email, firstName, lastName, password, confirmPassword } = this.state;
         const {error} = this.state
-        
-        {
-            switch (step) {
-                case 1: 
-                    return (
-                        <AuthStateZero onFacebookResponse={onFacebookResponse} onGoogleResponse={onGoogleResponse} onNext={this.nextStep} />
-                    )
-                case 2: 
-                    return (
-                        <EmailInput onNext={this.handleAuth} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
-                    )
-                case 3: 
-                    return (
-                        <PasswordInputSignIn onLogin={this.handleLogin} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
-                    )
+        switch (step) {
+            case 1: 
+                return (
+                    <AuthStateZero onFacebookResponse={onFacebookResponse} onGoogleResponse={onGoogleResponse} onNext={this.nextStep} />
+                )
+            case 2: 
+                return (
+                    <EmailInput onNext={this.handleAuth} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
+                )
+            case 3: 
+                return (
+                    <PasswordInputSignIn onLogin={this.handleLogin} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
+                )
                 case 4:
                     return (
                         <NameInput onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
                     )
-                case 5:
-                    return (
-                        <PasswordInputSignUp onRegister={this.handleRegister} onPreview={this.prevStep} onCheck={this.handleCheck} onChange={this.handleChange} error={error}/>
-                    )
-                 default: 
-            }
-            
+            case 5:
+                return (
+                    <PasswordInputSignUp onRegister={this.handleRegister} onPreview={this.prevStep} onCheck={this.handleCheck} onChange={this.handleChange} error={error}/>
+                )
+            default: 
         }
     
     }

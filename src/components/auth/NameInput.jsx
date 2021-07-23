@@ -14,7 +14,7 @@ class NameInput extends Component {
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
                 {
-                    error ? <p className="error-p">{error}</p> : null
+                    error && <p className="error-p">{error}</p> 
                 }
             </div>
         )
