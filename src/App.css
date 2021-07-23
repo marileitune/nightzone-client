@@ -47,3 +47,7 @@ body {
 .link-nav:hover, #basic-nav-dropdown:hover {
   color:#BF1363 !important
 }
+
+.error-p{
+  color: #DEEEEA
+}

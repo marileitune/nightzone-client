@@ -27,7 +27,8 @@ class Auth extends Component {
         lastName: '',
         password: '',
         confirmPassword: '',
-        age: false
+        age: false,
+        error: null
     }
     
     prevStep = () => {
@@ -99,7 +100,9 @@ class Auth extends Component {
         try {
             const {email, firstName, lastName, password, confirmPassword, age} = this.state
             if (age === false) {
-                console.log('Underage')
+                this.setState({
+                    ...this.state, error: "Underage"
+                })
                 return
             }
             let newUser = { 
@@ -110,6 +113,13 @@ class Auth extends Component {
                 confirmPassword: confirmPassword
             }
             const response = await axios.post(`${API_URL}/api/signup`, newUser, {withCredentials: true})
+            console.log(response.data.errorMessage)
+            //if inside the response 
+            if (response.data.errorMessage) {
+               await this.setState({...this.state, error: response.data.errorMessage})
+                console.log(this.state)
+                return
+            }
             //this is for changing the state of the user (from null to the response.data):
             const {onAuth} = this.props
             onAuth(response.data)
@@ -124,31 +134,33 @@ class Auth extends Component {
         const {onFacebookResponse, onGoogleResponse} = this.props
         const { step } = this.state;
         const { email, firstName, lastName, password, confirmPassword } = this.state;
-
+        const {error} = this.state
+        
         {
             switch (step) {
                 case 1: 
                     return (
-                        <AuthStateZero onFacebookResponse={onFacebookResponse} onGoogleResponse={onGoogleResponse} onNext={this.nextStep}/>
+                        <AuthStateZero onFacebookResponse={onFacebookResponse} onGoogleResponse={onGoogleResponse} onNext={this.nextStep} />
                     )
                 case 2: 
                     return (
-                        <EmailInput onNext={this.handleAuth} onPreview={this.prevStep} onChange={this.handleChange}/>
+                        <EmailInput onNext={this.handleAuth} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
                     )
                 case 3: 
                     return (
-                        <PasswordInputSignIn onLogin={this.handleLogin} onPreview={this.prevStep} onChange={this.handleChange}/>
+                        <PasswordInputSignIn onLogin={this.handleLogin} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
                     )
                 case 4:
                     return (
-                        <NameInput onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange}/>
+                        <NameInput onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
                     )
                 case 5:
                     return (
-                        <PasswordInputSignUp onRegister={this.handleRegister} onPreview={this.prevStep} onCheck={this.handleCheck} onChange={this.handleChange}/>
+                        <PasswordInputSignUp onRegister={this.handleRegister} onPreview={this.prevStep} onCheck={this.handleCheck} onChange={this.handleChange} error={error}/>
                     )
                  default: 
             }
+            
         }
     
     }

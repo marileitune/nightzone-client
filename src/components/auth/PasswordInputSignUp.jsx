@@ -5,7 +5,8 @@ import { TextField, Checkbox, Button, FormControlLabel } from '@material-ui/core
 class PasswordInputSignUp extends Component {
 
     render() {
-        const {onRegister, onPreview, onChange, onCheck} = this.props
+        
+        const {onRegister, onPreview, onChange, onCheck, error} = this.props
         return (
             <div>
                 <Link to="/"><img src="https://res.cloudinary.com/dplgnsjzm/image/upload/v1626958315/nightzone-backend/images/logo_parfkw.png" width="40%" alt="nightzone logo" /></Link>
@@ -15,7 +16,10 @@ class PasswordInputSignUp extends Component {
                 <FormControlLabel control={<Checkbox name="age" required onChange={onCheck}/>}label="I am older than 18."/>
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary"onClick={onRegister}>SIGN UP</Button>
-     
+
+                {
+                    error ? <p className="error-p">{error}</p> : null
+                }
             </div>
         )
     }
