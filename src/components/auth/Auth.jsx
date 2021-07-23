@@ -6,7 +6,7 @@ import axios from 'axios';
 import GoogleButton from './GoogleButton';
 import AuthStateZero from './AuthStateZero';
 import PasswordInputSignIn from './PasswordInputSignIn';
-import {API_URL} from '../config.js'
+import {API_URL} from '../../config.js'
 import EmailInput from './EmailInput'
 import NameInput from './NameInput'
 import PasswordInputSignUp from './PasswordInputSignUp'
@@ -27,7 +27,7 @@ class Auth extends Component {
         lastName: '',
         password: '',
         confirmPassword: '',
-        age: ''
+        age: false
     }
     
     prevStep = () => {
@@ -41,15 +41,26 @@ class Auth extends Component {
         this.setState({ step: step +1})
     }
 
+    //here we are saving the things typed by the user in the state, to grab the information later on handleLogin or handleRegister
     handleChange = input => e => {
         this.setState({ [input]: e.target.value });
     }
 
+    handleCheck = () => {
+        const {age} = this.state
+        if (age === true) {
+            this.setState({age: false})
+        } else {
+            this.setState({age: true})
+        }
+    } 
+
+    //here we will check if the email typed by the user already exists in DB or not. If yes, go to step 3 (PasswordInputSignIn). If not, go to step 4(NameInput)
     handleAuth = async () => {
         try {
             const {email} = this.state
-            const user = await axios.get(`${API_URL}/api/auth`, {email}, {withCredentials: true})
-            if(user) {
+            const user = await axios.post(`${API_URL}/api/auth`, {email}, {withCredentials: true})          
+            if(user.data) {
                 this.setState({step: 3})
             }
             else {
@@ -69,22 +80,46 @@ class Auth extends Component {
                 password: password
             }
             const response = await axios.post(`${API_URL}/api/signin`, myUser, {withCredentials: true})
-            console.log(response)
-            const {onSignIn} = this.props
-            onSignIn(response.data)
+            //this is for changing the state of the user (from null to the response.data):
+            const {onAuth} = this.props
+            onAuth(response.data)
             this.props.history.push('/')
         }   
         catch (err){
-            console.log('Auth failed', err)
+            console.log('Log in failed', err)
+        }
+    }
+
+    handleRegister = async () => {
+        try {
+            const {email, firstName, lastName, password, confirmPassword, age} = this.state
+            if (age === false) {
+                console.log('Underage')
+                return
+            }
+            let newUser = { 
+                email: email,
+                firstName: firstName,
+                lastName: lastName,
+                password: password,
+                confirmPassword: confirmPassword
+            }
+            const response = await axios.post(`${API_URL}/api/signup`, newUser, {withCredentials: true})
+            //this is for changing the state of the user (from null to the response.data):
+            const {onAuth} = this.props
+            onAuth(response.data)
+            this.props.history.push('/')
+        }
+        catch (err) {
+            console.log('Register failed', err)
         }
     }
 
     render() {
         const {onFacebookResponse, onGoogleResponse} = this.props
         const { step } = this.state;
-        const { email, firstName, lastName, password, confirmPassword, age } = this.state;
-        const values = { email, firstName, lastName, password, confirmPassword, age }
-        
+        const { email, firstName, lastName, password, confirmPassword } = this.state;
+
         {
             switch (step) {
                 case 1: 
@@ -93,19 +128,19 @@ class Auth extends Component {
                     )
                 case 2: 
                     return (
-                        <EmailInput onNext={this.handleAuth} onPreview={this.prevStep} onChange={this.handleChange('email')}/>
+                        <EmailInput onNext={this.handleAuth} onPreview={this.prevStep} onChange={this.handleChange}/>
                     )
                 case 3: 
                     return (
-                        <PasswordInputSignIn onLogin={this.handleLogin} onPreview={this.prevStep} onChange={this.handleChange('password')}/>
+                        <PasswordInputSignIn onLogin={this.handleLogin} onPreview={this.prevStep} onChange={this.handleChange}/>
                     )
                 case 4:
                     return (
-                        <NameInput />
+                        <NameInput onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange}/>
                     )
                 case 5:
                     return (
-                        <PasswordInputSignUp />
+                        <PasswordInputSignUp onRegister={this.handleRegister} onPreview={this.prevStep} onCheck={this.handleCheck} onChange={this.handleChange}/>
                     )
                  default: 
             }

@@ -8,7 +8,7 @@ import {API_URL} from './config.js'
 import Home from './components/Home';
 import NavMenu from './components/NavMenu';
 import NotFound from "./components/NotFound";
-import Auth from "./components/Auth";
+import Auth from "./components/auth/Auth";
 
 
 class App extends Component {
@@ -89,12 +89,14 @@ class App extends Component {
     }
   }
 
-  //this will change the state of the user when a sign in or sign up is done
+  //this will change the state of the user when a sign in or sign up is done. Data is the user data.
   handleUserState = (data) => {
     this.setState({
       user: data
     })
   }
+
+
   render() {
     return (
       <>
@@ -108,7 +110,7 @@ class App extends Component {
                   user={this.state.user} 
                   onFacebookResponse={this.handleFacebookResponse} 
                   onGoogleResponse={this.handleGoogleSuccess}
-                  onSignIn={this.handleUserState}
+                  onAuth={this.handleUserState}
                 />
               }} />
               <Route component={NotFound} />

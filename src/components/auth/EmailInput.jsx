@@ -7,7 +7,7 @@ class EmailInput extends Component {
         return (
             <div>
                 <p>What is your email address?</p>
-                <TextField id="outlined-basic" label="Email" variant="outlined" onChange={onChange}/>
+                <TextField id="outlined-basic" label="Email" variant="outlined" type="email" required onChange={onChange('email')}/>
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
             </div>
