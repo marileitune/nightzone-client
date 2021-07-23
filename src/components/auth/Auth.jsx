@@ -32,6 +32,11 @@ class Auth extends Component {
     
     prevStep = () => {
         const {step} = this.state
+        //if we are in the step 4 (nameInput) and we want to back, the screen that need to appears is the step 2(email) and not 3 (passwordInputSignIn)
+        if (step === 4) {
+            this.setState({ step: step -2})
+            return
+        }
         this.setState({ step: step -1})
     }
 
