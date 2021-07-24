@@ -13,7 +13,7 @@ class PasswordInputSignIn extends Component {
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onLogin}>LOG IN</Button>
                 {
-                    error && <p className="error-p">{error}</p> 
+                    error && <p>{error}</p> 
                 }
             </div>
         )

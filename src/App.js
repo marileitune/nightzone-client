@@ -111,23 +111,22 @@ class App extends Component {
                 return <Home/>
               }} />
               <Route path={'/auth'}  render={(routeProps) => {
-                return <Auth 
+                return <Auth {...routeProps}
                   user={this.state.user} 
                   onFacebookResponse={this.handleFacebookResponse} 
                   onGoogleResponse={this.handleGoogleSuccess}
                   onAuth={this.handleUserState}
-                  {...routeProps}
                 />
               }} />
               <Route exact path={'/events'}  render={(routeProps) => {
-                return <EventsList 
+                return <EventsList {...routeProps}
                   user={this.state.user} 
                   onAuth={this.handleUserState}
-                  {...routeProps}
                 />
               }} />
               <Route exact path={'/events/:eventId'}  render={(routeProps) => {
-                return <EventDetail {...routeProps}/>
+                return <EventDetail {...routeProps}
+                  user={this.state.user} />
               }} />
               <Route component={NotFound} />
             </Switch>

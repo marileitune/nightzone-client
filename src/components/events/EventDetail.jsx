@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {API_URL} from '../../config.js'
 import {CircularProgress, Button} from '@material-ui/core'
 // import { loadStripe } from "@stripe/stripe-js";
@@ -46,6 +46,7 @@ class EventDetail extends Component {
             return <CircularProgress color="secondary" />
         } 
         const {eventDetail, showPayment} = this.state
+        const {user} = this.props
         // const promise = loadStripe("pk_test_51JFxmQGLw6mfE9JvfuXfSeVyUAiedGg0atoexZN0VMTrvtdSsIqfWycGgvcym3tSYV8eElXrGlHobUphaJe5z8ko00MEIHTnt7")
         return (
             <div>
@@ -57,7 +58,8 @@ class EventDetail extends Component {
                 <p>{eventDetail.capacity - eventDetail.ticketsSold.length} tickets available</p>
                 <p>{eventDetail.ticketsPrice}</p>
                 {
-                    eventDetail.capacity - eventDetail.ticketsSold.length > 0 ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment}/>) : (<Button variant="contained" color="primary" onClick={this.handleShowPayment}>BUY</Button>) : ""   
+                    //if there is ticket available and the state showPayment is true, show the Payment form. If not, show the button to BUY a ticket.
+                    eventDetail.capacity - eventDetail.ticketsSold.length > 0 ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment} user={user} />) : (<Button variant="contained" color="primary" onClick={this.handleShowPayment}>BUY</Button>) : ""   
                 } 
                 <p>{eventDetail.description}</p>
                 {
@@ -79,4 +81,4 @@ class EventDetail extends Component {
     }
 }
 
-export default EventDetail;
+export default withRouter(EventDetail);

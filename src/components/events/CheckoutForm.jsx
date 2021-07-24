@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import {API_URL} from '../../config.js'
 import axios from 'axios';
 import {
@@ -9,7 +10,7 @@ import {
 import Styles from './CheckoutForm.css'
 
 
-export default function CheckoutForm(props) {
+function CheckoutForm(props) {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
@@ -18,14 +19,14 @@ export default function CheckoutForm(props) {
   const stripe = useStripe();
   const elements = useElements();
 
-  const {eventId} = props
+  const {eventId, user} = props
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     window
       .fetch(`${API_URL}/api/create-payment-intent`, {
         method: "POST",
-        credentials: 'include',
+        credentials: 'include', //needed this line, because without it is not getting the user (user = undefined). Because how we are not using axios, we can't pass "withCredentials".
         headers: {
           "Content-Type": "application/json"
         },
@@ -84,6 +85,8 @@ export default function CheckoutForm(props) {
       //if the payment is successful, we need to call our payment route
       try {
         await axios.get(`${API_URL}/api/events/${eventId}/buy`, {withCredentials: true})
+        console.log(props)
+        props.history.push(`/account/${user._id}}`)
       }
       catch(err) {
           console.log('Event fetch failed', err)
@@ -125,3 +128,5 @@ export default function CheckoutForm(props) {
     </form>
   );
 }
+
+export default withRouter(CheckoutForm);
