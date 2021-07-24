@@ -19,7 +19,7 @@ class EventDetail extends Component {
         try {
             //check the `<Routes>` in App.js. That's where the params `eventId` comes from
             let eventId = this.props.match.params.eventId
-            let response = await axios.get(`${API_URL}/api/events/${eventId}`)
+            let response = await axios.get(`${API_URL}/api/events/${eventId}`, {withCredentials: true})
             this.setState({
                 eventDetail: response.data
             })

@@ -93,7 +93,7 @@ class Auth extends Component {
             //this is for changing the state of the user (from null to the response.data):
             const {onAuth} = this.props
             onAuth(response.data)
-            this.props.history.push('/')
+            this.props.history.push('/events')
         }   
         catch (err){
             console.log('Log in failed', err)
@@ -127,7 +127,7 @@ class Auth extends Component {
             //this is for changing the state of the user (from null to the response.data):
             const {onAuth} = this.props
             onAuth(response.data)
-            this.props.history.push('/')
+            this.props.history.push('/events')
         }
         catch (err) {
             console.log('Register failed', err)

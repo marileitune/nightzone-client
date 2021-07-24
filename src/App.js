@@ -40,7 +40,7 @@ class App extends Component {
             }, () => {
               console.log(this.props)
                console.log(this.state.user.imageAccount)
-                this.props.history.push('/')
+                this.props.history.push('/events')
             });
         })
         .catch((err) => {
@@ -70,7 +70,7 @@ class App extends Component {
           error: null,
           // showLoading: false
         }, () => {
-          this.props.history.push('/')
+          this.props.history.push('/events')
         });
       })
   }
@@ -94,6 +94,8 @@ class App extends Component {
 
   //this will change the state of the user when a sign in or sign up is done. Data is the user data.
   handleUserState = (data) => {
+
+    console.log(data)
     this.setState({
       user: data
     })
@@ -114,12 +116,14 @@ class App extends Component {
                   onFacebookResponse={this.handleFacebookResponse} 
                   onGoogleResponse={this.handleGoogleSuccess}
                   onAuth={this.handleUserState}
+                  {...routeProps}
                 />
               }} />
               <Route exact path={'/events'}  render={(routeProps) => {
                 return <EventsList 
                   user={this.state.user} 
                   onAuth={this.handleUserState}
+                  {...routeProps}
                 />
               }} />
               <Route exact path={'/events/:eventId'}  render={(routeProps) => {

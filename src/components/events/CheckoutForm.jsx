@@ -6,7 +6,7 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
-import CheckoutFormStyles from "./CheckoutForm.css";
+import Styles from './CheckoutForm.css'
 
 
 export default function CheckoutForm(props) {
@@ -25,6 +25,7 @@ export default function CheckoutForm(props) {
     window
       .fetch(`${API_URL}/api/create-payment-intent`, {
         method: "POST",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json"
         },
@@ -82,7 +83,7 @@ export default function CheckoutForm(props) {
       setSucceeded(true);
       //if the payment is successful, we need to call our payment route
       try {
-        const event = await axios.get(`${API_URL}/api/events/${eventId}/buy`)
+        await axios.get(`${API_URL}/api/events/${eventId}/buy`, {withCredentials: true})
       }
       catch(err) {
           console.log('Event fetch failed', err)

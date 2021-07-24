@@ -25,22 +25,23 @@ class NavMenu extends Component {
         if (this.props.location.pathname === '/auth') {
             return null
         }
+        console.log('this.props.user', this.props.user)
         return (
             <div>
                 <Navbar style={{backgroundColor: "transparent"}} expand="lg">
                     <Container>
-                        <Navbar.Brand href="/"><img src="https://res.cloudinary.com/dplgnsjzm/image/upload/v1626958315/nightzone-backend/images/logo_parfkw.png" alt="" width="150px"/></Navbar.Brand>
+                       <Link to="/"><Navbar.Brand><img src="https://res.cloudinary.com/dplgnsjzm/image/upload/v1626958315/nightzone-backend/images/logo_parfkw.png" alt="" width="150px"/></Navbar.Brand></Link> 
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         { 
                             this.props.user ? (
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="me-auto">
-                                    <Nav.Link className="link-nav" href="/events">EVENTS</Nav.Link>
-                                    <Nav.Link className="link-nav" href="/create">CREATE AN EVENT</Nav.Link>
-                                    <NavDropdown title="ACCOUNT" id="basic-nav-dropdown">
-                                        <NavDropdown.Item href="/account/:userId">My events</NavDropdown.Item>
-                                        <NavDropdown.Item href="/account/:userId">My tickets</NavDropdown.Item>
-                                        <NavDropdown.Item href="/account/:userId">Edit account</NavDropdown.Item>
+                                    <Link to="/events" className="link-nav">EVENTS</Link>
+                                    <Link to="/create" className="link-nav">CREATE AN EVENT</Link>
+                                    <NavDropdown title="ACCOUNT" id="basic-nav-dropdown">    
+                                        <Link to="/account/:userId" style={{ textDecoration: 'none' }}>My events</Link>
+                                        <Link to="/account/:userId" style={{ textDecoration: 'none' }}>My tickets</Link>
+                                        <Link to="/account/:userId" style={{ textDecoration: 'none' }}>Edit account</Link>      
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item onClick={this.props.onLogOut}>Logout</NavDropdown.Item>
                                     </NavDropdown>
