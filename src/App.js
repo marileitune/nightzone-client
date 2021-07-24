@@ -3,7 +3,7 @@ import { Switch, Route, Link, withRouter } from "react-router-dom";
 import axios from 'axios';
 import { loadStripe } from "@stripe/stripe-js";
 import {API_URL} from './config.js'
-
+import Styles from './App.css'
 //start importing components
 import Home from './components/Home';
 import NavMenu from './components/NavMenu';

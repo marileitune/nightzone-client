@@ -3,6 +3,7 @@
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #231E23;
+  color: #DEEEEA
 }
 #home-container{
   display: flex;
@@ -48,6 +49,4 @@ body {
   color:#BF1363 !important
 }
 
-.error-p{
-  color: #DEEEEA
-}
+

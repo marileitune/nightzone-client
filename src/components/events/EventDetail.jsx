@@ -3,11 +3,16 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import {API_URL} from '../../config.js'
 import {CircularProgress, Button} from '@material-ui/core'
+// import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import CheckoutForm from "./CheckoutForm";
+import Payment from "./Payment";
 
 class EventDetail extends Component {
 
-    state= {
-        eventDetail: null
+    state = {
+        eventDetail: null,
+        showPayment: false
     }
 
     async componentDidMount(){
@@ -23,12 +28,25 @@ class EventDetail extends Component {
             console.log('Event fetch failed', err)
         }
     }
+
+    handleShowPayment = async() => {
+        await this.setState({
+            ...this.state, showPayment: true
+        })
+    }
+
+    handleClosePayment = async () => {
+        await this.setState({
+            showPayment: false
+        })
+    }
+
     render() {
         if (!this.state.eventDetail) {
             return <CircularProgress color="secondary" />
         } 
-        const {eventDetail} = this.state
-        console.log(eventDetail)
+        const {eventDetail, showPayment} = this.state
+        // const promise = loadStripe("pk_test_51JFxmQGLw6mfE9JvfuXfSeVyUAiedGg0atoexZN0VMTrvtdSsIqfWycGgvcym3tSYV8eElXrGlHobUphaJe5z8ko00MEIHTnt7")
         return (
             <div>
                 <p>{eventDetail.name}</p>
@@ -38,7 +56,9 @@ class EventDetail extends Component {
                 <p>{eventDetail.ticketsSold.length} people will join</p>
                 <p>{eventDetail.capacity - eventDetail.ticketsSold.length} tickets available</p>
                 <p>{eventDetail.ticketsPrice}</p>
-                <Button variant="contained" color="primary">BUY</Button>
+                {
+                    eventDetail.capacity - eventDetail.ticketsSold.length > 0 ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment}/>) : (<Button variant="contained" color="primary" onClick={this.handleShowPayment}>BUY</Button>) : ""   
+                } 
                 <p>{eventDetail.description}</p>
                 {
                     eventDetail.categories.map((category) => {
