@@ -56,6 +56,8 @@ class EventDetail extends Component {
                 <p>{eventDetail.name}</p>
                 <p>{eventDetail.start}</p>
                 <p>{eventDetail.address}</p>
+                <p>{eventDetail.city}</p>
+                <p>{eventDetail.country}</p>
                 <p>{eventDetail.host.firstName} {eventDetail.host.lastName}</p>
                 <p>{eventDetail.ticketsSold.length} people will join</p>
                 <p>{eventDetail.capacity - eventDetail.ticketsSold.length} tickets available</p>

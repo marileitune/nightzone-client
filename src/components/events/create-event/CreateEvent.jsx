@@ -110,7 +110,7 @@ class CreateEvent extends Component {
                 description: description, 
                 imageEvent: imgResponse.data.image
             }
-            console.log(imageEvent)
+            console.log(newEvent)
             const response = await axios.post(`${API_URL}/api/create`, newEvent, {withCredentials: true})
             //if inside the response we have an error, grab the error from backend
             if (response.data.errorMessage) {
