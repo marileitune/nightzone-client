@@ -12,7 +12,7 @@ import Auth from "./components/auth/Auth";
 import EventsList from "./components/events/EventsList.jsx";
 import EventDetail from "./components/events/EventDetail.jsx";
 import CreateEvent from "./components/events/create-event/CreateEvent.jsx";
-
+import Account from "./components/user/Account.jsx";
 
 class App extends Component {
   
@@ -129,6 +129,10 @@ class App extends Component {
               }} />
                <Route exact path={'/create'}  render={(routeProps) => {
                 return <CreateEvent {...routeProps}
+              />
+              }} />
+              <Route exact path={'/account/:userId'}  render={(routeProps) => {
+                return <Account {...routeProps}
               />
               }} />
               <Route component={NotFound} />
