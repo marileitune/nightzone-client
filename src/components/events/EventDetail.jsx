@@ -12,7 +12,8 @@ class EventDetail extends Component {
 
     state = {
         eventDetail: null,
-        showPayment: false
+        showPayment: false,
+        canBuy: true,
     }
 
     async componentDidMount(){
@@ -21,7 +22,8 @@ class EventDetail extends Component {
             let eventId = this.props.match.params.eventId
             let response = await axios.get(`${API_URL}/api/events/${eventId}`, {withCredentials: true})
             this.setState({
-                eventDetail: response.data
+                eventDetail: response.data.event,
+                canBuy: response.data.canBuy
             })
         }  
         catch(err){
@@ -45,7 +47,8 @@ class EventDetail extends Component {
         if (!this.state.eventDetail) {
             return <CircularProgress color="secondary" />
         } 
-        const {eventDetail, showPayment} = this.state
+        
+        const {eventDetail, showPayment, canBuy} = this.state
         const {user} = this.props
         // const promise = loadStripe("pk_test_51JFxmQGLw6mfE9JvfuXfSeVyUAiedGg0atoexZN0VMTrvtdSsIqfWycGgvcym3tSYV8eElXrGlHobUphaJe5z8ko00MEIHTnt7")
         return (
@@ -58,8 +61,8 @@ class EventDetail extends Component {
                 <p>{eventDetail.capacity - eventDetail.ticketsSold.length} tickets available</p>
                 <p>{eventDetail.ticketsPrice}</p>
                 {
-                    //if there is ticket available and the state showPayment is true, show the Payment form. If not, show the button to BUY a ticket.
-                    eventDetail.capacity - eventDetail.ticketsSold.length > 0 ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment} user={user} />) : (<Button variant="contained" color="primary" onClick={this.handleShowPayment}>BUY</Button>) : ""   
+                    //if there is ticket available and the state showPayment is true, show the Payment form. If not, check if the canBuy is true, and if yes show the button to BUY a ticket. If not, show nothing.
+                    eventDetail.capacity - eventDetail.ticketsSold.length > 0 && canBuy ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment} user={user} />) : (<Button variant="contained" color="primary" onClick={this.handleShowPayment}>BUY</Button>) : ""   
                 } 
                 <p>{eventDetail.description}</p>
                 {

@@ -52,8 +52,13 @@ class EventsList extends Component {
                                        {event.address}
                                     </Typography>
                                     <Divider light />
+                                    {
+                                        event.categories.map((category) => {
+                                            return <p>{category}</p>
+                                        })
+                                    }
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                       {event.categories}
+                                       {event.category}
                                     </Typography>
                                     <Divider light />
                                     <Typography variant="body2" color="textSecondary" component="p">
