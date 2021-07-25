@@ -95,8 +95,6 @@ class App extends Component {
 
   //this will change the state of the user when a sign in or sign up is done. Data is the user data.
   handleUserState = (data) => {
-
-    console.log(data)
     this.setState({
       user: data
     })

@@ -4,12 +4,15 @@ import {withRouter} from  'react-router-dom';
 
 class PriceEvent extends Component {
     render() {
-        const {onPreview, onNext, onChange, onCheck, error} = this.props
+        const {onPreview, onNext, onChange, onCheck, error, isPaid} = this.props
+        console.log(isPaid)
         return (
             <div>
                 <FormControlLabel control={<Checkbox name="isPaid" required onChange={onCheck}/>}label="The event is going to be paid."/>
-                <p>How much is the ticket?</p>
-                <TextField id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" required onChange={onChange('ticketsPrice')}/>
+                {
+                    
+                    isPaid && <><p>How much is the ticket?</p> <TextField id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" required onChange={onChange('ticketsPrice')}/> </> 
+                }
                 <p>Which is the party capacity?</p>
                 <TextField id="outlined-basic" label="capacity" variant="outlined" type="number" required onChange={onChange('capacity')}/>
                 {/* buttons */}

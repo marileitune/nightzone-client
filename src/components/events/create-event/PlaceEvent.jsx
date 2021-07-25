@@ -8,18 +8,17 @@ class PlaceEvent extends Component {
         return (
             <div>
                 <p>Where the event is going to happen?</p>
-                <TextField id="outlined-basic" label="address" variant="outlined" type="text" required onChange={onChange('address')}/>
+                <TextField id="outlined-basic" label="Address" variant="outlined" type="text" required onChange={onChange('address')}/>
                 {/* country */}
                 <TextField
                     id="outlined-select-currency-native"
                     select
-                    label="Native select"
+                    label="Country"
                     // value={country}
                     // onChange={onChange('country')}
                     // SelectProps={{
                     //     native: true,
                     // }}
-                    helperText="Country"
                     variant="outlined"
                     >
                     {/* {currencies.map((option) => (
@@ -32,13 +31,12 @@ class PlaceEvent extends Component {
                 <TextField
                     id="outlined-select-currency-native"
                     select
-                    label="Native select"
+                    label="City"
                     // value={city}
                     // onChange={onChange('city')}
                     // SelectProps={{
                     //     native: true,
                     // }}
-                    helperText="City"
                     variant="outlined"
                     >
                     {/* {currencies.map((option) => (

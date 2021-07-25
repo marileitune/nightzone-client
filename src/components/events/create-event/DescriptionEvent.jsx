@@ -4,7 +4,7 @@ import {withRouter} from  'react-router-dom';
 
 class DescriptionEvent extends Component {
     render() {
-        const { onPreview, onChange, onNext, onCheck, error} = this.props
+        const { onPreview, onChange, onNext, onCheck, error, onAddImage} = this.props
         return (
             <div>
                 <TextareaAutosize
@@ -21,8 +21,9 @@ class DescriptionEvent extends Component {
                         Add an image
                     <input
                         type="file"
+                        name="imageEvent"
                         accept="image/png, image/jpg"
-                        onChange={onChange('image')}
+                        onChange={onAddImage}
                         hidden
                     />
                 </Button>

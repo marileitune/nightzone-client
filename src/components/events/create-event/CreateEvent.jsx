@@ -51,17 +51,50 @@ class CreateEvent extends Component {
         this.setState({ [input]: e.target.value });
     }
 
+    handleImage = (e) => {
+        console.log(e)
+        this.setState({ imageEvent: e.target.files[0] });
+    }
+
     handleCheck = () => {
         const {isPaid} = this.state
-        if (isPaid === true) {
+        if (isPaid === false) {
             this.setState({isPaid: true})
         } else {
             this.setState({isPaid: false})
         }
     } 
 
-    handleCreate = async () => {
+    handleCategories = async (category) => {
+        console.log(category)
         try {
+            const {categories} = this.state
+            if(categories.includes(category)) {
+               const index = categories.indexOf(category)
+               console.log('index', index)
+               categories.splice(index, 1)
+               await this.setState({categories: categories})
+            } 
+            else {
+                const newCategories = categories.concat(category)
+                await this.setState({
+                    categories: newCategories
+               })
+            }
+            console.log(this.state.categories)
+        }
+        catch (err) {
+            console.log('Categories failed', err)
+        }
+    } 
+
+    handleCreate = async (e) => {
+        try {
+            let formData = new FormData()
+            formData.append('imageUrl', this.state.imageEvent)
+
+            let imgResponse = await axios.post(`${API_URL}/api/upload`, formData)
+            console.log(imgResponse)
             const {name, start, end, address, country, city, isPaid, ticketsPrice, capacity, categories, description, imageEvent} = this.state
             let newEvent = { 
                 name: name, 
@@ -75,13 +108,14 @@ class CreateEvent extends Component {
                 capacity: capacity, 
                 categories: categories, 
                 description: description, 
-                imageEvent: imageEvent
+                imageEvent: imgResponse.data.image
             }
+            console.log(imageEvent)
             const response = await axios.post(`${API_URL}/api/create`, newEvent, {withCredentials: true})
             //if inside the response we have an error, grab the error from backend
             if (response.data.errorMessage) {
                await this.setState({...this.state, error: response.data.errorMessage})
-                return
+               return
             }
             //this is for changing the state of the user (from null to the response.data):
             this.props.history.push('/events')
@@ -109,15 +143,15 @@ class CreateEvent extends Component {
                 )
                 case 4:
                     return (
-                        <PriceEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onCheck={this.handleCheck} error={error}/>
+                        <PriceEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onCheck={this.handleCheck} isPaid={this.state.isPaid} error={error}/>
                     )
             case 5:
                 return (
-                    <DescriptionEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
+                    <DescriptionEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onAddImage={this.handleImage} error={error}/>
                 )
             case 6:
                 return (
-                    <CategoriesEvent onRegister={this.handleRegister} onPreview={this.prevStep} onCheck={this.handleCheck} onChange={this.handleChange} error={error}/>
+                    <CategoriesEvent onCreate={this.handleCreate} onPreview={this.prevStep} onCheck={this.handleCategories} error={error}/>
                 )
             default: 
         }

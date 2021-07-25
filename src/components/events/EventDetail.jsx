@@ -54,7 +54,7 @@ class EventDetail extends Component {
         return (
             <div>
                 <p>{eventDetail.name}</p>
-                <p>{eventDetail.startDate} ÀS {eventDetail.startTime}</p>
+                <p>{eventDetail.start}</p>
                 <p>{eventDetail.address}</p>
                 <p>{eventDetail.host.firstName} {eventDetail.host.lastName}</p>
                 <p>{eventDetail.ticketsSold.length} people will join</p>

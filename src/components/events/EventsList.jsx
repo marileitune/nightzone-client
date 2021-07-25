@@ -45,7 +45,7 @@ class EventsList extends Component {
                                     </Typography>
                                     <Divider light />
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        {event.startDate} às {event.startTime}
+                                        {event.start} 
                                     </Typography>
                                     <Divider light />
                                     <Typography variant="body2" color="textSecondary" component="p">
