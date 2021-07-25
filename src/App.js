@@ -11,6 +11,7 @@ import NotFound from "./components/NotFound";
 import Auth from "./components/auth/Auth";
 import EventsList from "./components/events/EventsList.jsx";
 import EventDetail from "./components/events/EventDetail.jsx";
+import CreateEvent from "./components/events/create-event/CreateEvent.jsx";
 
 
 class App extends Component {
@@ -127,6 +128,10 @@ class App extends Component {
               <Route exact path={'/events/:eventId'}  render={(routeProps) => {
                 return <EventDetail {...routeProps}
                   user={this.state.user} />
+              }} />
+               <Route exact path={'/create'}  render={(routeProps) => {
+                return <CreateEvent {...routeProps}
+              />
               }} />
               <Route component={NotFound} />
             </Switch>
