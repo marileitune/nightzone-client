@@ -17,7 +17,6 @@ class PlaceEvent extends Component {
             await this.setState ({
                 countries: response.data.data
             })
-            console.log(this.state.countries)
         }
         catch (err) {
             console.log('Countries fetch failed', err)
@@ -63,9 +62,6 @@ class PlaceEvent extends Component {
                     onChange={this.handleCountry}
                     label="Country"
                     >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
                     {countries.map((option, i) => (
                         <MenuItem key={i} value={option.country}>
                         {option.country}
@@ -84,9 +80,6 @@ class PlaceEvent extends Component {
                       onChange={this.handleCity}
                       label="City"
                       >
-                      <MenuItem value="">
-                          <em>None</em>
-                      </MenuItem>
                       {cities.map((option, i) => (
                           <MenuItem key={i} value={option}>
                           {option}

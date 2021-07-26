@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Switch, Route, Link, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import axios from 'axios';
-import { loadStripe } from "@stripe/stripe-js";
 import {API_URL} from './config.js'
 import Styles from './App.css'
 //start importing components
@@ -9,10 +8,11 @@ import Home from './components/Home';
 import NavMenu from './components/NavMenu';
 import NotFound from "./components/NotFound";
 import Auth from "./components/auth/Auth";
-import EventsList from "./components/events/EventsList.jsx";
-import EventDetail from "./components/events/EventDetail.jsx";
-import CreateEvent from "./components/events/create-event/CreateEvent.jsx";
-import Account from "./components/user/Account.jsx";
+import EventsList from "./components/events/EventsList";
+import EventDetail from "./components/events/EventDetail";
+import CreateEvent from "./components/events/create-event/CreateEvent";
+import Account from "./components/user/Account";
+import EditEvent from "./components/events/EditEvent"
 
 class App extends Component {
   
@@ -133,6 +133,11 @@ class App extends Component {
               }} />
               <Route exact path={'/account/:userId'}  render={(routeProps) => {
                 return <Account {...routeProps}
+              />
+              }} />
+              <Route exact path={'/events/:eventId/edit'}  render={(routeProps) => {
+                return <EditEvent {...routeProps}
+                user={this.state.user} 
               />
               }} />
               <Route component={NotFound} />

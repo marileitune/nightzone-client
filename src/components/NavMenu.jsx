@@ -25,7 +25,6 @@ class NavMenu extends Component {
         if (this.props.location.pathname === '/auth') {
             return null
         }
-        console.log('this.props.user', this.props.user)
         return (
             <div>
                 <Navbar style={{backgroundColor: "transparent"}} expand="lg">

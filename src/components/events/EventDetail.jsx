@@ -16,7 +16,7 @@ class EventDetail extends Component {
         canBuy: true,
     }
 
-    async componentDidMount(){
+    componentDidMount = async () => {
         try {
             //check the `<Routes>` in App.js. That's where the params `eventId` comes from
             let eventId = this.props.match.params.eventId

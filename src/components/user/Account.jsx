@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Link, withRouter } from "react-router-dom";
 import {API_URL} from '../../config.js'
-import {CardActionArea, Card, Button, CardMedia, CardContent, Typography, Divider} from '@material-ui/core'
-
+import {CardActionArea, Card, CardMedia, Button, CardContent, Typography, Divider, AppBar, Tab} from '@material-ui/core'
+import { TabList, TabPanel, TabContext} from '@material-ui/lab'
 class Account extends Component {
 
-    state ={
+    state = {
+        value: 1,
         ticketsBought: [],
-        eventsCreated: [],
+        eventsCreated: []
     }
     
     componentDidMount = async () => {
@@ -19,7 +20,6 @@ class Account extends Component {
                 ticketsBought: response.data.ticketsBought,
                 eventsCreated: response.data.eventsCreated
             })
-        console.log('her',this.state.ticketsBought)
 
         }
         catch (err) {
@@ -28,52 +28,105 @@ class Account extends Component {
     }
 
     handleCheckIn = async (eventId) => {
-        let response = await axios.get(`${API_URL}/api/events/${eventId}/checkIn`, {withCredentials: true})
+        await axios.get(`${API_URL}/api/events/${eventId}/checkIn`, {withCredentials: true})
         this.props.history.push('/events')
     }
-    render() {
-        const {ticketsBought} = this.state
 
+    handleChange = async (e, newValue) => {
+        this.setState({
+            value: newValue
+        })
+    }
+
+
+    render() {
+        const {value, ticketsBought, eventsCreated} = this.state
+        console.log(eventsCreated)
         return (
             <div>
-                {
-                    ticketsBought.map((event, i) => {
-                        return <Card key={i} style={{ backgroundColor: 'transparent' }}>
-                            <CardActionArea>
-                                <Link to={`/events/${event.event._id}`} style={{ textDecoration: 'none' }}>
-                                    <CardMedia
-                                    component="img"
-                                    alt="image-event"
-                                    height="140"
-                                    image={`${event.event.imageEvent}`}
-                                    title="image-event"
-                                    />
-                                </Link>
-                                    <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2" >
-                                        {event.event.name}
-                                    </Typography>
-                                    <Divider light />
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {event.event.start} 
-                                    </Typography>
-                                    <Divider light />
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                       {event.event.address}
-                                    </Typography>
-                                    <Divider light />
-                                    {
-                                        event.canCheckIn && (<>
-                                        <p>Please, only click this button when the receptionist order to.</p>
-                                        <Button variant="contained" color="primary" onClick={() => this.handleCheckIn(event.event._id)}>CHECK IN</Button>
-                                        </>)
-                                    }
-                                    </CardContent>
-                                </CardActionArea>
-                                
-                            </Card>
-                    })
-                }
+                <TabContext value={value}>
+                    <AppBar position="static">
+                        <TabList onChange={this.handleChange} aria-label="simple tabs example">
+                            <Tab label="My tickets" value="1" />
+                            <Tab label="My events" value="2" />
+                        </TabList>
+                    </AppBar>
+                    <TabPanel value="1">
+                        {
+                            ticketsBought.map((event, i) => {
+                                return <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                                    <CardActionArea>
+                                        <Link to={`/events/${event.event._id}`} style={{ textDecoration: 'none' }}>
+                                            <CardMedia
+                                            component="img"
+                                            alt="image-event"
+                                            height="140"
+                                            image={`${event.event.imageEvent}`}
+                                            title="image-event"
+                                            />
+                                        </Link>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2" >
+                                                {event.event.name}
+                                            </Typography>
+                                            <Divider light />
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                {event.event.start} 
+                                            </Typography>
+                                            <Divider light />
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                {event.event.address}
+                                            </Typography>
+                                            <Divider light />
+                                            {
+                                                event.canCheckIn && (<>
+                                                <p>Please, only click this button when the receptionist order to.</p>
+                                                <Button variant="contained" color="primary" onClick={() => this.handleCheckIn(event.event._id)}>CHECK IN</Button>
+                                                </>)
+                                            }
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            })
+                        }
+                    </TabPanel>
+                    <TabPanel value="2">
+                        {
+                            eventsCreated.map((event, i) => {
+                                return <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                                    <CardActionArea>
+                                        <Link to={`/events/${event._id}`} style={{ textDecoration: 'none' }}>
+                                            <CardMedia
+                                            component="img"
+                                            alt="image-event"
+                                            height="140"
+                                            image={`${event.imageEvent}`}
+                                            title="image-event"
+                                            />
+                                        </Link>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2" >
+                                                {event.name}
+                                            </Typography>
+                                            <Divider light />
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                {event.ticketsSold.length} tickets sold
+                                            </Typography>
+                                            <Divider light />
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                {event.checkIn.length} people checked in
+                                            </Typography>
+                                            <Divider light />
+                                            <Link to={`/events/${event._id}/edit`}>
+                                                <Button variant="contained" color="primary">EDIT</Button>
+                                            </Link>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            })
+                        }
+                    </TabPanel>
+                </TabContext>
             </div>
         )
     }
@@ -81,3 +134,6 @@ class Account extends Component {
 
 
 export default withRouter(Account);
+
+
+
