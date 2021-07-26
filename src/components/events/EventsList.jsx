@@ -2,25 +2,41 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Link} from "react-router-dom";
 import {API_URL} from '../../config.js'
-import {CardActionArea, Card, CardMedia, IconButton, CardContent, CardActions, Typography, Divider, AppBar, Tab, LinearProgress, Avatar, Collapse} from '@material-ui/core'
-import { TabList, TabPanel, TabContext} from '@material-ui/lab'
+import { Tooltip, CardActionArea, Card, CardMedia, IconButton, CardContent, CardActions, Typography, Divider, AppBar, Tab, LinearProgress, Avatar, Collapse} from '@material-ui/core'
+import { TextareaAutosize, Button } from '@material-ui/core';
+import { TabList, TabPanel, TabContext, Alert} from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Filter from './Filter.jsx'
 
 class EventsList extends Component {
+
     state = {
         events:[],
         hotzone: [],
         value: 1,
         progress: 0,
-        expandedId: -1 
+        expandedId: -1,
+        showFilter: false,
+        filteredEvents: [],
+        searchText: '',
+        startDate: null,
+        ticketType: null,
+        cities: [],
+        city: null
     }
 
     componentDidMount = async () => {
         try {
             let response = await axios.get(`${API_URL}/api/events`, {withCredentials: true})
             this.setState({
-                events: response.data
+                events: response.data,
+                filteredEvents: response.data
         })
+
+            response.data.forEach((elem) => {
+                !this.state.cities.includes(elem.city) && this.state.cities.push(elem.city)
+            })
+
             let eventsFiltered = await axios.get(`${API_URL}/api/events/hotzone`, {withCredentials: true})
             this.setState({
                 hotzone: eventsFiltered.data.eventsFiltered,
@@ -46,8 +62,118 @@ class EventsList extends Component {
         
     }
 
+    handleShowFilters = async () => {
+        const {showFilter} = this.state
+        if (showFilter) {
+            await this.setState({
+                showFilter: false
+            }) 
+        } 
+        else {
+            await this.setState({
+                showFilter: true
+            })      
+        }
+    }
+
+    handleSearchName = async (e) => {
+        let searchedEvent = e.target.value
+        await this.setState({searchText: searchedEvent})
+        this.handleFilterGeneral()
+    }
+
+    filterCategories = async () => {
+        try {
+
+        }
+        catch (err) {
+
+        }
+    }
+
+    filterDate = async (e) => {
+        let searchedDate = e.target.value
+        await this.setState({startDate: searchedDate})
+        this.handleFilterGeneral()
+    }
+
+    filterCity = async (e) => {
+        let searchedCity = e.target.value
+        await this.setState({city: searchedCity})
+        this.handleFilterGeneral()
+    }
+
+    filterTicketType = async (e) => {
+        let searchedType = e.target.value
+        await this.setState({ticketType: searchedType})
+        this.handleFilterGeneral()
+    }
+
+    handleFilterGeneral = async () => {
+        const {events, searchText, startDate, ticketType, city} = this.state
+        let filteredEvents = events
+
+        if(searchText !== '') {
+            filteredEvents = filteredEvents.filter((event) => {
+                return event.name.toLowerCase().includes(searchText.toLowerCase())
+            })
+        }
+        
+        if(startDate !== null) {
+            filteredEvents= filteredEvents.filter((event) => {
+                let filterDate = startDate
+                let day = new Date(event.start).getDate();
+                let month = new Date(event.start).getMonth() + 1;
+                let year = new Date(event.start).getFullYear();
+                if (day < 10) {
+                    day = '0' + day;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
+                let dateFormated = year + '-' + month + '-' + day;
+                
+                console.log(filterDate, 'filterdate')
+                console.log(dateFormated, 'eventStartDate')
+                return filterDate == dateFormated
+            })
+        }
+        
+        if (ticketType !== null) {
+            filteredEvents = filteredEvents.filter((event) => {
+                if (ticketType == "paid") {
+                    return event.isPaid 
+                } else {
+                    return event.isPaid == false
+                }
+                
+            })
+        }
+
+        if (city !== null) {
+            filteredEvents = filteredEvents.filter((event) => {
+                return event.city == city
+            })
+        }
+
+        // update the events state to filteredEvents 
+        await this.setState({
+            filteredEvents: filteredEvents
+        })
+    }
+
+    handleClean = async () => {
+        await this.setState({
+            searchText: '',
+            startDate: "",
+            ticketType: null,
+            city: null,
+            filteredEvents: this.state.events
+        })
+    }
+
     render() {
-        const {events, value, hotzone, progress} = this.state
+        const {events, value, hotzone, progress, showFilter, filteredEvents, cities, searchText, city, startDate, ticketType} = this.state
         return (
             <div>
                 <TabContext value={value}>
@@ -58,8 +184,12 @@ class EventsList extends Component {
                         </TabList>
                     </AppBar>
                     <TabPanel value="1">
+                    <Button variant="contained" color="primary" onClick={this.handleShowFilters}>FILTERS</Button>
+                    {
+                        showFilter && <Filter onSearch={this.handleSearchName} text={searchText} city={city} startDate={startDate} ticketType={ticketType} onDate={this.filterDate} onTicketType={this.filterTicketType} cities={cities} onCity={this.filterCity} onClean={this.handleClean}/>
+                    }
                         {
-                        events.map((event, i) => {
+                        filteredEvents.map((event, i) => {
                             return <Card key={i} style={{ backgroundColor: 'transparent' }}>
                                 <Link to={`/events/${event._id}`} style={{ textDecoration: 'none' }}>
                                     <CardActionArea>
@@ -159,7 +289,11 @@ class EventsList extends Component {
                                             <CardContent>
                                             {
                                                 zoneEvent.checkIn.map((user) => {
-                                                    return <Avatar alt="Remy Sharp" src={`${user.imageAccount}`} />
+                                                    return  <Link to={`${`/account/${user._id}`}`}> 
+                                                                <Tooltip title={`${user.name}`} >
+                                                                    <Avatar alt="user photo" src={`${user.imageAccount}`} />
+                                                                </Tooltip>
+                                                            </Link>
                                                 })
                                             }
                                             </CardContent>

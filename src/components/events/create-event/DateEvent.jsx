@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import {withRouter} from  'react-router-dom';
 
 class DateEvent extends Component {
@@ -24,7 +25,7 @@ class DateEvent extends Component {
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
                 {
-                    error && <p>{error}</p> 
+                    error && <Alert severity="error">{error}</Alert>
                 }
             </div>
         )

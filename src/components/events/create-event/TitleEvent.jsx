@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {withRouter} from  'react-router-dom';
 import { TextField, Button} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 class TitleEvent extends Component {
     render() {
@@ -11,7 +12,7 @@ class TitleEvent extends Component {
                 <TextField id="outlined-basic" label="Name" variant="outlined" type="text" required onChange={onChange('name')}/>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
                 {
-                    error && <p>{error}</p> 
+                    error && <Alert severity="error">{error}</Alert>
                 }
             </div>
         )

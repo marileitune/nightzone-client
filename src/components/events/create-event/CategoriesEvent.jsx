@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Checkbox, Button, FormControlLabel } from '@material-ui/core';
+import { Checkbox, Button, FormControlLabel} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import {withRouter} from  'react-router-dom';
 
 class CategoriesEvent extends Component {
@@ -20,7 +21,7 @@ class CategoriesEvent extends Component {
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onCreate}>CREATE</Button>
                 {
-                    error && <p>{error}</p> 
+                    error && <Alert severity="error">{error}</Alert>
                 }  
             </div>
         )

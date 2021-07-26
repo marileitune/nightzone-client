@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { TextField, Checkbox, Button, FormControlLabel } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import {withRouter} from  'react-router-dom';
 
 class PriceEvent extends Component {
@@ -19,7 +20,7 @@ class PriceEvent extends Component {
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
                 {
-                    error && <p>{error}</p> 
+                    error && <Alert severity="error">{error}</Alert>
                 }
             </div>
         )

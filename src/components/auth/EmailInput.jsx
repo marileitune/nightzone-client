@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from  'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 class EmailInput extends Component {
     render() {
@@ -13,7 +14,7 @@ class EmailInput extends Component {
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
                 {
-                    error && <p>{error}</p> 
+                    error && <Alert severity="error">{error}</Alert>
                 }
             </div>
         )

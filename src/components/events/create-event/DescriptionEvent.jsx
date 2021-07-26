@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { TextareaAutosize, Button } from '@material-ui/core';
 import {withRouter} from  'react-router-dom';
+import Alert from '@material-ui/lab/Alert';
 
 class DescriptionEvent extends Component {
     render() {
@@ -30,7 +31,7 @@ class DescriptionEvent extends Component {
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
                 {
-                    error && <p>{error}</p> 
+                    error && <Alert severity="error">{error}</Alert>
                 }
             </div>
         )

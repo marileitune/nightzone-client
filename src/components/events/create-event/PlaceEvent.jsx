@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {withRouter} from  'react-router-dom';
 import axios from 'axios'
 import { TextField, Button, MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 class PlaceEvent extends Component {
 
@@ -92,7 +93,7 @@ class PlaceEvent extends Component {
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
                 {
-                    error && <p>{error}</p> 
+                    error && <Alert severity="error">{error}</Alert>
                 }
             </div>
         )

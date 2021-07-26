@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from  'react-router-dom';
 import { TextField, Checkbox, Button, FormControlLabel } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 class PasswordInputSignUp extends Component {
 
@@ -18,7 +19,7 @@ class PasswordInputSignUp extends Component {
                 <Button variant="contained" color="primary"onClick={onRegister}>SIGN UP</Button>
 
                 {
-                    error && <p>{error}</p> 
+                    error && <Alert severity="error">{error}</Alert>
                 }
             </div>
         )

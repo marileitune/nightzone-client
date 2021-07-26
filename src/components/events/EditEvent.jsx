@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {withRouter} from  'react-router-dom';
 import {API_URL} from '../../config.js'
 import axios from 'axios';
-import { TextField, Button, FormControl, InputLabel, Select, MenuItem, TextareaAutosize, Checkbox, FormControlLabel } from '@material-ui/core';
+import { TextField, Button, FormControl, InputLabel, Select, MenuItem, TextareaAutosize, Checkbox, FormControlLabel, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 class EditEvent extends Component {
 
@@ -22,7 +23,8 @@ class EditEvent extends Component {
         imageEvent: '',
         countriesOptions: [],
         citiesOptions: [],
-        error: null
+        open: false
+        // error: null
     }
 
     componentDidMount = async () => {
@@ -137,7 +139,7 @@ class EditEvent extends Component {
                 country: country, 
                 city: city, 
                 isPaid: isPaid,
-                ticketsPrice: ticketsPrice,
+                ticketsPrice: isPaid == false ?  0 :  ticketsPrice,
                 capacity: capacity, 
                 categories: categories, 
                 description: description, 
@@ -147,7 +149,13 @@ class EditEvent extends Component {
 
             // pass a second parameter to the patch for sending info to your server inside req.body
             let eventId = this.props.match.params.eventId
-            await axios.patch(`http://localhost:5005/api/events/${eventId}`, editedEvent)
+            let response = await axios.patch(`http://localhost:5005/api/events/${eventId}`, editedEvent)
+
+            // if (response.data.event.errorMessage) {
+            //     await this.setState({...this.state, error: response.data.event.errorMessage})
+            //     return
+            //  }
+
             let user = this.props.user
             this.props.history.push(`/account/${user._id}`)
 
@@ -156,19 +164,32 @@ class EditEvent extends Component {
             console.log('Edit failed', err)
         }
         
-      }
+    }
+
+    handleClickOpen = async  () => {
+        await this.setState({
+            open: true
+        })
+    };
+    
+    handleClose = async () => {
+        await this.setState({
+            open: false
+        })
+    };
 
     handleDeleteEvent = async () => {
         try {
             let eventId = this.props.match.params.eventId
             await axios.delete(`http://localhost:5005/api/events/${eventId}`)
-            this.props.history.push(`/events/${eventId}`)
+            this.props.history.push(`/events`)
 
         }
         catch (err) {
             console.log('Delete failed', err)
         }
     }
+
     render() {
         const {name, start, end, address, country, city, description, isPaid, ticketsPrice, capacity, categories, imageEvent} = this.state
         return (
@@ -285,7 +306,35 @@ class EditEvent extends Component {
                 <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("costumeParty")} onChange={() => this.handleCategories('costumeParty')}/>}label="Costume party"/>
                 <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("swimmingPool")} onChange={() => this.handleCategories('swimmingPool')}/>}label="Swimming pool"/>
                 <Button variant="contained" color="primary" onClick={this.handleEditEvent}>EDIT</Button>
-                <Button variant="contained" color="primary" onClick={this.handleDeleteEvent}>DELETE</Button>
+                <Button variant="contained" color="primary" onClick={this.handleClickOpen} >DELETE</Button>
+
+                {/* dialog */}
+
+                <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this event?"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        This action cannot be undone.
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">
+                        No
+                    </Button>
+                    <Button onClick={this.handleDeleteEvent} color="primary" autoFocus>
+                        Yes
+                    </Button>
+                    </DialogActions>
+                </Dialog>
+
+                {/* {
+                    this.state.error && <Alert severity="error">{this.state.error}</Alert>
+                } */}
             </div>
         )
     }

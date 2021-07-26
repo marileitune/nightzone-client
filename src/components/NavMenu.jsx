@@ -37,10 +37,9 @@ class NavMenu extends Component {
                                 <Nav className="me-auto">
                                     <Link to="/events" className="link-nav">EVENTS</Link>
                                     <Link to="/create" className="link-nav">CREATE AN EVENT</Link>
-                                    <NavDropdown title="ACCOUNT" id="basic-nav-dropdown">    
-                                        <Link to={`/account/${this.props.user._id}`}style={{ textDecoration: 'none' }}>My events</Link>
-                                        <Link to="/account/:userId" style={{ textDecoration: 'none' }}>My tickets</Link>
-                                        <Link to="/account/:userId" style={{ textDecoration: 'none' }}>Edit account</Link>      
+                                    <NavDropdown title="ACCOUNT" id="basic-nav-dropdown">   
+                                        <Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none' }}>My events</Link>
+                                        <Link to={`/account/${this.props.user._id}/edit`} style={{ textDecoration: 'none' }}>Edit account</Link>     
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item onClick={this.props.onLogOut}>Logout</NavDropdown.Item>
                                     </NavDropdown>
