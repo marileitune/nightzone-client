@@ -20,8 +20,19 @@ class App extends Component {
   state = {
      user: null,
      error: null,
-     //showLoading?
+     fetchingUser: true, 
   }
+
+
+  componentDidMount = async () => {
+         // fetch the loggedInUser if present
+         let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
+         this.setState({
+           user: userResponse.data,
+           fetchingUser: false,
+         })
+ 
+     } 
 
   handleFacebookResponse = (data) => {
     // this.setState({
@@ -130,10 +141,12 @@ class App extends Component {
               }} />
                <Route exact path={'/create'}  render={(routeProps) => {
                 return <CreateEvent {...routeProps}
+                user={this.state.user}
               />
               }} />
               <Route exact path={'/account/:userId'}  render={(routeProps) => {
                 return <Account {...routeProps}
+                user={this.state.user}
               />
               }} />
               <Route exact path={'/events/:eventId/edit'}  render={(routeProps) => {

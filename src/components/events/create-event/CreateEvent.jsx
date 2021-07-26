@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withRouter} from  'react-router-dom';
+import {withRouter, Redirect} from  'react-router-dom';
 import {API_URL} from '../../../config.js'
 import axios from 'axios';
 import TitleEvent from './TitleEvent'
@@ -126,6 +126,12 @@ class CreateEvent extends Component {
     }
 
     render() {
+        {
+            if (!this.props.user) {
+                //redirect to signin page 
+                return <Redirect to={'/auth'} />
+            }
+        }
         const { step } = this.state;
         const {error} = this.state
         switch (step) {

@@ -9,14 +9,37 @@ import Alert from '@material-ui/lab/Alert';
 class EditAccount extends Component {
 
     state = {
-        firstName: this.props.user.firstName,
-        lastName: this.props.user.lastName,
-        email: this.props.user.email,
-        password: this.props.user.password,
-        confirmPassword: this.props.user.password,
-        imageAccount: this.props.user.imageAccount,
+        user: null,
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        imageAccount: "",
+        imageFile: null,
         open: false,
         error: null
+    }
+
+    componentDidMount = async () => {
+        try {
+            let response = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
+            await this.setState({ 
+                user: response.data,
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                email: response.data.email,
+                password: response.data.password,
+                confirmPassword: response.data.password,
+                imageAccount: response.data.imageAccount
+            })
+
+
+
+        }
+        catch (err) {
+            console.log('User fetch failed', err)
+        }
     }
 
     handleChange = input => e => {
@@ -25,17 +48,23 @@ class EditAccount extends Component {
 
     handleImage = (e) => {
         console.log(e)
-        this.setState({ imageAccount: e.target.files[0] });
+        this.setState({ imageFile: e.target.files[0] });
     }
     
     handleEditAccount = async () => {
         try {
+
+
             let formData = new FormData()
-            formData.append('imageUrl', this.state.imageAccount)
-            let imgResponse = await axios.post(`${API_URL}/api/upload`, formData)
-            await this.setState({
-                imageAccount: imgResponse
-            })
+            if (this.state.imageFile) {
+                formData.append('imageUrl', this.state.imageFile)
+                let imgResponse = await axios.post(`${API_URL}/api/upload`, formData)
+                await this.setState({
+                    imageAccount: imgResponse.data.image
+                })
+            }
+           
+
 
             const {firstName, lastName, email, password, confirmPassword, imageAccount} = this.state
 
@@ -47,14 +76,15 @@ class EditAccount extends Component {
                 confirmPassword: confirmPassword,
                 imageAccount: imageAccount
             }
+            console.log(editedAccount)
 
 
             // pass a second parameter to the patch for sending info to your server inside req.body
             let userId = this.props.match.params.userId
-            let response = await axios.patch(`http://localhost:5005/api/account/${userId}`, editedAccount)
+            let response = await axios.patch(`${API_URL}/api/account/${userId}`, editedAccount, {withCredentials: true})
 
-            if (response.data.event.errorMessage) {
-                await this.setState({...this.state, error: response.data.event.errorMessage})
+            if (response.data.errorMessage) {
+                await this.setState({...this.state, error: response.data.errorMessage})
                 return
              }
 
@@ -92,10 +122,7 @@ class EditAccount extends Component {
     }
 
     render() {
-        // if (!this.props.user) {
-		// 	//redirect to signin page 
-		// 	return <Redirect to={'/auth'} />
-		// }
+
         const {firstName, lastName, email, password, confirmPassword, imageAccount} = this.state
         return (
             <div>
@@ -117,7 +144,7 @@ class EditAccount extends Component {
                         hidden
                     />
                 </Button>
-                <Button variant="contained" color="primary" onClick={this.handleEditEvent}>EDIT</Button>
+                <Button variant="contained" color="primary" onClick={this.handleEditAccount}>EDIT</Button>
                 <Button variant="contained" color="primary" onClick={this.handleClickOpen} >DELETE</Button>
 
                 {/* dialog */}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Link, withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import {API_URL} from '../../config.js'
 import {CircularProgress, Button} from '@material-ui/core'
 // import { loadStripe } from "@stripe/stripe-js";
@@ -47,6 +47,13 @@ class EventDetail extends Component {
         if (!this.state.eventDetail) {
             return <CircularProgress color="secondary" />
         } 
+
+        {
+            if (!this.props.user) {
+                //redirect to signin page 
+                return <Redirect to={'/auth'} />
+            }
+        }
         
         const {eventDetail, showPayment, canBuy} = this.state
         const {user} = this.props

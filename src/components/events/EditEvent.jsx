@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withRouter} from  'react-router-dom';
+import {withRouter, Redirect} from  'react-router-dom';
 import {API_URL} from '../../config.js'
 import axios from 'axios';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem, TextareaAutosize, Checkbox, FormControlLabel, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
@@ -21,6 +21,7 @@ class EditEvent extends Component {
         categories: [],
         description: '',
         imageEvent: '',
+        imageFile: '',
         countriesOptions: [],
         citiesOptions: [],
         open: false
@@ -70,10 +71,7 @@ class EditEvent extends Component {
     }
 
     handleImage = async (e) => {
-        let formData = new FormData()
-        formData.append('imageUrl', this.state.imageEvent)
-        let imgResponse = await axios.post(`${API_URL}/api/upload`, formData)
-        this.setState({ imageEvent: e.target.files[0] });
+        this.setState({ imageFile: e.target.files[0] });
     }
 
     handleCheck = () => {
@@ -130,6 +128,16 @@ class EditEvent extends Component {
 
     handleEditEvent = async () => {
         try {
+            
+            let formData = new FormData()
+            if (this.state.imageFile) {
+                formData.append('imageUrl', this.state.imageFile)
+                let imgResponse = await axios.post(`${API_URL}/api/upload`, formData)
+                await this.setState({
+                    imageEvent: imgResponse.data.image
+                })
+            }
+
             const {name, start, end, address, country, city, isPaid, ticketsPrice, capacity, categories, description, imageEvent} = this.state
             let editedEvent = { 
                 name: name, 
@@ -192,6 +200,12 @@ class EditEvent extends Component {
 
     render() {
         const {name, start, end, address, country, city, description, isPaid, ticketsPrice, capacity, categories, imageEvent} = this.state
+        {
+            if (!this.props.user) {
+                //redirect to auth page 
+                return <Redirect to={'/auth'} />
+            }
+        }
         return (
             <div>
                 <TextField 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Link} from "react-router-dom";
+import { Link, Redirect} from "react-router-dom";
 import {API_URL} from '../../config.js'
 import { Tooltip, CardActionArea, Card, CardMedia, IconButton, CardContent, CardActions, Typography, Divider, AppBar, Tab, LinearProgress, Avatar, Collapse} from '@material-ui/core'
 import { TextareaAutosize, Button } from '@material-ui/core';
@@ -173,8 +173,15 @@ class EventsList extends Component {
     }
 
     render() {
+        {
+            if (!this.props.user) {
+                //redirect to auth page 
+                return <Redirect to={'/auth'} />
+            }
+        }
         const {events, value, hotzone, progress, showFilter, filteredEvents, cities, searchText, city, startDate, ticketType} = this.state
         return (
+
             <div>
                 <TabContext value={value}>
                     <AppBar position="static">
