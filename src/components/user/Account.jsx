@@ -44,6 +44,7 @@ class Account extends Component {
         console.log(eventsCreated)
         return (
             <div>
+                { this.props.match.params.userId !== this.props.user._id &&  <Link to={`/chat/${this.props.match.params.userId }`}><Button variant="contained" color="primary">CHAT</Button></Link>}
                 <TabContext value={value}>
                     <AppBar position="static">
                         <TabList onChange={this.handleChange} aria-label="simple tabs example">

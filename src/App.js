@@ -14,6 +14,7 @@ import CreateEvent from "./components/events/create-event/CreateEvent";
 import Account from "./components/user/Account";
 import EditEvent from "./components/events/EditEvent"
 import EditAccount from "./components/user/EditAccount"
+import ChatPage from './components/chat/ChatPage'
 
 class App extends Component {
   
@@ -157,7 +158,11 @@ class App extends Component {
               <Route exact path={'/account/:userId/edit'}  render={(routeProps) => {
                 return <EditAccount {...routeProps}
                 user={this.state.user}
-
+              />
+              }} />
+              <Route exact path={'/chat/:userId'}  render={(routeProps) => {
+                return <ChatPage {...routeProps}
+                user={this.state.user}
               />
               }} />
               <Route component={NotFound} />
