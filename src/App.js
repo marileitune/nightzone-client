@@ -28,7 +28,7 @@ class App extends Component {
   componentDidMount = async () => {
          // fetch the loggedInUser if present
          let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
-         this.setState({
+         await this.setState({
            user: userResponse.data,
            fetchingUser: false,
          })

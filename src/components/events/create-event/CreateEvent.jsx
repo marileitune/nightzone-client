@@ -20,6 +20,7 @@ step == 6 // CategoriesEvent
 
 class CreateEvent extends Component {
     state = {
+        user: this.props.user, 
         step: 1,
         name: '',
         start: '',
@@ -35,6 +36,20 @@ class CreateEvent extends Component {
         imageEvent: '',
         error: null
     }
+
+    componentDidMount = async () => {
+        try {
+            let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
+            this.setState({
+              user: userResponse.data,
+              fetchingUser: false,
+            })
+        }  
+        catch(err){
+            console.log('User fetch failed', err)
+        }
+    }
+
     prevStep = () => {
         const {step} = this.state
         this.setState({ step: step -1})
@@ -127,7 +142,7 @@ class CreateEvent extends Component {
 
     render() {
         {
-            if (!this.props.user) {
+            if (!this.state.user) {
                 //redirect to signin page 
                 return <Redirect to={'/auth'} />
             }

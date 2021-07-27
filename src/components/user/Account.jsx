@@ -9,18 +9,25 @@ class Account extends Component {
     state = {
         value: 1,
         ticketsBought: [],
-        eventsCreated: []
+        eventsCreated: [],
+        user: this.props.user,
+        fetchingUser: true
     }
     
     componentDidMount = async () => {
         try {
+            let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
+            await this.setState({
+              user: userResponse.data,
+              fetchingUser: false,
+            })
+
             let userId = this.props.match.params.userId
             let response = await axios.get(`${API_URL}/api/account/${userId}`, {withCredentials: true})
             await this.setState({
                 ticketsBought: response.data.ticketsBought,
                 eventsCreated: response.data.eventsCreated
             })
-
         }
         catch (err) {
             console.log('User events fetch failed', err)
@@ -33,18 +40,18 @@ class Account extends Component {
     }
 
     handleChange = async (e, newValue) => {
-        this.setState({
+        await this.setState({
             value: newValue
         })
     }
 
 
     render() {
-        const {value, ticketsBought, eventsCreated} = this.state
+        const {value, ticketsBought, eventsCreated, user} = this.state
         console.log(eventsCreated)
         return (
             <div>
-                { this.props.match.params.userId !== this.props.user._id &&  <Link to={`/chat/${this.props.match.params.userId }`}><Button variant="contained" color="primary">CHAT</Button></Link>}
+                { user !== null && this.props.match.params.userId !== user._id &&  <Link to={`/chat/${this.props.match.params.userId }`}><Button variant="contained" color="primary">CHAT</Button></Link>}
                 <TabContext value={value}>
                     <AppBar position="static">
                         <TabList onChange={this.handleChange} aria-label="simple tabs example">

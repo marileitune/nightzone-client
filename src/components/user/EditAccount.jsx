@@ -9,7 +9,7 @@ import Alert from '@material-ui/lab/Alert';
 class EditAccount extends Component {
 
     state = {
-        user: null,
+        user: this.props.user,
         firstName: "",
         lastName: "",
         email: "",

@@ -14,6 +14,8 @@ class EventDetail extends Component {
         eventDetail: null,
         showPayment: false,
         canBuy: true,
+        user: null,
+        fetchingUser: true
     }
 
     componentDidMount = async () => {
@@ -24,6 +26,11 @@ class EventDetail extends Component {
             this.setState({
                 eventDetail: response.data.event,
                 canBuy: response.data.canBuy
+            })
+            let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
+            await this.setState({
+              user: userResponse.data,
+              fetchingUser: false,
             })
         }  
         catch(err){
@@ -49,7 +56,7 @@ class EventDetail extends Component {
         } 
 
         {
-            if (!this.props.user) {
+            if (!this.state.user) {
                 //redirect to signin page 
                 return <Redirect to={'/auth'} />
             }

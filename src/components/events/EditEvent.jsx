@@ -24,7 +24,9 @@ class EditEvent extends Component {
         imageFile: '',
         countriesOptions: [],
         citiesOptions: [],
-        open: false
+        open: false, 
+        user: this.props.user,
+        fetchingUser: true
         // error: null
     }
 
@@ -60,6 +62,12 @@ class EditEvent extends Component {
              })
             await this.setState({
                  citiesOptions: countryTarget.cities
+            })
+
+            let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
+            await this.setState({
+              user: userResponse.data,
+              fetchingUser: false,
             })
         }  
         catch(err){
@@ -164,7 +172,7 @@ class EditEvent extends Component {
             //     return
             //  }
 
-            let user = this.props.user
+            let user = this.state.user
             this.props.history.push(`/account/${user._id}`)
 
         }
@@ -201,7 +209,7 @@ class EditEvent extends Component {
     render() {
         const {name, start, end, address, country, city, description, isPaid, ticketsPrice, capacity, categories, imageEvent} = this.state
         {
-            if (!this.props.user) {
+            if (!this.state.user) {
                 //redirect to auth page 
                 return <Redirect to={'/auth'} />
             }
