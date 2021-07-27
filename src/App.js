@@ -3,9 +3,11 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import axios from 'axios';
 import {API_URL} from './config.js'
 import Styles from './App.css'
+import { Typography, Paper, Container, ThemeProvider } from '@material-ui/core';
+import {createTheme, responsiveFontSizes, makeStyles, withStyles} from '@material-ui/core/styles'
 //start importing components
 import Home from './components/Home';
-import NavMenu from './components/NavMenu';
+import MyAppBar from './components/MyAppBar';
 import NotFound from "./components/NotFound";
 import Auth from "./components/auth/Auth";
 import EventsList from "./components/events/EventsList";
@@ -16,6 +18,38 @@ import EditEvent from "./components/events/EditEvent"
 import EditAccount from "./components/user/EditAccount"
 import ChatPage from './components/chat/ChatPage'
 
+
+//STYLE
+let theme = createTheme({
+  palette: {
+      primary: {
+          main: '#39A6A3',
+          contrastText: '#DEEEEA'
+      },
+      secondary: {
+          main: '#DEEEEA',
+      },
+      background: {
+          paper: '#231E23'
+      },
+      text: {
+          primary: '#DEEEEA',
+          secondary: '#231E23'
+      },
+      action : {
+          hover: '#BF1363'
+      }
+    },
+    typography: {
+      fontFamily: 'Montserrat'
+  },
+  
+});
+theme = responsiveFontSizes(theme);
+
+
+
+//COMPONENT
 class App extends Component {
   
   state = {
@@ -24,15 +58,20 @@ class App extends Component {
      fetchingUser: true, 
   }
 
-
   componentDidMount = async () => {
-         // fetch the loggedInUser if present
-         let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
-         await this.setState({
-           user: userResponse.data,
-           fetchingUser: false,
-         })
- 
+        try {
+           let userResponse = await axios.get(`${API_URL}/api/user`)
+           await this.setState({
+              user: userResponse.data,
+              fetchingUser: false,
+           })
+         } catch(err) {
+            await this.setState({
+              user: null,
+              fetchingUser: false,
+            })
+         }
+         
      } 
 
   handleFacebookResponse = (data) => {
@@ -41,7 +80,6 @@ class App extends Component {
     // })
 
     const {name, email, picture: {data: {url}}, userID} = data
-    console.log(data, "aqui")
     let newUser = {name, email, imageAccount: url, facebookId: userID}
 
     axios.post(`${API_URL}/api/facebook/info`, newUser , {withCredentials: true})
@@ -115,9 +153,13 @@ class App extends Component {
 
 
   render() {
+    if (this.state.fetchingUser){
+      return <p>...Loading</p>
+    }
+
     return (
-      <>
-            <NavMenu user={this.state.user} onLogOut={this.handleLogOut}/>
+      <ThemeProvider theme={theme}>
+            <MyAppBar user={this.state.user} onLogOut={this.handleLogOut}/>
             <Switch>
               <Route exact path={'/'}  render={(routeProps) => {
                 return <Home/>
@@ -167,7 +209,7 @@ class App extends Component {
               }} />
               <Route component={NotFound} />
             </Switch>
-          </>
+      </ThemeProvider>
     )
   }
 }

@@ -32,6 +32,11 @@ class EditEvent extends Component {
 
     componentDidMount = async () => {
         try {
+            let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
+            await this.setState({
+              user: userResponse.data,
+              fetchingUser: false,
+            })
             //check the `<Routes>` in App.js. That's where the params `eventId` comes from
             let eventId = this.props.match.params.eventId
             let response = await axios.get(`${API_URL}/api/events/${eventId}`, {withCredentials: true})
@@ -62,12 +67,6 @@ class EditEvent extends Component {
              })
             await this.setState({
                  citiesOptions: countryTarget.cities
-            })
-
-            let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
-            await this.setState({
-              user: userResponse.data,
-              fetchingUser: false,
             })
         }  
         catch(err){

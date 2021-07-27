@@ -2,54 +2,25 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: #e686e6;
-  color: #DEEEEA
-}
-#home-container{
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  background-color: #231E23;
+  padding: 0;
+  margin: 0
 }
 
 #video-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 100%;
-  height: auto;
-  z-index: -1;
+  position: fixed;
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+	transform: translateX(-50%) translateY(-50%);
+	background-size: cover;
+	transition: 1s opacity;
+  padding: 0;
+  margin: 0
 }
 
-#text-container{
-  position: absolute;
-  text-align: center;
-  align-self: center;
-  top: 50%
-}
-
-#home-title{
-  font-size: 96px;
-  font-weight: 700;
-  color: #DEEEEA;
-}
-
-#home-description{
-  font-size: 24px;
-  font-weight: 400;
-  color:#DEEEEA;
-  letter-spacing: 1.6px;
-}
-
-.link-nav, #basic-nav-dropdown {
-  color:#DEEEEA !important;
-  font-weight: 700 !important;
-}
-
-.link-nav:hover, #basic-nav-dropdown:hover {
-  color:#BF1363 !important
-}
-
-p {
-  color: #DEEEEA !important;
-}
 

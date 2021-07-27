@@ -10,8 +10,7 @@ class PriceEvent extends Component {
         return (
             <div>
                 <FormControlLabel control={<Checkbox name="isPaid" required onChange={onCheck}/>}label="The event is going to be paid."/>
-                {
-                    
+                { 
                     isPaid && <><p>How much is the ticket?</p> <TextField id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" required onChange={onChange('ticketsPrice')}/> </> 
                 }
                 <p>Which is the party capacity?</p>

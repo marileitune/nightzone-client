@@ -95,6 +95,7 @@ function CheckoutForm(props) {
   };
 
   return (
+    <div>
     <form id="payment-form" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
       <button
@@ -126,6 +127,8 @@ function CheckoutForm(props) {
         </a> Refresh the page to pay again.
       </p>
     </form>
+    </div>
+    
   );
 }
 

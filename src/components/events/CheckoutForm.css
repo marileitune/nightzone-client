@@ -1,4 +1,4 @@
-
+/*
 #root {
   display: flex;
   align-items: center;
@@ -14,6 +14,7 @@ body {
   height: 100vh;
   width: 100vw;
 }
+*/
 
 form {
   width: 30vw;
@@ -74,6 +75,7 @@ input {
 }
 
 /* Buttons and links */
+/*
 button {
   background: #5469d4;
   font-family: Arial, sans-serif;

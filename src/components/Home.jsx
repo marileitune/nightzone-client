@@ -1,24 +1,40 @@
 import React, { Component } from 'react'
-import { Container } from 'react-bootstrap';
+import { Typography, Paper, Container, ThemeProvider } from '@material-ui/core';
+import {createTheme, responsiveFontSizes, makeStyles, withStyles} from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
+
+
+const styles = theme => ({
+    bold: {
+        fontWeight: 700,
+    },
+    spacing: {
+        letterSpacing: 3,
+    },
+
+  });
+
 
 class Home extends Component {
     render() {
+        const { classes } = this.props;
         return (
-        <div>
-            <Container fluid id="home-container">
-                    <div id="video-container">
-                        <video id="background-video" autoPlay loop muted>
-                            <source src="https://res.cloudinary.com/dplgnsjzm/video/upload/v1626958308/nightzone-backend/video/video_gw4ydm.mp4" type='video/mp4' />
-                        </video>
-                    </div>
-                    <div id="text-container">
-                        <h1 id="home-title">JUST ENJOY</h1>
-                        <h6 id="home-description">Life is made of moments. Memories. And parties.</h6>
-                    </div>
-            </Container>
-        </div>
+                <Container maxWidth="sm">
+                    <video  autoPlay loop muted id="video-container">
+                        <source src="https://res.cloudinary.com/dplgnsjzm/video/upload/v1626958308/nightzone-backend/video/video_gw4ydm.mp4" type='video/mp4' />
+                    </video>
+                    {/* <ThemeProvider  theme={theme}> */}
+                        <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '50%', flexWrap: 'wrap'}}>
+                            <Typography variant="h1" style={{width: "max-content"}}  className={this.props.classes.bold} color="secondary">JUST ENJOY</Typography>
+                            <Typography variant="h4" style={{width: "max-content"}} className={this.props.classes.spacing} color="secondary">Life is made of moments. Memories. And parties.</Typography>
+                        </div>
+                    {/* </ThemeProvider> */}
+              
+                </Container>
+                
+
         )
     }
 }
 
-export default Home;
+export default withStyles(styles)(Home)
