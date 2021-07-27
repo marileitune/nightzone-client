@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect, withRouter } from "react-router-dom";
 import {API_URL} from '../../config.js'
-import {CircularProgress, Button} from '@material-ui/core'
+import {CircularProgress, Button, TextareaAutosize, Avatar} from '@material-ui/core'
 // import { loadStripe } from "@stripe/stripe-js";
 // import { Elements } from "@stripe/react-stripe-js";
 // import CheckoutForm from "./CheckoutForm";
@@ -15,23 +15,27 @@ class EventDetail extends Component {
         showPayment: false,
         canBuy: true,
         user: null,
-        fetchingUser: true
+        fetchingUser: true, 
+        comment: "",
+        comments: []
     }
 
     componentDidMount = async () => {
         try {
-            //check the `<Routes>` in App.js. That's where the params `eventId` comes from
-            let eventId = this.props.match.params.eventId
-            let response = await axios.get(`${API_URL}/api/events/${eventId}`, {withCredentials: true})
-            this.setState({
-                eventDetail: response.data.event,
-                canBuy: response.data.canBuy
-            })
             let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
             await this.setState({
               user: userResponse.data,
               fetchingUser: false,
             })
+            //check the `<Routes>` in App.js. That's where the params `eventId` comes from
+            let eventId = this.props.match.params.eventId
+            let response = await axios.get(`${API_URL}/api/events/${eventId}`, {withCredentials: true})
+            this.setState({
+                eventDetail: response.data.event,
+                comments: response.data.event.comments,
+                canBuy: response.data.canBuy
+            })
+
         }  
         catch(err){
             console.log('Event fetch failed', err)
@@ -50,6 +54,38 @@ class EventDetail extends Component {
         })
     }
 
+
+    handleChange = input => e => {
+        this.setState({ [input]: e.target.value });
+    }
+
+    handleSubmit = async () => {
+        const {comment} = this.state
+        let eventId = this.props.match.params.eventId
+        let commentCreated = await axios.post(`${API_URL}/api/events/${eventId}/comment`, {comment}, {withCredentials: true})
+        console.log(commentCreated)
+        await this.setState({
+            comments: [commentCreated.data.myCommentPopulated, ...this.state.comments,],
+            comment: ""
+        })
+
+        let sortedComments = this.state.comments.sort((a,b) => {
+            if (a.date > b.date) {
+                return -1
+            } else if (a.date < b.date){
+                return 1
+            } else {
+                return 0
+            }
+        })
+        
+        await this.setState({
+            comments: sortedComments
+        })
+
+        this.props.history.push(`/events/${eventId}`)
+    }
+
     render() {
         if (!this.state.eventDetail) {
             return <CircularProgress color="secondary" />
@@ -62,7 +98,7 @@ class EventDetail extends Component {
             }
         }
         
-        const {eventDetail, showPayment, canBuy} = this.state
+        const {eventDetail, showPayment, canBuy, comments} = this.state
         const {user} = this.props
         // const promise = loadStripe("pk_test_51JFxmQGLw6mfE9JvfuXfSeVyUAiedGg0atoexZN0VMTrvtdSsIqfWycGgvcym3tSYV8eElXrGlHobUphaJe5z8ko00MEIHTnt7")
         return (
@@ -86,14 +122,25 @@ class EventDetail extends Component {
                         return <p>{category}</p>
                     })
                 }
+                <TextareaAutosize
+                    minRows={4}
+                    aria-label="minimum height"
+                    placeholder="Add a comment"
+                    onChange={this.handleChange('comment')}
+                    value={this.state.comment}
+                />
+                <Button variant="contained" color="primary" onClick={this.handleSubmit}>SUBMIT</Button>
                 {
-                    eventDetail.comments.map((comment) => {
-                        console.log(comment)
-                        return <>
-                        <p>{comment.comment}</p>
-                        <p>{comment.authorId.firstName} {comment.authorId.lastName}</p>
-                        </>
-                    })
+
+                        comments.map((comment) => {
+                            return <>
+                            <Avatar alt="user photo" src={`${comment.authorId.imageAccount}`} />
+                            <p>{comment.date}</p>
+                            <p>{comment.authorId.firstName} {comment.authorId.lastName}</p>
+                            <p>{comment.comment}</p>
+                            </>
+                        })
+                    
                 }
             </div>
         )
