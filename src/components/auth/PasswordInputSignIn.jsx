@@ -4,11 +4,8 @@ import { TextField, Button, Typography, Grid } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { withStyles, makeStyles } from '@material-ui/styles';
 import {CssTextField, Subtitle, Brand} from '../../DefaultTheme'
-// STYLES
 
-
-  
-  //COMPONENT
+//COMPONENT
 class PasswordInputSignIn extends Component {
     render() {
         const {onLogin, onPreview, onChange, error} = this.props

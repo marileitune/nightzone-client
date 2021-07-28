@@ -4,9 +4,13 @@ import PropTypes from 'prop-types';
 
 const CssTextField = withStyles({
     root: {
+        width: '40%', 
+        minWidth: '400px', 
+        maxWidth:'700px',
+        color: '#DEEEEA',
         "& label.Mui-focused": {
             color: "#39A6A3",
-            width : '1000%',
+            
         },
         "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -31,7 +35,7 @@ const Brand = withStyles({
     }
   })(Typography);
   
-  const Subtitle = withStyles({
+const Subtitle = withStyles({
     root: {
       fontFamily:'Montserrat',
       background: "#DEEEEA",
@@ -40,7 +44,7 @@ const Brand = withStyles({
     }
   })(Typography);
 
-  const CustomCheckbox = withStyles({
+const CustomCheckbox = withStyles({
     root: {
       color: "#DEEEEA",
       '&$checked': {
@@ -49,6 +53,16 @@ const Brand = withStyles({
     },
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
+
+const Bold = withStyles({
+    root: {
+        fontFamily:'Montserrat',
+        background: "#DEEEEA",
+        fontWeight: 700,
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent"
+      }
+})(Typography);
 
 let theme = createTheme ({
         palette: {

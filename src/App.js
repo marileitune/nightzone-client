@@ -18,6 +18,7 @@ import EditEvent from "./components/events/EditEvent"
 import EditAccount from "./components/user/EditAccount"
 import ChatPage from './components/chat/ChatPage'
 
+//importing styles
 import {theme} from './DefaultTheme'
 
 //COMPONENT
@@ -128,7 +129,6 @@ class App extends Component {
     if (this.state.fetchingUser){
       return <p>...Loading</p>
     }
-    // const currentTheme = customTheme()
 
     return (
       <ThemeProvider theme={theme}>

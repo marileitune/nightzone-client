@@ -13,7 +13,7 @@ class EventsList extends Component {
     state = {
         events:[],
         hotzone: [],
-        value: 1,
+        value: "1",
         progress: 0,
         expandedId: -1,
         showFilter: false,
@@ -48,6 +48,13 @@ class EventsList extends Component {
             console.log('Event fetch failed', err)
         }
     }
+
+   a11yProps(index) {
+        return {
+          id: `scrollable-auto-tab-${index}`,
+          "aria-controls": `scrollable-auto-tabpanel-${index}`
+        };
+      }
 
     handleChange = async (e, newValue) => {
         this.setState({
@@ -182,12 +189,12 @@ class EventsList extends Component {
         const {events, value, hotzone, progress, showFilter, filteredEvents, cities, searchText, city, startDate, ticketType} = this.state
         return (
 
-            <div>
+            <div style={{marginTop: '60px'}}>
                 <TabContext value={value}>
-                    <AppBar position="static">
-                        <TabList onChange={this.handleChange} aria-label="simple tabs example">
-                            <Tab label="Next events" value="1" />
-                            <Tab label="Hot zone" value="2" />
+                    <AppBar color="transparent" position="static">
+                        <TabList onChange={this.handleChange} aria-label="simple tabs example" value={value}>
+                            <Tab label="Next events" value="1" style={{color: '#DEEEEA', fontWeight: 700}} {...this.a11yProps(0)} />
+                            <Tab label="Hot zone" value="2" style={{color: '#DEEEEA', fontWeight: 700}} {...this.a11yProps(1)}/>
                         </TabList>
                     </AppBar>
                     <TabPanel value="1">
