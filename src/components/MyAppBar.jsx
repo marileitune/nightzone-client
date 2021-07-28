@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom";
+
 import PropTypes from 'prop-types';
 import {AppBar, Button, Toolbar, Typography, List, ListItem, withStyles, Grid, SwipeableDrawer, Menu, MenuItem, Divider} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -65,7 +66,7 @@ class MyAppBar extends Component{
   createDrawer(){
     return (
       <div>
-        <AppBar >
+        <AppBar color="transparent" elevation="0">
           <Toolbar>
             <Grid container direction = "row" justify = "space-between" alignItems="center">
               <MenuIcon
@@ -115,7 +116,7 @@ class MyAppBar extends Component{
     const {classes} = this.props
     const {anchorEl} = this.state
     return (
-      <AppBar>
+      <AppBar color="transparent" elevation="0">
         <Toolbar>
             <Typography variant = "headline" style={{flexGrow:1}} color="inherit" ><Link to="/"style={{ textDecoration: 'none' }}>NIGHTZONE</Link></Typography>
            {
@@ -148,9 +149,9 @@ class MyAppBar extends Component{
 
   render(){
     //don't show the navbar in the signin/signup form
-    // if (this.props.location.pathname == '/auth') {
-    //     return null
-    // }
+    if (this.props.location.pathname == '/auth') {
+        return null
+    }
     return(
       <div>
         {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
@@ -164,5 +165,4 @@ MyAppBar.propTypes = {
 };
 
 
-
-export default withStyles(styleSheet)(MyAppBar);
+export default withStyles(styleSheet)(withRouter(MyAppBar));

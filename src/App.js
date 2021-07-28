@@ -79,6 +79,7 @@ class App extends Component {
     //     showLoading: true
     // })
 
+    console.log("data", data)
     const {name, email, picture: {data: {url}}, userID} = data
     let newUser = {name, email, imageAccount: url, facebookId: userID}
 

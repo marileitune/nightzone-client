@@ -9,7 +9,7 @@ class PasswordInputSignUp extends Component {
         
         const {onRegister, onPreview, onChange, onCheck, error} = this.props
         return (
-            <div>
+            <div className="both-centered">
                 <Link to="/"><img src="https://res.cloudinary.com/dplgnsjzm/image/upload/v1626958315/nightzone-backend/images/logo_parfkw.png" width="40%" alt="nightzone logo" /></Link>
                 <p>Choose a password with 6-16 characters in length and at least 1 number and 1 special character.</p>
                 <TextField id="outlined-basic" label="Password" variant="outlined" type="password" required onChange={onChange('password')}/>

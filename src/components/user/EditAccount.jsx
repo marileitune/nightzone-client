@@ -112,7 +112,7 @@ class EditAccount extends Component {
     handleDeleteAccount = async () => {
         try {
             let userId = this.props.match.params.userId
-            await axios.delete(`http://localhost:5005/api/account/${userId}`)
+            await axios.delete(`${API_URL}/api/account/${userId}`)
             this.props.history.push(`/`)
 
         }

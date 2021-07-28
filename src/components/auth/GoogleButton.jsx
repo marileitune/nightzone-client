@@ -1,17 +1,24 @@
 import React from 'react'
 import GoogleLogin from 'react-google-login';
+import GTranslateIcon from '@material-ui/icons/GTranslate';
+import {Fab} from '@material-ui/core';
 
 function GoogleButton(props) {
     const {onGoogleResponse} = props
    
     return (
         <div>
-            <GoogleLogin
-                clientId="349209439921-2mhqo18g2dlid0kn3sfq0o2qbgftbl5f.apps.googleusercontent.com"
+             <GoogleLogin
+                clientId={process.env.GOOGLE_ID}
+                render={renderProps => (
+                    <Fab onClick={renderProps.onClick} color="primary" aria-label="add">
+                    <GTranslateIcon color="#DEEEEA"/>
+                </Fab>
+                )}
                 buttonText="Login"
                 onSuccess={onGoogleResponse}
                 cookiePolicy={'single_host_origin'}
-            />
+  />,
         </div>
     )
 }

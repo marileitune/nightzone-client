@@ -164,7 +164,7 @@ class EditEvent extends Component {
 
             // pass a second parameter to the patch for sending info to your server inside req.body
             let eventId = this.props.match.params.eventId
-            let response = await axios.patch(`http://localhost:5005/api/events/${eventId}`, editedEvent)
+            let response = await axios.patch(`${API_URL}/api/events/${eventId}`, editedEvent)
 
             // if (response.data.event.errorMessage) {
             //     await this.setState({...this.state, error: response.data.event.errorMessage})
@@ -196,7 +196,7 @@ class EditEvent extends Component {
     handleDeleteEvent = async () => {
         try {
             let eventId = this.props.match.params.eventId
-            await axios.delete(`http://localhost:5005/api/events/${eventId}`)
+            await axios.delete(`${API_URL}/api/events/${eventId}`)
             this.props.history.push(`/events`)
 
         }
