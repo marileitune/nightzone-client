@@ -3,8 +3,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import axios from 'axios';
 import {API_URL} from './config.js'
 import Styles from './App.css'
-import { Typography, Paper, Container} from '@material-ui/core';
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider,  } from "@material-ui/styles";
 
 //start importing components
 import Home from './components/Home';
@@ -18,8 +17,8 @@ import Account from "./components/user/Account";
 import EditEvent from "./components/events/EditEvent"
 import EditAccount from "./components/user/EditAccount"
 import ChatPage from './components/chat/ChatPage'
-// import DefaultTheme from './DefaultTheme'
-import {customTheme} from './DefaultTheme'
+
+import {theme} from './DefaultTheme'
 
 //COMPONENT
 class App extends Component {
@@ -129,10 +128,10 @@ class App extends Component {
     if (this.state.fetchingUser){
       return <p>...Loading</p>
     }
-    const currentTheme = customTheme()
+    // const currentTheme = customTheme()
 
     return (
-      <ThemeProvider theme={currentTheme}>
+      <ThemeProvider theme={theme}>
             <MyAppBar user={this.state.user} onLogOut={this.handleLogOut}/>
             <Switch>
               <Route exact path={'/'}  render={(routeProps) => {

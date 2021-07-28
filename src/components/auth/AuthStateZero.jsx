@@ -6,25 +6,8 @@ import GoogleButton from './GoogleButton';
 import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/styles';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import {Subtitle, Brand} from '../../DefaultTheme'
 
-
-const Brand = withStyles({
-  root: {
-    fontFamily:'Monoton',
-    background: "-webkit-linear-gradient(45deg, #39A6A3 30%, #BF1363 90%)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent"
-  }
-})(Typography);
-
-const Subtitle = withStyles({
-  root: {
-    fontFamily:'Montserrat',
-    background: "#DEEEEA",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent"
-  }
-})(Typography);
 
 class AuthStateZero extends Component {
     

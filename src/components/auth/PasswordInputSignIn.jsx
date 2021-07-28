@@ -3,48 +3,10 @@ import {Link, withRouter} from  'react-router-dom';
 import { TextField, Button, Typography, Grid } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { withStyles, makeStyles } from '@material-ui/styles';
-import {CssTextField} from '../../DefaultTheme'
+import {CssTextField, Subtitle, Brand} from '../../DefaultTheme'
 // STYLES
 
-const Brand = withStyles({
-    root: {
-      fontFamily:'Monoton',
-      background: "-webkit-linear-gradient(45deg, #39A6A3 30%, #BF1363 90%)",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent"
-    }
-  })(Typography);
-  
-  const Subtitle = withStyles({
-    root: {
-      fontFamily:'Montserrat',
-      background: "#DEEEEA",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent"
-    }
-  
-  })(Typography);
-  
-//   const CssTextField = withStyles({
-//       root: {
-//           "& label.Mui-focused": {
-//               color: "#39A6A3"
-//           },
-//           "& .MuiOutlinedInput-root": {
-//               "& fieldset": {
-//                   borderColor: "#DEEEEA"
-//               },
-//               "&:hover fieldset": {
-//                   borderColor: "#BF1363"
-//               },
-//               "&.Mui-focused fieldset": {
-//                   borderColor: "#39A6A3"
-//               }
-//           }
-//       }
-//   })(TextField);
-  
-  
+
   
   //COMPONENT
 class PasswordInputSignIn extends Component {

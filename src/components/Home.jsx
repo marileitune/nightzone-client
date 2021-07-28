@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Typography, Paper, Container, ThemeProvider } from '@material-ui/core';
-import {createTheme, responsiveFontSizes, makeStyles, withStyles} from '@material-ui/core/styles'
-import { useTheme } from '@material-ui/core/styles'
+import {createTheme, withStyles} from '@material-ui/core/styles'
+
 
 
 const styles = theme => ({
@@ -23,12 +23,12 @@ class Home extends Component {
                     <video  autoPlay loop muted id="video-container">
                         <source src="https://res.cloudinary.com/dplgnsjzm/video/upload/v1626958308/nightzone-backend/video/video_gw4ydm.mp4" type='video/mp4' />
                     </video>
-                    {/* <ThemeProvider  theme={theme}> */}
+                
                         <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '50%', flexWrap: 'wrap'}}>
                             <Typography variant="h1" style={{width: "max-content"}}  className={this.props.classes.bold} color="secondary">JUST ENJOY</Typography>
                             <Typography variant="h4" style={{width: "max-content"}} className={this.props.classes.spacing} color="secondary">Life is made of moments. Memories. And parties.</Typography>
                         </div>
-                    {/* </ThemeProvider> */}
+           
               
                 </Container>
                 
