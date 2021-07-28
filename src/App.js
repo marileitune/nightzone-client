@@ -3,8 +3,9 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import axios from 'axios';
 import {API_URL} from './config.js'
 import Styles from './App.css'
-import { Typography, Paper, Container, ThemeProvider } from '@material-ui/core';
-import {createTheme, responsiveFontSizes, makeStyles, withStyles} from '@material-ui/core/styles'
+import { Typography, Paper, Container} from '@material-ui/core';
+import { ThemeProvider } from "@material-ui/styles";
+
 //start importing components
 import Home from './components/Home';
 import MyAppBar from './components/MyAppBar';
@@ -17,37 +18,8 @@ import Account from "./components/user/Account";
 import EditEvent from "./components/events/EditEvent"
 import EditAccount from "./components/user/EditAccount"
 import ChatPage from './components/chat/ChatPage'
-
-
-//STYLE
-let theme = createTheme({
-  palette: {
-      primary: {
-          main: '#39A6A3',
-          contrastText: '#DEEEEA'
-      },
-      secondary: {
-          main: '#DEEEEA',
-      },
-      background: {
-          paper: '#231E23'
-      },
-      text: {
-          primary: '#DEEEEA',
-          secondary: '#231E23'
-      },
-      action : {
-          hover: '#BF1363'
-      }
-    },
-  typography: {
-      fontFamily: 'Montserrat'
-  },
-  
-});
-theme = responsiveFontSizes(theme);
-
-
+// import DefaultTheme from './DefaultTheme'
+import {customTheme} from './DefaultTheme'
 
 //COMPONENT
 class App extends Component {
@@ -157,9 +129,10 @@ class App extends Component {
     if (this.state.fetchingUser){
       return <p>...Loading</p>
     }
+    const currentTheme = customTheme()
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={currentTheme}>
             <MyAppBar user={this.state.user} onLogOut={this.handleLogOut}/>
             <Switch>
               <Route exact path={'/'}  render={(routeProps) => {

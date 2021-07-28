@@ -1,7 +1,7 @@
 import React from 'react'
 import GoogleLogin from 'react-google-login';
 import GTranslateIcon from '@material-ui/icons/GTranslate';
-import {Fab} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 
 function GoogleButton(props) {
     const {onGoogleResponse} = props
@@ -11,9 +11,9 @@ function GoogleButton(props) {
              <GoogleLogin
                 clientId={process.env.REACT_APP_GOOGLE_ID}
                 render={renderProps => (
-                    <Fab onClick={renderProps.onClick} color="primary" aria-label="add">
+                    <Button onClick={renderProps.onClick} className="CustomFab" >
                     <GTranslateIcon color="#DEEEEA"/>
-                </Fab>
+                </Button>
                 )}
                 buttonText="Login"
                 onSuccess={onGoogleResponse}

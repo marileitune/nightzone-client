@@ -2,7 +2,7 @@
 import React from 'react'
 import { withRouter} from  'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-import {Icon, Fab} from '@material-ui/core';
+import {Icon, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FacebookIcon from '@material-ui/icons/Facebook';
 
@@ -19,9 +19,9 @@ function FacebookButton(props) {
             autoLoad={false}
             callback={onFacebookResponse}
             render={renderProps => (
-                <Fab onClick={renderProps.onClick} color="primary" aria-label="add">
+                <Button onClick={renderProps.onClick}  className="CustomFab">
                     <FacebookIcon color="#DEEEEA"/>
-                </Fab>
+                </Button>
                 )}
             />
         </div>

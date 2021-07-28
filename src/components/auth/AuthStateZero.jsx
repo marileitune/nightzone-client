@@ -34,7 +34,7 @@ class AuthStateZero extends Component {
             <div className="both-centered" >
                <Brand variant="h1" > <Link to="/" style={{ textDecoration: 'inherit', color:'linear-gradient(90deg, #39A6A3 30%, #BF1363 90%)'}}>NIGHTZONE</Link></Brand>
                 <Subtitle variant="h5">Sign in or sign up with</Subtitle>
-                <Link to="/auth" style={{ textDecoration: 'none' }}><Button variant="contained" size="large" color="primary" onClick={onNext}><MailOutlineIcon/> EMAIL</Button></Link>
+                <Link to="/auth" style={{ textDecoration: 'none' }}><Button className="CustomButton" variant="contained" size="large" onClick={onNext}><MailOutlineIcon/> EMAIL</Button></Link>
                 <Grid container spacing={24} direction="row" justifyContent='center' alignItems="center" >
                     <FacebookButton onFacebookResponse={onFacebookResponse} />
                     <GoogleButton onGoogleResponse={onGoogleResponse}/> 
