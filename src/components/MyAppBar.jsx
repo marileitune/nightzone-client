@@ -4,7 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import {AppBar, Button, Toolbar, Typography, List, ListItem, withStyles, Grid, SwipeableDrawer, Menu, MenuItem, Divider} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const styleSheet = {
@@ -22,6 +22,16 @@ const styleSheet = {
     cursor : "pointer",
   }
 }
+
+const Brand = withStyles({
+  root: {
+    fontSize: '1.5rem',
+    fontFamily:'Monoton',
+    background: "-webkit-linear-gradient(45deg, #39A6A3 30%, #BF1363 90%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  }
+})(Typography);
 
 class MyAppBar extends Component{
   constructor(props){
@@ -72,7 +82,7 @@ class MyAppBar extends Component{
               <MenuIcon
                 className = {this.props.classes.sideBarIcon}
                 onClick={()=>{this.setState({drawer:true})}} />
-              <Typography color="inherit" variant = "headline"><Link to="/" style={{ textDecoration: 'none' }}>NIGHTZONE</Link></Typography>
+              <Brand variant="h1" > <Link to="/" style={{ textDecoration: 'inherit'}}>NIGHTZONE</Link></Brand>
             </Grid>
           </Toolbar>
         </AppBar>
@@ -118,7 +128,7 @@ class MyAppBar extends Component{
     return (
       <AppBar color="transparent" elevation="0">
         <Toolbar>
-            <Typography variant = "headline" style={{flexGrow:1}} color="inherit" ><Link to="/"style={{ textDecoration: 'none' }}>NIGHTZONE</Link></Typography>
+            <Brand variant="h1" style={{flexGrow:1, color: "-webkit-linear-gradient(45deg, #39A6A3 30%, #BF1363 90%)"}} ><Link to="/"style={{ textDecoration: 'inherit' }}>NIGHTZONE</Link></Brand>
            {
                 this.props.user ? (
             <>
@@ -163,6 +173,6 @@ class MyAppBar extends Component{
 MyAppBar.propTypes = {
   classes : PropTypes.object.isRequired
 };
-
+ 
 
 export default withStyles(styleSheet)(withRouter(MyAppBar));

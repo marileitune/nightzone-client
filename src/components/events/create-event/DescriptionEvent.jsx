@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextareaAutosize, Button } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import {withRouter} from  'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 
@@ -8,13 +8,15 @@ class DescriptionEvent extends Component {
         const { onPreview, onChange, onNext, onCheck, error, onAddImage} = this.props
         return (
             <div>
-                <TextareaAutosize
-                    minRows={4}
-                    aria-label="minimum height"
+                <TextField
+                    id="outlined-textarea"
+                    label="Multiline"
                     placeholder="Description "
+                    multiline
+                    rows={4}
                     onChange={onChange('description')}
-                />
-                                
+                    variant="outlined"
+                />            
                 <Button
                     variant="contained"
                     component="label"

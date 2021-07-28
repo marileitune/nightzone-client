@@ -5,11 +5,9 @@ import FacebookButton from './FacebookButton'
 import GoogleButton from './GoogleButton';
 import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/styles';
-import {spacing} from '@material-ui/system'
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 
-const useStyles = makeStyles((theme) => ({}));
 const Brand = withStyles({
   root: {
     fontFamily:'Monoton',

@@ -40,7 +40,7 @@ let theme = createTheme({
           hover: '#BF1363'
       }
     },
-    typography: {
+  typography: {
       fontFamily: 'Montserrat'
   },
   

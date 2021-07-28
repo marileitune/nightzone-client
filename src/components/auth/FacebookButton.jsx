@@ -14,7 +14,7 @@ function FacebookButton(props) {
     return (
         <div>
             <FacebookLogin
-            appId={process.env.FACEBOOK_ID}
+            appId={process.env.REACT_APP_FACEBOOK_ID}
             fields="name,email,picture"
             autoLoad={false}
             callback={onFacebookResponse}

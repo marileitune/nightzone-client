@@ -297,13 +297,17 @@ class EditEvent extends Component {
                 }
                 <p>Which is the party capacity?</p>
                 <TextField id="outlined-basic" label="capacity" variant="outlined" type="number" value={capacity} required onChange={this.handleChange('capacity')}/>
-                <TextareaAutosize
-                    minRows={4}
-                    aria-label="minimum height"
+
+                <TextField
+                    id="outlined-textarea"
+                    label="Multiline"
                     placeholder="Description "
+                    multiline
                     value={description}
+                    rows={4}
                     onChange={this.handleChange('description')}
-                />
+                    variant="outlined"
+                />  
                                 
                 <Button
                     variant="contained"
