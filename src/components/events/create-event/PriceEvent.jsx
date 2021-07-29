@@ -6,16 +6,15 @@ import {CssTextField, Subtitle, CustomCheckbox} from '../../../DefaultTheme'
 
 class PriceEvent extends Component {
     render() {
-        const {onPreview, onNext, onChange, onCheck, error, isPaid} = this.props
-        console.log(isPaid)
+        const {onPreview, onNext, onChange, onCheck, error, isPaid, ticketsPrice, capacity} = this.props
         return (
             <Grid container className="both-centered">
-                <FormControlLabel control={<CustomCheckbox name="isPaid" required onChange={onCheck}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>The event is going to be paid</Typography>}/>
+                <FormControlLabel control={<CustomCheckbox name="isPaid" required onChange={onCheck} checked={isPaid}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>The event is going to be paid</Typography>}/>
                 { 
-                    isPaid && <><Subtitle>How much is the ticket?</Subtitle> <CssTextField id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" required onChange={onChange('ticketsPrice')}/> </> 
+                    isPaid && <><Subtitle>How much is the ticket?</Subtitle> <CssTextField id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" required onChange={onChange('ticketsPrice')} value={ticketsPrice}/> </> 
                 }
                 <Subtitle>Which is the party capacity?</Subtitle>
-                <CssTextField id="outlined-basic" label="capacity" variant="outlined" type="number" required onChange={onChange('capacity')}/>
+                <CssTextField id="outlined-basic" label="capacity" variant="outlined" type="number" required onChange={onChange('capacity')} value={capacity}/>
                 {/* buttons */}
                 <Button variant="contained" className="CustomButton" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" className="CustomButton" onClick={onNext}>NEXT</Button>

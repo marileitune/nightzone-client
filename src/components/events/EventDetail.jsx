@@ -239,7 +239,7 @@ class EventDetail extends Component {
                         <Grid item xs>
                         {
                             //if there is ticket available and the state showPayment is true, show the Payment form. If not, check if the canBuy is true, and if yes show the button to BUY a ticket. If not, show nothing.
-                            eventDetail.capacity - eventDetail.ticketsSold.length > 0 && canBuy ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment} user={user} />) : (<Button variant="contained" className="CustomButton"  onClick={this.handleShowPayment}>BUY</Button>) : ""   
+                            eventDetail.capacity - eventDetail.ticketsSold.length > 0 && canBuy ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment} user={user} />) : (<Button variant="contained" className="CustomButton"  onClick={this.handleShowPayment}>RESERVE SPOT</Button>) : ""   
                         } 
                         </Grid>       
                     </Grid>

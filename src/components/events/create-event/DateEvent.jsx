@@ -11,18 +11,22 @@ class DateEvent extends Component {
             <Grid container className="both-centered">
                 <Subtitle color="secondary">When the event is going to happen?</Subtitle>
                 <CustomDateInput
+                    variant="outlined"
                     id="datetime-local"
                     label="Start date and time"
                     type="datetime-local"
+                    value={this.props.start}
                     onChange={onChange('start')}
                     InputLabelProps={{
                         shrink: true
                     }}
                 />
                 <CustomDateInput
+                    variant="outlined"
                     id="datetime-local"
                     label="End date and time"
                     type="datetime-local"
+                    value={this.props.end}
                     onChange={onChange('end')}
                     InputLabelProps={{
                         shrink: true

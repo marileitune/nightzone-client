@@ -8,9 +8,9 @@ class TitleEvent extends Component {
     render() {
         const {onNext, onChange, error} = this.props
         return (
-            <Grid container className="both-centered">
-                <Subtitle>What is the name of your event?</Subtitle>
-                <CssTextField id="outlined-basic" label="Name" variant="outlined" type="text" required onChange={onChange('name')}/>
+            <Grid container className="both-centered" direction="column">
+                <Subtitle variant="h5">What is the name of your event?</Subtitle>
+                <CssTextField id="outlined-basic" label="Name" variant="outlined" type="text" required onChange={onChange('name')} value={this.props.name}/>
                 <Button variant="contained" className="CustomButton" onClick={onNext}>NEXT</Button>
                 {
                     error && <Alert severity="error">{error}</Alert>

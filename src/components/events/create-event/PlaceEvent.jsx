@@ -9,8 +9,9 @@ class PlaceEvent extends Component {
 
     state = {
         countries: [],
-        country: null,
-        cities: []
+        country: this.props.country,
+        cities: [],
+        city: null
     }
 
     componentDidMount = async () => {
@@ -19,6 +20,17 @@ class PlaceEvent extends Component {
             await this.setState ({
                 countries: response.data.data
             })
+
+            if (this.props.country) {
+                const countryTarget = this.state.countries.find((elem) => {
+                    return  elem.country == this.props.country 
+                })
+
+                await this.setState({
+                    cities: countryTarget.cities, 
+                    city: this.props.city
+                })
+            }
         }
         catch (err) {
             console.log('Countries fetch failed', err)
@@ -39,21 +51,23 @@ class PlaceEvent extends Component {
         await this.setState({
             cities: cities
         })
-        console.log('cities', this.state.cities)
     }
 
     handleCity = async (city) => {
-
         this.props.onChange('city')(city)
+
+        await this.setState({
+            city: city.target.value
+        })
     }
 
     render() {
-        const { onPreview, onNext, onChange, error} = this.props
+        const { onPreview, onNext, onChange, error, city, country, address} = this.props
         const {countries, cities} = this.state
         return (
             <Grid className="both-centered">
                 <Subtitle>Where the event is going to happen?</Subtitle>
-                <CssTextField id="outlined-basic" label="Address" variant="outlined" type="text" required onChange={onChange('address')}/>
+                <CssTextField id="outlined-basic" label="Address" variant="outlined" type="text" value={address} required onChange={onChange('address')}/>
                 {/* country */}
 
                 <Grid container>
@@ -63,7 +77,7 @@ class PlaceEvent extends Component {
                         <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        value={this.state.country}
+                        value={country}
                         onChange={this.handleCountry}
                         label="Country"
                         >
@@ -83,6 +97,7 @@ class PlaceEvent extends Component {
                         id="demo-simple-select-outlined"
                         onChange={this.handleCity}
                         label="City"
+                        value={city}
                         >
                          {cities.map((option, i) => (
                           <MenuItem key={i} value={option}>

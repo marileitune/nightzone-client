@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from  'react-router-dom';
-import { Button, Typography, Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import FacebookButton from './FacebookButton'
 import GoogleButton from './GoogleButton';
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ class AuthStateZero extends Component {
     render() {
         const {onFacebookResponse, onGoogleResponse, onNext, } = this.props
         return (
-            <div className="both-centered" >
+            <Grid className="both-centered" >
                <Brand variant="h1" > <Link to="/" style={{ textDecoration: 'inherit', color:'linear-gradient(90deg, #39A6A3 30%, #BF1363 90%)'}}>NIGHTZONE</Link></Brand>
                 <Subtitle variant="h5">Sign in or sign up with</Subtitle>
                 <Link to="/auth" style={{ textDecoration: 'none' }}><Button className="CustomButton" variant="contained" size="large" onClick={onNext}><MailOutlineIcon/> EMAIL</Button></Link>
@@ -22,7 +22,7 @@ class AuthStateZero extends Component {
                     <FacebookButton onFacebookResponse={onFacebookResponse} />
                     <GoogleButton onGoogleResponse={onGoogleResponse}/> 
                 </Grid> 
-            </div>
+            </Grid>
         )
     }
 }

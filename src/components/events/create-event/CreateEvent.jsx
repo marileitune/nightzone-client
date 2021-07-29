@@ -55,10 +55,56 @@ class CreateEvent extends Component {
         this.setState({ step: step -1})
     }
 
-    nextStep = () => {
-        console.log('mariana')
+    nextStep = async () => {
         const {step} = this.state
-        this.setState({ step: step +1})
+        let today = new Date().getTime(); 
+
+        switch (step) {
+            case 1:
+                if (this.state.name){
+                    await this.setState({ step: step +1, error: null})
+                } else {
+                    await this.setState({ error: "Please fill in all the fields"})
+                }
+                break;
+            case 2:
+                if (this.state.start && this.state.end && Date.parse(this.state.start) < Date.parse(this.state.end) && Date.parse(this.state.start) > today){
+                    await this.setState({ step: step +1, error: null})
+                } else {
+                    await this.setState({ error: "Please fill in all the fields and make sure the start date of your event is before the end date. And it is only possible to add future events"})
+                }
+                break;
+            case 3:
+                if (this.state.address && this.state.country && this.state.city){
+                    await this.setState({ step: step +1, error: null})
+                } else {
+                    await this.setState({ error: "Please fill in all the fields"})
+                }
+                break;
+            case 4:
+                if (this.state.capacity){
+                    await this.setState({ step: step +1, error: null})
+                } else {
+                    await this.setState({ error: "Please fill in the capacity"})
+                }
+                break;
+            case 5:
+                if (this.state.description && this.state.imageEvent){
+                    await this.setState({ step: step +1, error: null})
+                } else {
+                    await this.setState({ error: "Please fill in the description and add an image"})
+                }
+                break;
+            case 6:
+                if (this.state.categories && this.state.categories.length<4){
+                    await this.setState({ step: step +1, error: null})
+                } else {
+                    await this.setState({ error: "Please choose at least one and a maximum of 3 categories"})
+                }
+                break;
+        }
+
+        
     }
 
     //here we are saving the things typed by the user in the state, to grab the information later on handleLogin or handleRegister
@@ -70,13 +116,8 @@ class CreateEvent extends Component {
         this.setState({ imageEvent: e.target.files[0] });
     }
 
-    handleCheck = () => {
-        const {isPaid} = this.state
-        if (isPaid === false) {
-            this.setState({isPaid: true})
-        } else {
-            this.setState({isPaid: false})
-        }
+    handleCheck = async () => {  
+        await this.setState({isPaid: !this.state.isPaid})
     } 
 
     handleCategories = async (category) => {
@@ -95,7 +136,6 @@ class CreateEvent extends Component {
                     categories: newCategories
                })
             }
-            console.log(this.state.categories)
         }
         catch (err) {
             console.log('Categories failed', err)
@@ -146,32 +186,32 @@ class CreateEvent extends Component {
                 return <Redirect to={'/auth'} />
             }
         }
-        const { step } = this.state;
+        const { step, name, country, start, end, address, city, isPaid, ticketsPrice, capacity, description, categories } = this.state;
         const {error} = this.state
         switch (step) {
             case 1: 
                 return (
-                    <TitleEvent onNext={this.nextStep} onChange={this.handleChange} error={error}/>
+                    <TitleEvent onNext={this.nextStep} onChange={this.handleChange} error={error} name={name}/>
                 )
             case 2: 
                 return (
-                    <DateEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
+                    <DateEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} start={start} end={end} error={error}/>
                 )
             case 3: 
                 return (
-                    <PlaceEvent onLogin={this.handleLogin} onPreview={this.prevStep} onNext={this.nextStep} onChange={this.handleChange} error={error}/>
+                    <PlaceEvent onLogin={this.handleLogin} onPreview={this.prevStep} onNext={this.nextStep} onChange={this.handleChange} error={error} address={address} country={country} city={city}/>
                 )
                 case 4:
                     return (
-                        <PriceEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onCheck={this.handleCheck} isPaid={this.state.isPaid} error={error}/>
+                        <PriceEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onCheck={this.handleCheck} error={error} isPaid={isPaid} ticketsPrice={ticketsPrice} capacity={capacity}/>
                     )
             case 5:
                 return (
-                    <DescriptionEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onAddImage={this.handleImage} error={error}/>
+                    <DescriptionEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onAddImage={this.handleImage} error={error} description={description}/>
                 )
             case 6:
                 return (
-                    <CategoriesEvent onCreate={this.handleCreate} onPreview={this.prevStep} onCheck={this.handleCategories} error={error}/>
+                    <CategoriesEvent onCreate={this.handleCreate} onPreview={this.prevStep} onCheck={this.handleCategories} categories={categories} error={error}/>
                 )
             default: 
         }

@@ -7,7 +7,7 @@ import {CssTextField, Subtitle} from '../../../DefaultTheme'
 
 class DescriptionEvent extends Component {
     render() {
-        const { onPreview, onChange, onNext, error, onAddImage} = this.props
+        const { onPreview, onChange, onNext, error, onAddImage, description} = this.props
         return (
             <Grid container className="both-centered">
                 <Subtitle>How would you describe your event?</Subtitle>
@@ -17,6 +17,7 @@ class DescriptionEvent extends Component {
                     placeholder="Description "
                     multiline
                     rows={4}
+                    value={description}
                     onChange={onChange('description')}
                     variant="outlined"
                 />            

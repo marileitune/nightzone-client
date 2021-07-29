@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Link, withRouter } from "react-router-dom";
 import {API_URL} from '../../config.js'
-import {CardActionArea, Grid, Card, CardMedia, Button, CardContent, Typography, Divider, AppBar, Tab} from '@material-ui/core'
+import {CardActionArea, Grid, Card, CardMedia, Button, CardContent, Typography, Divider, AppBar, Tab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core'
 import { TabList, TabPanel, TabContext} from '@material-ui/lab'
 import EventIcon from '@material-ui/icons/Event';
 import PlaceIcon from '@material-ui/icons/Place';
-
 
 class Account extends Component {
 
@@ -49,6 +48,17 @@ class Account extends Component {
         })
     }
 
+    handleClickOpen = async  () => {
+        await this.setState({
+            open: true
+        })
+    };
+    
+    handleClose = async () => {
+        await this.setState({
+            open: false
+        })
+    };
 
     render() {
         const {value, ticketsBought, eventsCreated, user} = this.state
@@ -128,7 +138,7 @@ class Account extends Component {
                                                         <Typography style={{fontWeight: 700}}>Please, only click this button when the receptionist order to.</Typography>
                                                     </Grid>
                                                     <Grid item xs>
-                                                        <Button variant="contained" className="CustomButton" onClick={() => this.handleCheckIn(event.event._id)}>CHECK IN</Button>
+                                                        <Button variant="contained" className="CustomButton" onClick={this.handleClickOpen}>CHECK IN</Button>
                                                     </Grid>
                                                     </>)  :
                                                     (<>
@@ -205,9 +215,31 @@ class Account extends Component {
 
                             </Card>
                             </Grid>
+                             {/* dialog */}
+                                <Dialog
+                                    open={this.state.open}
+                                    onClose={this.handleClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">{"Are you sure you want to check in?"}</DialogTitle>
+                                    <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        This is your unique ticket for the event and this action cannot be undone.
+                                    </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                    <Button variant="outlined" className="CustomStrokeButton" onClick={() => this.handleCheckIn(event.event._id)} >
+                                        Yes
+                                    </Button>
+                                    <Button onClick={this.handleClose} variant="contained" autoFocus className="CustomButton" >
+                                        No
+                                    </Button>
+                                    </DialogActions>
+                                </Dialog>
                             </>
                             })
-                             }
+                            }
                             </Grid>
                     </TabPanel>
                 </TabContext>
