@@ -13,7 +13,7 @@ class EmailInput extends Component {
 
 
         return (
-            <Grid className="both-centered">
+            <Grid container className="both-centered">
                 <Brand variant="h1" > <Link to="/" style={{ textDecoration: 'inherit', color:'linear-gradient(90deg, #39A6A3 30%, #BF1363 90%)'}}>NIGHTZONE</Link></Brand>
                 <Subtitle variant="h5">What is your email address?</Subtitle>
                 <CssTextField id="outlined-basic" label="Email" variant="outlined" type="email"  value={email} required onChange={onChange('email')}/>

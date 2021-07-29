@@ -49,10 +49,17 @@ class App extends Component {
          
      } 
 
-  handleFacebookResponse = (data) => {
+  handleFacebookResponse = async(data) => {
     // this.setState({
     //     showLoading: true
     // })
+    if(!data) {
+      await this.setState({
+        error: "You should finish the login on the facebook popup",
+        fetchingUser: false
+      })
+      return
+    }
 
     console.log("data", data)
     const {name, email, picture: {data: {url}}, userID} = data
@@ -64,6 +71,7 @@ class App extends Component {
             this.setState({
                 user: response.data.data,
                 error: null,
+                fetchingUser: false
                 // showLoading: false
             }, () => {
               console.log(this.props)

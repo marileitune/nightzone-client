@@ -9,7 +9,9 @@ class CategoriesEvent extends Component {
         const {onPreview, onCreate, onCheck, error, categories} = this.props
         return (
             <Grid container className="both-centered">
-                <Subtitle>How would you describe your party? (max 3 categories)</Subtitle>
+                <Grid>
+                    <Subtitle variant="h5">How would you classify your party? (max 3 categories)</Subtitle>
+                </Grid>
                 <Grid container spacing={5} direction="row">
                     <Grid item xs={6} sm={6} md={4} lg={4} xl={4}  direction="column">
                         <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("houseParty")} onChange={() => onCheck('houseParty')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>House party</Typography>}/>
@@ -37,8 +39,10 @@ class CategoriesEvent extends Component {
                     </Grid>
                 </Grid>
                 {/* buttons */}
-                <Button variant="contained" className="CustomButton" onClick={onPreview}>BACK</Button>
-                <Button variant="contained" className="CustomButton"  onClick={onCreate}>CREATE</Button>
+                <Grid container justify="center" alignItems="center" >
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
+                    <Button variant="contained" className="CustomButton" onClick={onCreate}>NEXT</Button>
+                </Grid> 
                 {
                     error && <Alert severity="error">{error}</Alert>
                 }  

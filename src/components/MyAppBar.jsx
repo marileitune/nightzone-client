@@ -114,7 +114,7 @@ class MyAppBar extends Component{
             <>
             <List className = {this.props.classes.list}>
                <Link to="/events" style={{ textDecoration: 'none', color: 'inherit'}}><ListItem key = {1} button divider style={{fontWeight: 700}}> Events </ListItem></Link>
-               <Link to="/auth" style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {2} button divider style={{fontWeight: 700}}> Create an event </ListItem></Link>
+               <Link to="/create" style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {2} button divider style={{fontWeight: 700}}> Create an event </ListItem></Link>
                <Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {3} button divider style={{fontWeight: 700}}> My events </ListItem></Link>
                <Link to={`/account/${this.props.user._id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {4} button divider style={{fontWeight: 700}}> Messages </ListItem></Link>
                <Link to={`/user/messages`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {5} button divider style={{fontWeight: 700}}> Edit account </ListItem></Link>

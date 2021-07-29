@@ -76,9 +76,8 @@ const BorderLinearProgress = withStyles({
 
 const CustomDateInput = withStyles({
     root: {
-        width: '10%', 
-        minWidth: '150px', 
-        maxWidth:'250px',
+        minWidth:'200px',
+        maxWidth:'500px',
         color: '#DEEEEA',
         "& .MuiOutlinedInput-input": {
             color: "#DEEEEA"
@@ -114,8 +113,8 @@ const CustomDateInput = withStyles({
 
 const CustomSelect = withStyles({
     root: {
-      width: 200,
-
+      minWidth:'200px',
+      maxWidth:'500px',
       "& .MuiOutlinedInput-input": {
         color: "#DEEEEA"
       },

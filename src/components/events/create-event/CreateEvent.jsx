@@ -114,6 +114,7 @@ class CreateEvent extends Component {
 
     handleImage = (e) => {
         this.setState({ imageEvent: e.target.files[0] });
+
     }
 
     handleCheck = async () => {  
@@ -186,7 +187,7 @@ class CreateEvent extends Component {
                 return <Redirect to={'/auth'} />
             }
         }
-        const { step, name, country, start, end, address, city, isPaid, ticketsPrice, capacity, description, categories } = this.state;
+        const { step, name, country, start, end, address, city, isPaid, ticketsPrice, capacity, description, categories, imageEvent } = this.state;
         const {error} = this.state
         switch (step) {
             case 1: 
@@ -207,7 +208,7 @@ class CreateEvent extends Component {
                     )
             case 5:
                 return (
-                    <DescriptionEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onAddImage={this.handleImage} error={error} description={description}/>
+                    <DescriptionEvent onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} onAddImage={this.handleImage} error={error} description={description} imageEvent={imageEvent}/>
                 )
             case 6:
                 return (

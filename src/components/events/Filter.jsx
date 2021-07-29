@@ -7,7 +7,7 @@ class Filter extends Component {
 
     render() {
         return (
-            <Grid flexDirection="row">
+            <Grid direction="row">
                 
                 <CssTextField id="outlined-basic" label="Search for a party" variant="outlined" type="text" value={this.props.text} onChange={this.props.onSearch}/>
                 <CustomDateInput

@@ -65,58 +65,64 @@ class PlaceEvent extends Component {
         const { onPreview, onNext, onChange, error, city, country, address} = this.props
         const {countries, cities} = this.state
         return (
-            <Grid className="both-centered">
-                <Subtitle>Where the event is going to happen?</Subtitle>
-                <CssTextField id="outlined-basic" label="Address" variant="outlined" type="text" value={address} required onChange={onChange('address')}/>
-                {/* country */}
-
-                <Grid container>
-                    <Grid item>
-                    <CustomSelect variant="outlined">
-                    <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value={country}
-                        onChange={this.handleCountry}
-                        label="Country"
-                        >
-                        {countries.map((option, i) => (
-                        <MenuItem key={i} value={option.country}>
-                        {option.country}
-                        </MenuItem>
-                    ))}
-                        </Select>
-                    </CustomSelect>
-                    </Grid>
-                    <Grid item xs>
-                    {   this.state.CountrySelected!== null && <CustomSelect variant="outlined">
-                        <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        onChange={this.handleCity}
-                        label="City"
-                        value={city}
-                        >
-                         {cities.map((option, i) => (
-                          <MenuItem key={i} value={option}>
-                          {option}
-                          </MenuItem>
-                      ))}
-                        </Select>
-                    </CustomSelect>
-                    }
-                    </Grid>
+            <Grid container direction="column" className="both-centered">
+                <Grid item >
+                    <Subtitle variant="h5" color="secondary">Where the event is going to happen?</Subtitle>
                 </Grid>
+                <Grid item >
+                    <CssTextField id="outlined-basic" label="Address" variant="outlined" type="text" value={address} required onChange={onChange('address')}/>
+                </Grid>
+                <Grid container container justify="center" alignItems="center">
+                    <Grid item >
+                        <CustomSelect variant="outlined">
+                        <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value={country}
+                            onChange={this.handleCountry}
+                            label="Country"
+                            >
+                            {countries.map((option, i) => (
+                            <MenuItem key={i} value={option.country}>
+                            {option.country}
+                            </MenuItem>
+                        ))}
+                            </Select>
+                        </CustomSelect>
+                    </Grid>
                     
-                {/* buttons */}
-                <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
-                <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
-                {
-                    error && <Alert severity="error">{error}</Alert>
-                }
-            </Grid>
+                    { country && 
+                    <Grid item >
+                        {   this.state.CountrySelected!== null && <CustomSelect variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            onChange={this.handleCity}
+                            label="City"
+                            value={city}
+                            >
+                            {cities.map((option, i) => (
+                            <MenuItem key={i} value={option}>
+                            {option}
+                            </MenuItem>
+                        ))}
+                            </Select>
+                        </CustomSelect>
+                        }
+                    </Grid>
+                    }
+                </Grid>
+            <Grid container justify="center" alignItems="center" >
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
+                    <Button variant="contained" className="CustomButton" onClick={onNext}>NEXT</Button>
+            </Grid> 
+            {
+                error && <Alert severity="error">{error}</Alert>
+            }
+        
+        </Grid>
         )
     }
 }
