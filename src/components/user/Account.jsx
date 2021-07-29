@@ -56,7 +56,7 @@ class Account extends Component {
             <div style={{marginTop: '60px'}}>
                 
                 <TabContext value={value}>
-                    <AppBar color="#231E23" position="fixed">
+                    <AppBar color="#231E23" position="static">
                         <TabList onChange={this.handleChange} aria-label="simple tabs example" value={value} >
                             <Tab label="My tickets" value="1" style={{color: '#DEEEEA', fontWeight: 700}} />
                             <Tab label="My events" value="2" style={{color: '#DEEEEA', fontWeight: 700}} />
@@ -70,7 +70,7 @@ class Account extends Component {
                                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} spacing={5}>
                                 <Card key={i} style={{ backgroundColor: 'transparent' }}>
                                     <CardActionArea>
-                                        <Link to={`/events/${event._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
+                                        <Link to={`/events/${event.event._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
                                         <CardMedia
                                         component="img"
                                         alt="image-event"

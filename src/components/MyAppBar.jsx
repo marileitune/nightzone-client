@@ -39,7 +39,8 @@ class MyAppBar extends Component{
     this.state = {
         drawerActivate:false, 
         drawer:false, 
-        anchorEl: null
+        anchorEl: null,
+        open: false
     };
     this.createDrawer = this.createDrawer.bind(this);
     this.destroyDrawer = this.destroyDrawer.bind(this);
@@ -47,15 +48,25 @@ class MyAppBar extends Component{
 
     handleClick = async (event) => {
         await this.setState({
-            anchorEl: event.currentTarget
-        });
+          open: true,
+          anchorEl: event.currentTarget
+        })
     };
 
     handleClose = async () => {
         await this.setState({
-            anchorEl: null
+            anchorEl: null,
+            open: false
         });
     };
+
+    handleLogout = async () => {
+      this.props.onLogOut()
+      await this.setState({
+        anchorEl: null,
+        open: false
+    });
+    }
     
   componentWillMount(){
     if(window.innerWidth <= 600){
@@ -107,7 +118,7 @@ class MyAppBar extends Component{
                <Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {3} button divider style={{fontWeight: 700}}> My events </ListItem></Link>
                <Link to={`/account/${this.props.user._id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {4} button divider style={{fontWeight: 700}}> Messages </ListItem></Link>
                <Link to={`/user/messages`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {5} button divider style={{fontWeight: 700}}> Edit account </ListItem></Link>
-               <ListItem key = {5} button divider onClick={this.props.onLogOut}> <ExitToAppIcon/>  Logout </ListItem>
+               <ListItem key = {5} button divider onClick={this.handleLogout}> <ExitToAppIcon/>  Logout </ListItem>
             </List>
             </>) : (
                 <List className = {this.props.classes.list}>
@@ -125,7 +136,7 @@ class MyAppBar extends Component{
   //Larger Screens
   destroyDrawer(){
     const {classes} = this.props
-    const {anchorEl} = this.state
+    const {anchorEl, open} = this.state
     return (
       <AppBar color="transparent" elevation="0">
         <Toolbar>
@@ -139,19 +150,19 @@ class MyAppBar extends Component{
                 <Menu
                     id="simple-menu"
                     anchorEl={anchorEl}
+                    open={Boolean(open)}
                     keepMounted
-                    open={Boolean(anchorEl)}
                     onClose={this.handleClose}
                     >
-                    <MenuItem><Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none' , color: 'inherit'}} color="secondary">My events</Link></MenuItem>
-                    <MenuItem><Link to={`/user/messages`} style={{ textDecoration: 'none' , color: 'inherit'}} color="secondary">Messages</Link></MenuItem>
-                    <Link to={`/account/${this.props.user._id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }} color="secondary"><MenuItem>Edit account</MenuItem></Link>
+                    <MenuItem onClick={this.handleClose}><Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none' , color: 'inherit'}} color="secondary">My events</Link></MenuItem>
+                    <MenuItem onClick={this.handleClose}><Link to={`/user/messages`} style={{ textDecoration: 'none' , color: 'inherit'}} color="secondary">Messages</Link></MenuItem>
+                    <MenuItem onClick={this.handleClose}><Link to={`/account/${this.props.user._id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }} color="secondary">Edit account</Link></MenuItem>
                     <Divider/>
-                   <MenuItem onClick={this.props.onLogOut}><ExitToAppIcon/> Logout</MenuItem>
+                   <MenuItem onClick={this.handleLogout}><ExitToAppIcon/> Logout</MenuItem>
                 </Menu>
           </>    
                 ) : (
-                  <Link to="/auth" style={{ textDecoration: 'none' }}> <Typography variant = "subheading" className = {classes.padding} color="inherit" >GET STARTED</Typography> </Link>
+                  <Link to="/auth" style={{ textDecoration: 'none' }}> <Button variant="outlined" className= "CustomButton">GET STARTED</Button> </Link>
                 )
             }
             </Toolbar>

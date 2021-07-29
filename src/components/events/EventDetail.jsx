@@ -59,9 +59,21 @@ class EventDetail extends Component {
 
 
     handleShowPayment = async() => {
-        await this.setState({
-            ...this.state, showPayment: true
-        })
+        const {eventDetail} = this.state
+
+        if (eventDetail.isPaid) {
+            await this.setState({
+                ...this.state, showPayment: true
+            }) 
+        } else {
+            try {
+                await axios.get(`${API_URL}/api/events/${eventDetail._id}/buy`, {withCredentials: true})
+                this.props.history.push(`/account/${this.state.user._id}`)
+              }
+              catch(err) {
+                  console.log('Event fetch failed', err)
+              }
+        }
     }
 
     handleClosePayment = async () => {

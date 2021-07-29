@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {withRouter} from  'react-router-dom';
 import axios from 'axios'
-import { TextField, Button, MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
+import { Grid, Button, MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import {CssTextField, Subtitle, CustomSelect, CustomCheckbox} from '../../../DefaultTheme'
 
 class PlaceEvent extends Component {
 
@@ -50,52 +51,57 @@ class PlaceEvent extends Component {
         const { onPreview, onNext, onChange, error} = this.props
         const {countries, cities} = this.state
         return (
-            <div>
-                <p>Where the event is going to happen?</p>
-                <TextField id="outlined-basic" label="Address" variant="outlined" type="text" required onChange={onChange('address')}/>
+            <Grid className="both-centered">
+                <Subtitle>Where the event is going to happen?</Subtitle>
+                <CssTextField id="outlined-basic" label="Address" variant="outlined" type="text" required onChange={onChange('address')}/>
                 {/* country */}
-                <FormControl variant="outlined">
+
+                <Grid container>
+                    <Grid item>
+                    <CustomSelect variant="outlined">
                     <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={this.state.country}
-                    onChange={this.handleCountry}
-                    label="Country"
-                    >
-                    {countries.map((option, i) => (
+                        <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={this.state.country}
+                        onChange={this.handleCountry}
+                        label="Country"
+                        >
+                        {countries.map((option, i) => (
                         <MenuItem key={i} value={option.country}>
                         {option.country}
                         </MenuItem>
                     ))}
-                    </Select>
-                </FormControl>
-                {/* city */}
-
-                    {
-                      this.state.country !== null && <FormControl variant="outlined">
-                      <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
-                      <Select
-                      labelId="demo-simple-select-outlined-label"
-                      id="demo-simple-select-outlined"
-                      onChange={this.handleCity}
-                      label="City"
-                      >
-                      {cities.map((option, i) => (
+                        </Select>
+                    </CustomSelect>
+                    </Grid>
+                    <Grid item xs>
+                    {   this.state.CountrySelected!== null && <CustomSelect variant="outlined">
+                        <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={this.handleCity}
+                        label="City"
+                        >
+                         {cities.map((option, i) => (
                           <MenuItem key={i} value={option}>
                           {option}
                           </MenuItem>
                       ))}
-                      </Select>
-                  </FormControl> 
+                        </Select>
+                    </CustomSelect>
                     }
+                    </Grid>
+                </Grid>
+                    
                 {/* buttons */}
                 <Button variant="contained" color="primary" onClick={onPreview}>BACK</Button>
                 <Button variant="contained" color="primary" onClick={onNext}>NEXT</Button>
                 {
                     error && <Alert severity="error">{error}</Alert>
                 }
-            </div>
+            </Grid>
         )
     }
 }

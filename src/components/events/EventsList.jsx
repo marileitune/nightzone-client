@@ -109,6 +109,7 @@ class EventsList extends Component {
 
     handleProgress = (progress) => {
         const progressInt = Math.round(progress)
+        console.log(progressInt)
         if (progressInt<20){
             return <Tooltip title={"This party could be better"} >
                         <BorderLinearProgress variant="determinate" value={progress}/> 
@@ -123,9 +124,6 @@ class EventsList extends Component {
                     </Tooltip>
         }
     }
-
-
-
 
     handleShowFilters = async () => {
         const {showFilter} = this.state
@@ -357,7 +355,7 @@ class EventsList extends Component {
                                         title="image-event"
                                         />
                                             {
-                                            this.handleProgress(progress)
+                                            this.handleProgress(progress[i])
                                             }
                                         <CardContent>
                                             <Grid container direction="column">
