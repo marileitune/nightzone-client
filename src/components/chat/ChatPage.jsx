@@ -1,8 +1,10 @@
-import axios from 'axios'
 import React, { Component } from 'react'
+import axios from 'axios'
 import {API_URL} from '../../config.js'
 import io from "socket.io-client";
 import { withRouter } from "react-router-dom";
+import {Button, Typography, Grid} from '@material-ui/core'
+import {CssTextField} from '../../DefaultTheme'
 
 let socket = ''
 
@@ -36,9 +38,6 @@ class ChatPage extends Component {
 
         let conversationId = conversation.data._id
         let response = await axios.get(`${API_URL}/api/messages/${conversationId}`)
-
-        console.log(response.data)
-        console.log(this.state.user)
 
         await this.setState({
             loading: false, 
@@ -101,31 +100,33 @@ class ChatPage extends Component {
 
         return (
             <div>
-                <h3>You're in the Chat Page </h3>
-                <div className="chatContainer">
-                    <div className="messages">
+                <Grid container direction="column" className="chatContainer" className="both-centered">
+                    <Grid className="messages">
                         {
                             messageList.map((val) => {
                                 return (
-                                    <div key={val._id} className="messageContainer" id={val.sender._id == user._id ? "You" : "Other"}>
-                                        <div className="messageIndividual">
+                                    <Grid key={val._id} className="messageContainer" id={val.sender._id == user._id ? "You" : "Other"}>
+                                        <Typography color="secondary" className="messageIndividual">
                                             {val.sender._id == user._id?  "You" : val.sender.firstName }: {val.message}
-                                        </div>
-                                    </div>
+                                        </Typography>
+                                    </Grid>
                                 );
                             })
                         }
                         <div style={{ float:"left", clear: "both" }}
                             ref={(el) => { this.messagesEnd = el; }}>
                         </div>
-                    </div>
-                    <div className="messageInputs">
-                        <input value={this.state.currentMessage} type="text" placeholder="Message..."
+                    </Grid>
+                    <Grid className="messageInputs">
+                        <CssTextField id="outlined-basic" variant="outlined" value={this.state.currentMessage} type="text" placeholder="Write a message"
                             onChange={this.handleMessageInput}
                         />
-                        <button onClick={this.sendMessage}>Send</button>
-                    </div>
-                </div>
+                        <Grid>
+                            <Button variant="contained" className="CustomButton" onClick={this.sendMessage}>Send</Button>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
             </div>
         )
     }

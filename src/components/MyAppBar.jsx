@@ -102,10 +102,11 @@ class MyAppBar extends Component{
                 this.props.user ? (
             <>
             <List className = {this.props.classes.list}>
-               <Link to="/events" style={{ textDecoration: 'none' }}><ListItem key = {1} button divider> Events </ListItem></Link>
-               <Link to="/auth" style={{ textDecoration: 'none' }}><ListItem key = {2} button divider> Create an event </ListItem></Link>
-               <Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none' }}><ListItem key = {3} button divider> My events </ListItem></Link>
-               <Link to={`/account/${this.props.user._id}/edit`} style={{ textDecoration: 'none' }}><ListItem key = {4} button divider> Edit account </ListItem></Link>
+               <Link to="/events" style={{ textDecoration: 'none', color: 'inherit'}}><ListItem key = {1} button divider style={{fontWeight: 700}}> Events </ListItem></Link>
+               <Link to="/auth" style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {2} button divider style={{fontWeight: 700}}> Create an event </ListItem></Link>
+               <Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {3} button divider style={{fontWeight: 700}}> My events </ListItem></Link>
+               <Link to={`/account/${this.props.user._id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {4} button divider style={{fontWeight: 700}}> Messages </ListItem></Link>
+               <Link to={`/user/messages`} style={{ textDecoration: 'none', color: 'inherit' }}><ListItem key = {5} button divider style={{fontWeight: 700}}> Edit account </ListItem></Link>
                <ListItem key = {5} button divider onClick={this.props.onLogOut}> <ExitToAppIcon/>  Logout </ListItem>
             </List>
             </>) : (
@@ -132,9 +133,9 @@ class MyAppBar extends Component{
            {
                 this.props.user ? (
             <>
-                <Link to="/events" style={{ textDecoration: 'none' }}><Typography variant = "subheading" className = {classes.padding} color="inherit" >EVENTS</Typography></Link>
-                <Link to="/create" style={{ textDecoration: 'none' }}><Typography variant = "subheading" className = {classes.padding} color="inherit" >CREATE AN EVENT</Typography></Link>
-                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}><Typography variant = "subheading" className = {classes.padding} color="inherit" >PROFILE</Typography></Button>
+                <Link to="/events" style={{ textDecoration: 'none' }}><Typography className = {classes.padding} color="secondary" style={{fontWeight: 700}}>EVENTS</Typography></Link>
+                <Link to="/create" style={{ textDecoration: 'none' }}><Typography className = {classes.padding} color="secondary" style={{fontWeight: 700}}>CREATE AN EVENT</Typography></Link>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}><Typography className = {classes.padding} color="secondary" style={{fontWeight: 700}}>PROFILE</Typography></Button>
                 <Menu
                     id="simple-menu"
                     anchorEl={anchorEl}
@@ -142,8 +143,9 @@ class MyAppBar extends Component{
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}
                     >
-                    <Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none' }}><MenuItem>My events</MenuItem></Link>
-                    <Link to={`/account/${this.props.user._id}/edit`}><MenuItem>Edit account</MenuItem></Link>
+                    <MenuItem><Link to={`/account/${this.props.user._id}`} style={{ textDecoration: 'none' , color: 'inherit'}} color="secondary">My events</Link></MenuItem>
+                    <MenuItem><Link to={`/user/messages`} style={{ textDecoration: 'none' , color: 'inherit'}} color="secondary">Messages</Link></MenuItem>
+                    <Link to={`/account/${this.props.user._id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }} color="secondary"><MenuItem>Edit account</MenuItem></Link>
                     <Divider/>
                    <MenuItem onClick={this.props.onLogOut}><ExitToAppIcon/> Logout</MenuItem>
                 </Menu>

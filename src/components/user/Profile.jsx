@@ -1,15 +1,22 @@
-//<Link to={`/chat/${this.props.match.params.userId }`}><Button variant="contained" color="primary">CHAT</Button></Link>
+
 import React, { Component } from "react";
-import {withRouter } from "react-router-dom";
+import {withRouter, Link } from "react-router-dom";
 import axios from 'axios';
 import {API_URL} from '../../config.js'
-import { Grid, Button, Typography, Avatar} from '@material-ui/core';
+import {CardActionArea, Grid, Card, CardMedia, Button, CardContent, Typography, Divider, AppBar, Tab, Avatar} from '@material-ui/core'
+import {CssTextField, Subtitle, Brand} from '../../DefaultTheme'
+import { TabList, TabPanel, TabContext} from '@material-ui/lab'
+import EventIcon from '@material-ui/icons/Event';
+import PlaceIcon from '@material-ui/icons/Place';
 
 class Profile extends Component {
     state = {
         user: this.props.user,
         fetchingUser: true,
-        userFriend: ''
+        userFriend: '',
+        ticketsBought: [],
+        eventsCreated: [],
+        value: "1"
     }
 
     componentDidMount = async () => {
@@ -24,7 +31,9 @@ class Profile extends Component {
             let userIdResponse = await axios.get(`${API_URL}/api/account/${userId}`, {withCredentials: true})
             console.log(userIdResponse)
             await this.setState({
-                userFriend: userIdResponse.data
+                userFriend: userIdResponse.data,
+                ticketsBought: userIdResponse.data.ticketsBought,
+                eventsCreated: userIdResponse.data.eventsCreated
             })
         }
         catch (err) {
@@ -32,19 +41,155 @@ class Profile extends Component {
         }
     }
 
+    handleChange = async (e, newValue) => {
+        await this.setState({
+            value: newValue
+        })
+    }
+
+
     render() {
-        const {userFriend} = this.state
+        const {userFriend, ticketsBought, eventsCreated, value} = this.state
         return (
             <div>
-                <Grid>
-                    <Grid>
-                    <Avatar src={`${userFriend.imageAccount}`}></Avatar>
-                    </Grid>
-                    <Grid>
-                       <Typography>{userFriend.firstName}</Typography>
+                <Grid container direction="column" style={{color:"#DEEEEA"}} className="horizontal-centered">
+                <Grid item>
+                    
+                 <Avatar src={`${userFriend.imageAccount}`} width="40%" styles={{borderRadius:'50%'}} />
+                </Grid>                              
+                {/* NAME */}
+                <Grid container wrap="nowrap" spacing={2}>
+                    <Grid item>
+                    <Typography>
+                        {userFriend.firstName} {userFriend.lastName} 
+                    </Typography>
                     </Grid>
                 </Grid>
-            </div>
+                <Link to={`/chat/${this.props.match.params.userId }`} style={{ textDecoration: 'none', color:"#DEEEEA" }}><Button variant="contained" className="CustomButton" >CHAT</Button></Link>
+                <Divider light />
+                <TabContext value={value}>
+                    <AppBar color="#231E23" position="static">
+                        <TabList onChange={this.handleChange} aria-label="simple tabs example" value={value} >
+                            <Tab label="Tickets bought" value="1" style={{color: '#DEEEEA', fontWeight: 700}} />
+                            <Tab label="Events hosted" value="2" style={{color: '#DEEEEA', fontWeight: 700}} />
+                        </TabList>
+                    </AppBar>
+                    <TabPanel value="1">
+                            <Grid container spacing={3} direction="row">
+                            {
+                            ticketsBought.map((event, i) => {
+                            return <>
+                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} spacing={5}>
+                                <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                                    <CardActionArea>
+                                        <Link to={`/events/${event._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
+                                        <CardMedia
+                                        component="img"
+                                        alt="image-event"
+                                        height="300px"
+                                        image={`${event.event.imageEvent}`}
+                                        title="image-event"
+                                        />
+                                        <CardContent>
+                                        <Grid container wrap="nowrap" spacing={2}>     
+                                        </Grid>
+                                            <Grid container  wrap="nowrap" spacing={2} direction="column">
+                                                {/* NAME */}
+                                                <Grid>
+                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
+                                                        {event.event.name}
+                                                    </Typography>
+                                                <Divider light />
+                                                </Grid>                                       
+                                                {/* START */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <EventIcon/>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            {event.event.start} 
+                                                        </Typography>
+                                                    </Grid>
+                                                   
+                                                </Grid>
+                                                <Divider light />
+                                                {/* ADDRESS */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <PlaceIcon/>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            {event.event.address} 
+                                                        </Typography>
+                                                    </Grid>                                                 
+                                                </Grid>
+                                                <Divider light />
+                                             
+                                            </Grid>
+                                        </CardContent>
+                                        </Link>     
+                                    </CardActionArea>
+                            </Card>
+                                </Grid>
+                            </>
+                            })
+                        }
+                            </Grid>
+                    </TabPanel>
+                    <TabPanel value="2">
+                        <Grid container spacing={3} flexPosition="row">
+                            {
+                            eventsCreated.map((event, i) => {
+                            return <>
+                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} spacing={5} >
+                                <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                                <Link to={`/events/${event._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                        component="img"
+                                        alt="image-event"
+                                        height="300px"
+                                        image={`${event.imageEvent}`}
+                                        title="image-event"
+                                        />
+                                        <CardContent>
+                                            <Grid container direction="column">
+                                                {/* NAME */}
+                                                <Grid>
+                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
+                                                        {event.name}
+                                                    </Typography>
+                                                <Divider light />
+                                                </Grid>                                       
+                                                {/* TICKETS SOLD */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <Typography style={{fontWeight: 700}}>{event.ticketsSold.length}</Typography>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            tickets sold
+                                                        </Typography>
+                                                    </Grid> 
+                                                </Grid>
+                                                <Divider light />
+                                            </Grid>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Link>
+
+                            </Card>
+                            </Grid>
+                            </>
+                            })
+                             }
+                            </Grid>
+                    </TabPanel>
+                    </TabContext>
+            </Grid>
+        </div>
         )
     }
 }

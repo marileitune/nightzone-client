@@ -18,6 +18,7 @@ import Account from "./components/user/Account";
 import EditEvent from "./components/events/EditEvent"
 import EditAccount from "./components/user/EditAccount"
 import ChatPage from './components/chat/ChatPage'
+import Messages from './components/chat/Messages'
 
 //importing styles
 import {theme} from './DefaultTheme'
@@ -179,6 +180,11 @@ class App extends Component {
               }} />
               <Route exact path={'/chat/:userId'}  render={(routeProps) => {
                 return <ChatPage {...routeProps}
+                user={this.state.user}
+              />
+              }} />
+              <Route exact path={'/user/messages'}  render={(routeProps) => {
+                return <Messages {...routeProps}
                 user={this.state.user}
               />
               }} />

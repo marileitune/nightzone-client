@@ -144,8 +144,8 @@ class EditAccount extends Component {
                         hidden
                     />
                 </Button>
-                <Button variant="contained" color="primary" onClick={this.handleEditAccount}>EDIT</Button>
-                <Button variant="contained" color="primary" onClick={this.handleClickOpen} >DELETE</Button>
+                <Button variant="contained" className="CustomButton" onClick={this.handleEditAccount}>EDIT</Button>
+                <Button variant="contained" className="CustomButton"  onClick={this.handleClickOpen} >DELETE</Button>
 
                 {/* dialog */}
 
@@ -162,11 +162,12 @@ class EditAccount extends Component {
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">
-                        No
-                    </Button>
-                    <Button onClick={this.handleDeleteEvent} color="primary" autoFocus>
+                   
+                    <Button onClick={this.handleDeleteEvent} variant="outlined" className="CustomStrokeButton"  >
                         Yes
+                    </Button>
+                    <Button onClick={this.handleClose} variant="contained" autoFocus className="CustomButton" >
+                        No
                     </Button>
                     </DialogActions>
                 </Dialog>
