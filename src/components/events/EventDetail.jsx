@@ -7,6 +7,7 @@ import {CircularProgress, Button, TextareaAutosize, Avatar} from '@material-ui/c
 // import { Elements } from "@stripe/react-stripe-js";
 // import CheckoutForm from "./CheckoutForm";
 import Payment from "./Payment";
+import {CssTextField, Subtitle, Brand} from '../../DefaultTheme'
 
 class EventDetail extends Component {
 

@@ -1,4 +1,4 @@
-import {createTheme, withStyles, Typography, responsiveFontSizes, TextField, Checkbox} from '@material-ui/core'
+import {createTheme, LinearProgress, withStyles, Typography, responsiveFontSizes, TextField, Checkbox, FormControl} from '@material-ui/core'
 import PropTypes from 'prop-types';
 
 
@@ -8,23 +8,146 @@ const CssTextField = withStyles({
         minWidth: '400px', 
         maxWidth:'700px',
         color: '#DEEEEA',
-        "& label.Mui-focused": {
-            color: "#39A6A3",
-            
-        },
-        "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-                borderColor: "#DEEEEA",
-            },
-            "&:hover fieldset": {
-                borderColor: "#BF1363",
-            },
-            "&.Mui-focused fieldset": {
-                borderColor: "#39A6A3",
-            }
+        "& .MuiOutlinedInput-input": {
+            color: "#DEEEEA"
+          },
+          "& .MuiInputLabel-root": {
+            color: "#DEEEEA"
+          },
+          "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#DEEEEA"
+          },
+          "&:hover .MuiOutlinedInput-input": {
+            color: "#BF1363"
+          },
+          "&:hover .MuiInputLabel-root": {
+            color: "#BF1363"
+          },
+          "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#BF1363"
+          },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+            color: "#39A6A3"
+          },
+          "& .MuiInputLabel-root.Mui-focused": {
+            color: "#39A6A3"
+          },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#39A6A3"
+          }
         }
-    }
 })(TextField);
+
+const BorderLinearProgress = withStyles({
+    root: {
+      height: 10,
+    },
+    colorPrimary: {
+      backgroundColor: '#DEEEEA'
+    },
+    bar: {
+      borderRadius: 5,
+      backgroundColor: '#39A6A3',
+    },
+  })(LinearProgress);
+
+  const BorderLinearProgressMid = withStyles({
+    root: {
+      height: 10,
+    },
+    colorPrimary: {
+      backgroundColor: '#DEEEEA'
+    },
+    bar: {
+      borderRadius: 5,
+      backgroundColor: '#894F7D',
+    },
+  })(LinearProgress);
+
+  const BorderLinearProgressRock = withStyles({
+    root: {
+      height: 10,
+    },
+    colorPrimary: {
+      backgroundColor: '#DEEEEA'
+    },
+    bar: {
+      borderRadius: 5,
+      backgroundColor: '#BF1363',
+    },
+  })(LinearProgress);
+
+const CustomDateInput = withStyles({
+    root: {
+        width: '10%', 
+        minWidth: '150px', 
+        maxWidth:'250px',
+        color: '#DEEEEA',
+        "& .MuiOutlinedInput-input": {
+            color: "#DEEEEA"
+          },
+          "& .MuiInputLabel-root": {
+            color: "#DEEEEA"
+          },
+          "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#DEEEEA"
+          },
+          "&:hover .MuiOutlinedInput-input": {
+            color: "#BF1363"
+          },
+          "&:hover .MuiInputLabel-root": {
+            color: "#BF1363"
+          },
+          "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#BF1363"
+          },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+            color: "#39A6A3"
+          },
+          "& .MuiInputLabel-root.Mui-focused": {
+            color: "#39A6A3"
+          },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#39A6A3"
+          }
+        }
+})(TextField);
+
+
+
+const CustomSelect = withStyles({
+    root: {
+      width: 200,
+
+      "& .MuiOutlinedInput-input": {
+        color: "#DEEEEA"
+      },
+      "& .MuiInputLabel-root": {
+        color: "#DEEEEA"
+      },
+      "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+        borderColor: "#DEEEEA"
+      },
+      "&:hover .MuiOutlinedInput-input": {
+        color: "#BF1363"
+      },
+      "&:hover .MuiInputLabel-root": {
+        color: "#BF1363"
+      },
+      "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+        borderColor: "#BF1363"
+      },
+      "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+        color: "#39A6A3"
+      },
+      "& .MuiInputLabel-root.Mui-focused": {
+        color: "#39A6A3"
+      },
+      "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: "#39A6A3"
+      }
+    }
+  })(FormControl);
 
 const Brand = withStyles({
     root: {
@@ -53,16 +176,6 @@ const CustomCheckbox = withStyles({
     },
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
-
-const Bold = withStyles({
-    root: {
-        fontFamily:'Montserrat',
-        background: "#DEEEEA",
-        fontWeight: 700,
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent"
-      }
-})(Typography);
 
 let theme = createTheme ({
         palette: {
@@ -96,6 +209,15 @@ let theme = createTheme ({
                                     color: '#DEEEEA',
                                 },
                             },
+                            '&.CustomStrokeButton': {
+                                borderColor:  '#DEEEEA',
+                                color: '#DEEEEA',
+                                fontWeight: 700,
+                                "&:hover ": {
+                                    borderColor: "#BF1363",
+                                    color: '#BF1363',
+                                },
+                            },
                             '&.CustomFab': {
                                 background: '#39A6A3',
                                 color: '#DEEEEA',
@@ -114,5 +236,5 @@ let theme = createTheme ({
     theme = responsiveFontSizes(theme);
 
 
-export {CssTextField, Brand, Subtitle, theme, CustomCheckbox}
+export {CssTextField, Brand, Subtitle, theme, BorderLinearProgress, BorderLinearProgressMid, BorderLinearProgressRock, CustomCheckbox, CustomDateInput, CustomSelect}
 

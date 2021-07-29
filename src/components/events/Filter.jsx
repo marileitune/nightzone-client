@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
-import { TextField, Button, FormControl, InputLabel, Select, MenuItem, Chip, Checkbox, FormControlLabel, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
+import { Grid, Button, InputLabel, Select, MenuItem} from '@material-ui/core';
+import {CssTextField, CustomDateInput, CustomSelect} from '../../DefaultTheme'
+
 
 class Filter extends Component {
 
     render() {
         return (
-            <div>
-                <Button variant="contained" color="primary" onClick={this.props.onClean}>CLEAN FILTER</Button>
-                <TextField id="outlined-basic" label="Search" variant="outlined" type="text" value={this.props.text} onChange={this.props.onSearch}/>
-                <TextField
+            <Grid flexDirection="row">
+                
+                <CssTextField id="outlined-basic" label="Search for a party" variant="outlined" type="text" value={this.props.text} onChange={this.props.onSearch}/>
+                <CustomDateInput
+                    variant="outlined"
                     id="date"
                     label="Start date"
                     type="date"
@@ -16,10 +19,10 @@ class Filter extends Component {
                     value={this.props.startDate}
                     onChange={this.props.onDate}
                     InputLabelProps={{
-                    shrink: true,
+                        shrink: true
                     }}
                 />
-                <FormControl variant="outlined">
+                <CustomSelect variant="outlined">
                     <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
                     <Select
                     labelId="demo-simple-select-outlined-label"
@@ -34,8 +37,8 @@ class Filter extends Component {
                         </MenuItem>
                     ))}
                     </Select>
-                </FormControl>
-                <FormControl variant="outlined">
+                </CustomSelect>
+                <CustomSelect variant="outlined">
                     <InputLabel id="demo-simple-select-outlined-label">Ticket type</InputLabel>
                     <Select
                     labelId="demo-simple-select-outlined-label"
@@ -47,8 +50,9 @@ class Filter extends Component {
                         <MenuItem value="free">Free</MenuItem>
                         <MenuItem value="paid"> Paid</MenuItem>
                     </Select>
-                </FormControl>
-            </div>
+                </CustomSelect>
+                <Button variant="outlined" className="CustomStrokeButton"onClick={this.props.onClean}>CLEAR</Button>
+            </Grid>
         )
     }
 }

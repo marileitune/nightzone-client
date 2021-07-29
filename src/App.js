@@ -4,6 +4,7 @@ import axios from 'axios';
 import {API_URL} from './config.js'
 import Styles from './App.css'
 import { ThemeProvider,  } from "@material-ui/styles";
+import {CircularProgress} from '@material-ui/core';
 
 //start importing components
 import Home from './components/Home';
@@ -32,7 +33,7 @@ class App extends Component {
 
   componentDidMount = async () => {
         try {
-           let userResponse = await axios.get(`${API_URL}/api/user`)
+           let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
            await this.setState({
               user: userResponse.data,
               fetchingUser: false,
@@ -127,7 +128,7 @@ class App extends Component {
 
   render() {
     if (this.state.fetchingUser){
-      return <p>...Loading</p>
+      return <CircularProgress color="secondary" />
     }
 
     return (

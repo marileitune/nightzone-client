@@ -1,12 +1,25 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Link, Redirect} from "react-router-dom";
+import { Link, Redirect, withRouter} from "react-router-dom";
 import {API_URL} from '../../config.js'
 import { Tooltip, CardActionArea, Card, CardMedia, IconButton, CardContent, CardActions, Typography, Divider, AppBar, Tab, LinearProgress, Avatar, Collapse} from '@material-ui/core'
-import { TextareaAutosize, Button } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { TabList, TabPanel, TabContext, Alert} from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Filter from './Filter.jsx'
+import FilterListIcon from '@material-ui/icons/FilterList';
+import EventIcon from '@material-ui/icons/Event';
+import PlaceIcon from '@material-ui/icons/Place';
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
+import PoolIcon from '@material-ui/icons/Pool';//Swimming Pool category
+import LocalBarIcon from '@material-ui/icons/LocalBar'; //Drinks category
+import DeckIcon from '@material-ui/icons/Deck';//Outdoor party category
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';//Music category
+import EmojiNatureIcon from '@material-ui/icons/EmojiNature';//Costume category
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports'; //Game party category
+import MicIcon from '@material-ui/icons/Mic';//karaoke category
+import HouseIcon from '@material-ui/icons/House';//house party category
+import {BorderLinearProgress, BorderLinearProgressMid, BorderLinearProgressRock} from '../../DefaultTheme'
 
 class EventsList extends Component {
 
@@ -62,12 +75,62 @@ class EventsList extends Component {
         })
     }
 
+    getCategoryIcon = (category) => {
+        switch(category) {
+            case 'houseParty':
+                return <HouseIcon/>
+                break;
+            case 'outdoorParty':
+                return <DeckIcon/>
+                break;
+            case 'music':
+                return <AudiotrackIcon/>
+                break;
+            case 'karaoke':
+                return <MicIcon/>
+                break;
+            case 'gameParty':
+                return <SportsEsportsIcon/>
+                break;
+            case 'drinks':
+                return <LocalBarIcon/>
+                break;
+            case 'costumeParty':
+                return <EmojiNatureIcon/>
+                break;
+            case 'swimmingPool':
+                return <PoolIcon/>
+                break;
+            default: 
+          }
+    }
+
     handleExpandedId = async (i) => {
         this.setState({
             expandedId: this.state.expandedId === i ? -1 : i
         })
         
     }
+
+    handleProgress = (progress) => {
+        const progressInt = Math.round(progress)
+        if (progressInt<20){
+            return <Tooltip title={"This party could be better"} >
+                        <BorderLinearProgress variant="determinate" value={progress}/> 
+                    </Tooltip>
+        } else if (progressInt>=20 && progressInt<50){
+            return <Tooltip title={"Maybe this party get better. You should try."} >
+                        <BorderLinearProgressMid variant="determinate" value={progress}/> 
+                    </Tooltip>
+        } else {
+            return <Tooltip title={"This party is rocking and you are missing. RUN!"} >
+                        <BorderLinearProgressRock variant="determinate" value={progress}/> 
+                    </Tooltip>
+        }
+    }
+
+
+
 
     handleShowFilters = async () => {
         const {showFilter} = this.state
@@ -87,15 +150,6 @@ class EventsList extends Component {
         let searchedEvent = e.target.value
         await this.setState({searchText: searchedEvent})
         this.handleFilterGeneral()
-    }
-
-    filterCategories = async () => {
-        try {
-
-        }
-        catch (err) {
-
-        }
     }
 
     filterDate = async (e) => {
@@ -191,130 +245,242 @@ class EventsList extends Component {
 
             <div style={{marginTop: '60px'}}>
                 <TabContext value={value}>
-                    <AppBar color="transparent" position="static">
-                        <TabList onChange={this.handleChange} aria-label="simple tabs example" value={value}>
+                    <AppBar color="#231E23" position="fixed">
+                        <TabList onChange={this.handleChange} aria-label="simple tabs example" value={value} >
                             <Tab label="Next events" value="1" style={{color: '#DEEEEA', fontWeight: 700}} {...this.a11yProps(0)} />
                             <Tab label="Hot zone" value="2" style={{color: '#DEEEEA', fontWeight: 700}} {...this.a11yProps(1)}/>
                         </TabList>
                     </AppBar>
                     <TabPanel value="1">
-                    <Button variant="contained" color="primary" onClick={this.handleShowFilters}>FILTERS</Button>
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={this.handleShowFilters}><FilterListIcon/>Filters</Button>
                     {
                         showFilter && <Filter onSearch={this.handleSearchName} text={searchText} city={city} startDate={startDate} ticketType={ticketType} onDate={this.filterDate} onTicketType={this.filterTicketType} cities={cities} onCity={this.filterCity} onClean={this.handleClean}/>
                     }
-                        {
-                        filteredEvents.map((event, i) => {
-                            return <Card key={i} style={{ backgroundColor: 'transparent' }}>
-                                <Link to={`/events/${event._id}`} style={{ textDecoration: 'none' }}>
+                        
+                            <Grid container spacing={3} flexPosition="row">
+                            {
+                            filteredEvents.map((event, i) => {
+                            return <>
+                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} spacing={5} >
+                                <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                                <Link to={`/events/${event._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
                                     <CardActionArea>
                                         <CardMedia
                                         component="img"
                                         alt="image-event"
-                                        height="140"
+                                        height="300px"
                                         image={`${event.imageEvent}`}
                                         title="image-event"
                                         />
                                         <CardContent>
-                                            <Typography gutterBottom variant="h5" component="h2" >
-                                                {event.name}
-                                            </Typography>
-                                            <Divider light />
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                {event.start} 
-                                            </Typography>
-                                            <Divider light />
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                            {event.address}
-                                            </Typography>
-                                            <Divider light />
-                                            {
-                                                event.categories.map((category) => {
-                                                    return <p>{category}</p>
-                                                })
-                                            }
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                            {event.category}
-                                            </Typography>
-                                            <Divider light />
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                            {event.capacity - event.ticketsSold.length}
-                                            </Typography>
+                                        <Grid container wrap="nowrap" spacing={2}>
+                                               
+                                        </Grid>
+                                            <Grid container flexPosition="column">
+                                                {/* NAME */}
+                                                <Grid>
+                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
+                                                        {event.name}
+                                                    </Typography>
+                                                <Divider light />
+                                                </Grid>                                       
+                                                {/* START */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <EventIcon/>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            {event.start} 
+                                                        </Typography>
+                                                    </Grid>
+                                                   
+                                                </Grid>
+                                                <Divider light />
+                                                {/* ADDRESS */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <PlaceIcon/>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            {event.address} 
+                                                        </Typography>
+                                                    </Grid>
+                                                   
+                                                </Grid>
+                                                <Divider light />
+                                                {/* TICKETS AVAILABLE */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                        <Grid item>
+                                                            <ConfirmationNumberIcon/>
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                                <Typography variant="body2" component="p">
+                                                                    {event.capacity - event.ticketsSold.length} tickets available
+                                                                </Typography>
+                                                        </Grid>         
+                                                </Grid>
+                                                {/* CATEGORIES*/}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                {
+                                                    event.categories.map((category) => {
+                                                        return <div>
+                                                            <Grid item xs>{
+                                                                this.getCategoryIcon(category)
+                                                            }
+                                                            </Grid>  
+                                                        </div>
+                                                    })
+                                                }
+                                                </Grid>
+                                            </Grid>
                                         </CardContent>
                                     </CardActionArea>
                                 </Link>
                             </Card>
-                        })
+                                </Grid>
+                            </>
+                            })
                         }
+                            </Grid>
+                         
+                            
+                        
                     </TabPanel>
-                    <TabPanel value="2">{
-                        hotzone.map((zoneEvent, i) => {
-                            return <Card key={i} style={{ backgroundColor: 'transparent' }}>
-                                        <CardActionArea>
-                                            <Link to={`/events/${zoneEvent._id}`} style={{ textDecoration: 'none' }}>
-                                                <CardMedia
-                                                component="img"
-                                                alt="image-event"
-                                                height="140"
-                                                image={`${zoneEvent.imageEvent}`}
-                                                title="image-event"
-                                                />
-                                            </Link>
-                                            <CardContent>
-                                                <LinearProgress variant="determinate" value={progress} />
-                                                <Typography gutterBottom variant="h5" component="h2" >
-                                                    {zoneEvent.name}
-                                                </Typography>
+                    <TabPanel value="2">
+                        <Grid container spacing={3} flexPosition="row">
+                            {
+                            hotzone.map((zoneEvent, i) => {
+                            return <>
+                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} spacing={5} >
+                                <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                                <Link to={`/events/${zoneEvent._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                        component="img"
+                                        alt="image-event"
+                                        height="300px"
+                                        image={`${zoneEvent.imageEvent}`}
+                                        title="image-event"
+                                        />
+                                            {
+                                            this.handleProgress(progress)
+                                            }
+                                        <CardContent>
+                                            <Grid container flexPosition="column">
+                                                {/* NAME */}
+                                                <Grid>
+                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
+                                                        {zoneEvent.name}
+                                                    </Typography>
                                                 <Divider light />
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                    {zoneEvent.start} 
-                                                </Typography>
+                                                </Grid>                                       
+                                                {/* START */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <EventIcon/>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            {zoneEvent.start} 
+                                                        </Typography>
+                                                    </Grid>
+                                                   
+                                                </Grid>
                                                 <Divider light />
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                {zoneEvent.address}
-                                                </Typography>
+                                                {/* ADDRESS */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <PlaceIcon/>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            {zoneEvent.address} 
+                                                        </Typography>
+                                                    </Grid>
+                                                   
+                                                </Grid>
                                                 <Divider light />
+                                                {/* TICKETS AVAILABLE */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                        <Grid item>
+                                                            <ConfirmationNumberIcon/>
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                                <Typography variant="body2" component="p">
+                                                                    {zoneEvent.capacity - zoneEvent.ticketsSold.length} tickets available
+                                                                </Typography>
+                                                        </Grid>         
+                                                </Grid>
+                                                {/* CATEGORIES*/}
+                                                <Grid container wrap="nowrap" spacing={2}>
                                                 {
                                                     zoneEvent.categories.map((category) => {
-                                                        return <p>{category}</p>
+                                                        return <div>
+                                                            <Grid item xs>{
+                                                                this.getCategoryIcon(category)
+                                                            }
+                                                            </Grid>  
+                                                        </div>
                                                     })
                                                 }
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                {zoneEvent.category}
-                                                </Typography>
-                                                <Divider light />
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                {zoneEvent.capacity - zoneEvent.ticketsSold.length}
-                                                </Typography>
-                                            </CardContent>
-                                                <Typography>
-                                                    {zoneEvent.checkIn.length}  people checkedIn
-                                                </Typography>
-                                        </CardActionArea>
-                                        <CardActions disableSpacing>
-                                            <IconButton
-                                            onClick={() => this.handleExpandedId(i)}
-                                            aria-expanded={this.state.expandedId === i}
-                                            aria-label="show more"
-                                            >
-                                            <ExpandMoreIcon />
-                                            </IconButton>
-                                        </CardActions>
-                                        <Collapse in={this.state.expandedId === i} timeout="auto" unmountOnExit>
-                                            <CardContent>
-                                            {
-                                                zoneEvent.checkIn.map((user) => {
-                                                    return  <Link to={`${`/account/${user._id}`}`}> 
-                                                                <Tooltip title={`${user.name}`} >
-                                                                    <Avatar alt="user photo" src={`${user.imageAccount}`} />
-                                                                </Tooltip>
-                                                            </Link>
-                                                })
-                                            }
-                                            </CardContent>
-                                        </Collapse>
-                                    </Card>
-                        })
-                    }
+                                                </Grid>
+                                                {/* CHECK IN */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                        <Grid item>
+                                                            <Typography style={{fontWeight: 700}}>{zoneEvent.checkIn.length}</Typography>
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                                <Typography variant="body2" component="p">
+                                                                    people checked in
+                                                                </Typography>
+                                                        </Grid>         
+                                                </Grid>
+                                            </Grid>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Link>
+                                <CardActions disableSpacing>
+                                                <IconButton
+                                                onClick={() => this.handleExpandedId(i)}
+                                                aria-expanded={this.state.expandedId === i}
+                                                aria-label="show more"
+                                                >
+                                                <ExpandMoreIcon />
+                                                </IconButton>
+                                            </CardActions>
+                                            <Collapse in={this.state.expandedId === i} timeout="auto" unmountOnExit>
+                                                <CardContent>
+                                                    <Grid container wrap="nowrap" spacing={2}>
+                                                        {
+                                                        zoneEvent.checkIn.map((user) => {
+                                                            return  <Grid item>
+                                                                        <Link to={`${`/account/${user._id}`}`}> 
+                                                                            <Tooltip title={`${user.firstName} ${user.lastName}`} >
+                                                                                <Avatar alt="user photo" src={`${user.imageAccount}`} />
+                                                                            </Tooltip>
+                                                                        </Link>
+                                                                    </Grid>
+                                                        })
+                                                    }
+                                                    </Grid>
+                                                
+                                                </CardContent>
+                                            </Collapse>
+                            </Card>
+                                </Grid>
+                            </>
+                            })
+                        }
+                            </Grid>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </TabPanel>
                 </TabContext>
             </div>
@@ -323,6 +489,6 @@ class EventsList extends Component {
     
 }
 
-export default EventsList;
+export default withRouter(EventsList);
 
 
