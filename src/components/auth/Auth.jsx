@@ -27,6 +27,8 @@ class Auth extends Component {
         age: false,
         error: null
     }
+
+    
     
     prevStep = () => {
         const {step} = this.state
@@ -38,10 +40,47 @@ class Auth extends Component {
         this.setState({ step: step -1})
     }
 
-    nextStep = () => {
-        console.log('mariana')
+    nextStep = async () => {
+        // const {step} = this.state
+        // this.setState({ step: step +1})
         const {step} = this.state
-        this.setState({ step: step +1})
+        switch (step) {
+            case 1: 
+                await this.setState({ step: step +1, error: null})
+                break;
+            case 2:
+                if (this.state.email){
+                    await this.setState({ error: null})
+                    this.handleAuth()    
+                } else {
+                    await this.setState({ error: "Please fill in your email"})
+                }
+                break;
+            case 3: 
+                if (this.state.password){
+                    await this.setState({ error: null})
+                    this.handleLogin()
+                } else {
+                    await this.setState({ error: "Please enter your password"})
+                }
+                break;
+            case 4:
+                if (this.state.firstName && this.state.lastName){
+                    await this.setState({ step: step +1, error: null})
+                } else {
+                    await this.setState({ error: "Please fill in all the fields"})
+                }
+                break;
+            case 5:
+                if (this.state.age && this.state.password && this.state.confirmPassword){
+                    await this.setState({ error: null})
+                    this.handleRegister()
+                } else {
+                    await this.setState({ error: "Please fill in all the fields"})
+                }
+                break;
+        }
+
     }
 
     //here we are saving the things typed by the user in the state, to grab the information later on handleLogin or handleRegister
@@ -136,8 +175,7 @@ class Auth extends Component {
 
     render() {
         const {onFacebookResponse, onGoogleResponse} = this.props
-        const { step } = this.state;
-        const {error} = this.state
+        const { step, error, email, firstName, lastName} = this.state;
         switch (step) {
             case 1: 
                 return (
@@ -145,19 +183,19 @@ class Auth extends Component {
                 )
             case 2: 
                 return (
-                    <EmailInput onNext={this.handleAuth} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
+                    <EmailInput onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} error={error} email={email}/>
                 )
             case 3: 
                 return (
-                    <PasswordInputSignIn onLogin={this.handleLogin} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
+                    <PasswordInputSignIn onLogin={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
                 )
-                case 4:
-                    return (
-                        <NameInput onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} error={error}/>
-                    )
+            case 4:
+                return (
+                    <NameInput onNext={this.nextStep} onPreview={this.prevStep} onChange={this.handleChange} firstName={firstName} lastName={lastName}  error={error}/>
+                )
             case 5:
                 return (
-                    <PasswordInputSignUp onRegister={this.handleRegister} onPreview={this.prevStep} onCheck={this.handleCheck} onChange={this.handleChange} error={error}/>
+                    <PasswordInputSignUp onRegister={this.nextStep} onPreview={this.prevStep} onCheck={this.handleCheck} onChange={this.handleChange} error={error}/>
                 )
             default: 
         }

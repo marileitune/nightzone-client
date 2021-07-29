@@ -63,7 +63,6 @@ class EditEvent extends Component {
                 countriesOptions: countries.data.data
             })
 
-            let cities = await axios.get(`https://countriesnow.space/api/v0.1/countries`)
             const countryTarget = this.state.countriesOptions.find((elem) => {
                 return  elem.country == this.state.country
              })

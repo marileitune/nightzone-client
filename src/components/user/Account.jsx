@@ -205,9 +205,12 @@ class Account extends Component {
                                                     </Grid> 
                                                 </Grid>
                                                 <Divider light />
-                                               <Link to={`/events/${event._id}/edit`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
+                                                {
+                                                    event.ticketsSold.length == 0 && <Link to={`/events/${event._id}/edit`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
                                                     <Button variant="contained" className="CustomButton">EDIT</Button>
                                                 </Link>
+                                                }
+                                               
                                             </Grid>
                                         </CardContent>
                                     </CardActionArea>
