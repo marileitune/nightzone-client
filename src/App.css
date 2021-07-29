@@ -30,4 +30,11 @@ body {
 	align-items: center;
 	flex-direction: column;
 	height: 100vh;
-  }
+}
+
+.horizontal-centered {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	height: 100vh;
+}

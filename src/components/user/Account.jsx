@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Link, withRouter } from "react-router-dom";
 import {API_URL} from '../../config.js'
-import {CardActionArea, Card, CardMedia, Button, CardContent, Typography, Divider, AppBar, Tab} from '@material-ui/core'
+import {CardActionArea, Grid, Card, CardMedia, Button, CardContent, Typography, Divider, AppBar, Tab} from '@material-ui/core'
 import { TabList, TabPanel, TabContext} from '@material-ui/lab'
+import EventIcon from '@material-ui/icons/Event';
+import PlaceIcon from '@material-ui/icons/Place';
+
 class Account extends Component {
 
     state = {
-        value: 1,
+        value: "1",
         ticketsBought: [],
         eventsCreated: [],
         user: this.props.user,
@@ -48,91 +51,163 @@ class Account extends Component {
 
     render() {
         const {value, ticketsBought, eventsCreated, user} = this.state
-        console.log(eventsCreated)
         return (
-            <div>
-                { user !== null && this.props.match.params.userId !== user._id &&  <Link to={`/chat/${this.props.match.params.userId }`}><Button variant="contained" color="primary">CHAT</Button></Link>}
+            <div style={{marginTop: '60px'}}>
+                
                 <TabContext value={value}>
-                    <AppBar position="static">
-                        <TabList onChange={this.handleChange} aria-label="simple tabs example">
-                            <Tab label="My tickets" value="1" />
-                            <Tab label="My events" value="2" />
+                    <AppBar color="#231E23" position="fixed">
+                        <TabList onChange={this.handleChange} aria-label="simple tabs example" value={value} >
+                            <Tab label="My tickets" value="1" style={{color: '#DEEEEA', fontWeight: 700}} />
+                            <Tab label="My events" value="2" style={{color: '#DEEEEA', fontWeight: 700}} />
                         </TabList>
                     </AppBar>
                     <TabPanel value="1">
-                        {
+                            <Grid container spacing={3} direction="row">
+                            {
                             ticketsBought.map((event, i) => {
-                                return <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                            return <>
+                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} spacing={5}>
+                                <Card key={i} style={{ backgroundColor: 'transparent' }}>
                                     <CardActionArea>
-                                        <Link to={`/events/${event.event._id}`} style={{ textDecoration: 'none' }}>
-                                            <CardMedia
-                                            component="img"
-                                            alt="image-event"
-                                            height="140"
-                                            image={`${event.event.imageEvent}`}
-                                            title="image-event"
-                                            />
-                                        </Link>
+                                        <Link to={`/events/${event._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
+                                        <CardMedia
+                                        component="img"
+                                        alt="image-event"
+                                        height="300px"
+                                        image={`${event.event.imageEvent}`}
+                                        title="image-event"
+                                        />
                                         <CardContent>
-                                            <Typography gutterBottom variant="h5" component="h2" >
-                                                {event.event.name}
-                                            </Typography>
-                                            <Divider light />
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                {event.event.start} 
-                                            </Typography>
-                                            <Divider light />
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                {event.event.address}
-                                            </Typography>
-                                            <Divider light />
-                                            {
-                                                event.canCheckIn && (<>
-                                                <p>Please, only click this button when the receptionist order to.</p>
-                                                <Button variant="contained" color="primary" onClick={() => this.handleCheckIn(event.event._id)}>CHECK IN</Button>
-                                                </>)
-                                            }
+                                        <Grid container wrap="nowrap" spacing={2}>     
+                                        </Grid>
+                                            <Grid container  wrap="nowrap" spacing={2} direction="column">
+                                                {/* NAME */}
+                                                <Grid>
+                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
+                                                        {event.event.name}
+                                                    </Typography>
+                                                <Divider light />
+                                                </Grid>                                       
+                                                {/* START */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <EventIcon/>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            {event.event.start} 
+                                                        </Typography>
+                                                    </Grid>
+                                                   
+                                                </Grid>
+                                                <Divider light />
+                                                {/* ADDRESS */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <PlaceIcon/>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            {event.event.address} 
+                                                        </Typography>
+                                                    </Grid>
+                                                   
+                                                </Grid>
+                                                <Divider light />
+                                               
+                                            </Grid>
                                         </CardContent>
+                                        </Link>     
                                     </CardActionArea>
-                                </Card>
+                                        {/* CHECK IN */}
+                                        <Grid container wrap="nowrap" spacing={2}>
+                                                {
+                                                    event.canCheckIn ? (<>
+                                                    <Grid item>
+                                                        <Typography style={{fontWeight: 700}}>Please, only click this button when the receptionist order to.</Typography>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Button variant="contained" className="CustomButton" onClick={() => this.handleCheckIn(event.event._id)}>CHECK IN</Button>
+                                                    </Grid>
+                                                    </>)  :
+                                                    (<>
+                                                        <Grid item xs>
+                                                            <Button variant="outlined" className="CustomDisableButton" >CANNOT CHECK IN</Button>
+                                                        </Grid>
+                                                    </>) 
+                                                            
+                                                }
+                                        </Grid>
+                            </Card>
+                                </Grid>
+                            </>
                             })
                         }
+                            </Grid>
                     </TabPanel>
                     <TabPanel value="2">
-                        {
+                        <Grid container spacing={3} flexPosition="row">
+                            {
                             eventsCreated.map((event, i) => {
-                                return <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                            return <>
+                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} spacing={5} >
+                                <Card key={i} style={{ backgroundColor: 'transparent' }}>
+                                <Link to={`/events/${event._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
                                     <CardActionArea>
-                                        <Link to={`/events/${event._id}`} style={{ textDecoration: 'none' }}>
-                                            <CardMedia
-                                            component="img"
-                                            alt="image-event"
-                                            height="140"
-                                            image={`${event.imageEvent}`}
-                                            title="image-event"
-                                            />
-                                        </Link>
+                                        <CardMedia
+                                        component="img"
+                                        alt="image-event"
+                                        height="300px"
+                                        image={`${event.imageEvent}`}
+                                        title="image-event"
+                                        />
                                         <CardContent>
-                                            <Typography gutterBottom variant="h5" component="h2" >
-                                                {event.name}
-                                            </Typography>
-                                            <Divider light />
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                {event.ticketsSold.length} tickets sold
-                                            </Typography>
-                                            <Divider light />
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                {event.checkIn.length} people checked in
-                                            </Typography>
-                                            <Divider light />
-                                            <Link to={`/events/${event._id}/edit`}>
-                                                <Button variant="contained" color="primary">EDIT</Button>
-                                            </Link>
+                                            <Grid container direction="column">
+                                                {/* NAME */}
+                                                <Grid>
+                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
+                                                        {event.name}
+                                                    </Typography>
+                                                <Divider light />
+                                                </Grid>                                       
+                                                {/* TICKETS SOLD */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <Typography style={{fontWeight: 700}}>{event.ticketsSold.length}</Typography>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            tickets sold
+                                                        </Typography>
+                                                    </Grid> 
+                                                </Grid>
+                                                <Divider light />
+                                                {/* CHECK IN */}
+                                                <Grid container wrap="nowrap" spacing={2}>
+                                                    <Grid item>
+                                                        <Typography style={{fontWeight: 700}}>{event.ckeckIn.length}</Typography>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <Typography variant="body2" component="p">
+                                                            people checked in
+                                                        </Typography>
+                                                    </Grid> 
+                                                </Grid>
+                                                <Divider light />
+                                               <Link to={`/events/${event._id}/edit`}>
+                                                    <Button variant="contained">EDIT</Button>
+                                                </Link>
+                                            </Grid>
                                         </CardContent>
                                     </CardActionArea>
-                                </Card>
+                                </Link>
+
+                            </Card>
+                            </Grid>
+                            </>
                             })
-                        }
+                             }
+                            </Grid>
                     </TabPanel>
                 </TabContext>
             </div>

@@ -218,6 +218,11 @@ let theme = createTheme ({
                                     color: '#BF1363',
                                 },
                             },
+                            '&.CustomDisableButton': {
+                              borderColor:  '#DEEEEA',
+                              color: '#DEEEEA',
+                              fontWeight: 700,
+                              },
                             '&.CustomFab': {
                                 background: '#39A6A3',
                                 color: '#DEEEEA',

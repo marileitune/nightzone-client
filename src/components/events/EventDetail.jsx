@@ -147,7 +147,7 @@ class EventDetail extends Component {
         const {user} = this.props
         // const promise = loadStripe("pk_test_51JFxmQGLw6mfE9JvfuXfSeVyUAiedGg0atoexZN0VMTrvtdSsIqfWycGgvcym3tSYV8eElXrGlHobUphaJe5z8ko00MEIHTnt7")
         return (
-            <Grid container flexDirection="column" className="both-centered" style={{color:"#DEEEEA"}}>
+            <Grid container direction="column" style={{color:"#DEEEEA"}} className="horizontal-centered">
                 <Grid item>
                     <img src={`${eventDetail.imageEvent}`} alt="event image" height="400px" />
                 </Grid>

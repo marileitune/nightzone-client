@@ -21,6 +21,7 @@ import ChatPage from './components/chat/ChatPage'
 
 //importing styles
 import {theme} from './DefaultTheme'
+import SetupAccount from "./components/user/SetupAccount.jsx";
 
 //COMPONENT
 class App extends Component {
@@ -162,7 +163,7 @@ class App extends Component {
               />
               }} />
               <Route exact path={'/account/:userId'}  render={(routeProps) => {
-                return <Account {...routeProps}
+                return <SetupAccount {...routeProps}
                 user={this.state.user}
               />
               }} />

@@ -21,6 +21,7 @@ import MicIcon from '@material-ui/icons/Mic';//karaoke category
 import HouseIcon from '@material-ui/icons/House';//house party category
 import {BorderLinearProgress, BorderLinearProgressMid, BorderLinearProgressRock} from '../../DefaultTheme'
 
+
 class EventsList extends Component {
 
     state = {
@@ -62,12 +63,6 @@ class EventsList extends Component {
         }
     }
 
-   a11yProps(index) {
-        return {
-          id: `scrollable-auto-tab-${index}`,
-          "aria-controls": `scrollable-auto-tabpanel-${index}`
-        };
-      }
 
     handleChange = async (e, newValue) => {
         this.setState({
@@ -247,8 +242,8 @@ class EventsList extends Component {
                 <TabContext value={value}>
                     <AppBar color="#231E23" position="fixed">
                         <TabList onChange={this.handleChange} aria-label="simple tabs example" value={value} >
-                            <Tab label="Next events" value="1" style={{color: '#DEEEEA', fontWeight: 700}} {...this.a11yProps(0)} />
-                            <Tab label="Hot zone" value="2" style={{color: '#DEEEEA', fontWeight: 700}} {...this.a11yProps(1)}/>
+                            <Tab label="Next events" value="1" style={{color: '#DEEEEA', fontWeight: 700}} />
+                            <Tab label="Hot zone" value="2" style={{color: '#DEEEEA', fontWeight: 700}} />
                         </TabList>
                     </AppBar>
                     <TabPanel value="1">
@@ -257,11 +252,11 @@ class EventsList extends Component {
                         showFilter && <Filter onSearch={this.handleSearchName} text={searchText} city={city} startDate={startDate} ticketType={ticketType} onDate={this.filterDate} onTicketType={this.filterTicketType} cities={cities} onCity={this.filterCity} onClean={this.handleClean}/>
                     }
                         
-                            <Grid container spacing={3} flexPosition="row">
+                            <Grid container spacing={3} direction="row">
                             {
                             filteredEvents.map((event, i) => {
                             return <>
-                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} spacing={5} >
+                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}  direction="column" spacing={5} >
                                 <Card key={i} style={{ backgroundColor: 'transparent' }}>
                                 <Link to={`/events/${event._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
                                     <CardActionArea>
@@ -273,10 +268,7 @@ class EventsList extends Component {
                                         title="image-event"
                                         />
                                         <CardContent>
-                                        <Grid container wrap="nowrap" spacing={2}>
-                                               
-                                        </Grid>
-                                            <Grid container flexPosition="column">
+                                            <Grid container  wrap="nowrap" spacing={2} direction="column">
                                                 {/* NAME */}
                                                 <Grid>
                                                     <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
@@ -349,7 +341,7 @@ class EventsList extends Component {
                         
                     </TabPanel>
                     <TabPanel value="2">
-                        <Grid container spacing={3} flexPosition="row">
+                        <Grid container spacing={3} direction="row">
                             {
                             hotzone.map((zoneEvent, i) => {
                             return <>
@@ -368,7 +360,7 @@ class EventsList extends Component {
                                             this.handleProgress(progress)
                                             }
                                         <CardContent>
-                                            <Grid container flexPosition="column">
+                                            <Grid container direction="column">
                                                 {/* NAME */}
                                                 <Grid>
                                                     <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
@@ -442,45 +434,38 @@ class EventsList extends Component {
                                     </CardActionArea>
                                 </Link>
                                 <CardActions disableSpacing>
-                                                <IconButton
-                                                onClick={() => this.handleExpandedId(i)}
-                                                aria-expanded={this.state.expandedId === i}
-                                                aria-label="show more"
-                                                >
-                                                <ExpandMoreIcon />
-                                                </IconButton>
-                                            </CardActions>
-                                            <Collapse in={this.state.expandedId === i} timeout="auto" unmountOnExit>
-                                                <CardContent>
-                                                    <Grid container wrap="nowrap" spacing={2}>
-                                                        {
-                                                        zoneEvent.checkIn.map((user) => {
-                                                            return  <Grid item>
-                                                                        <Link to={`${`/account/${user._id}`}`}> 
-                                                                            <Tooltip title={`${user.firstName} ${user.lastName}`} >
-                                                                                <Avatar alt="user photo" src={`${user.imageAccount}`} />
-                                                                            </Tooltip>
-                                                                        </Link>
-                                                                    </Grid>
-                                                        })
-                                                    }
-                                                    </Grid>
+                                    <IconButton
+                                        onClick={() => this.handleExpandedId(i)}
+                                        aria-expanded={this.state.expandedId === i}
+                                        aria-label="show more"
+                                    >
+                                    <ExpandMoreIcon />
+                                    </IconButton>
+                                </CardActions>
+                                    <Collapse in={this.state.expandedId === i} timeout="auto" unmountOnExit>
+                                        <CardContent>
+                                            <Grid container wrap="nowrap" spacing={2}>
+                                                {
+                                                    zoneEvent.checkIn.map((user) => {
+                                                        return <Grid item>
+                                                            <Link to={`${`/account/${user._id}`}`}> 
+                                                                <Tooltip title={`${user.firstName} ${user.lastName}`} >
+                                                                    <Avatar alt="user photo" src={`${user.imageAccount}`} />
+                                                                </Tooltip>
+                                                            </Link>
+                                                        </Grid>
+                                                    })
+                                                }
+                                            </Grid>
                                                 
-                                                </CardContent>
-                                            </Collapse>
+                                        </CardContent>
+                                    </Collapse>
                             </Card>
-                                </Grid>
+                            </Grid>
                             </>
                             })
-                        }
+                             }
                             </Grid>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
                     </TabPanel>
                 </TabContext>
             </div>
