@@ -25,7 +25,7 @@ form {
   padding: 40px;
 }
 
-input {
+/* input {
   border-radius: 6px;
   margin-bottom: 6px;
   padding: 12px;
@@ -35,7 +35,7 @@ input {
   width: 100%;
   background: white;
   box-sizing: border-box;
-}
+} */
 
 .result-message {
   line-height: 22px;
@@ -75,8 +75,8 @@ input {
 }
 
 /* Buttons and links */
-/*
-button {
+
+.stripe-button {
   background: #5469d4;
   font-family: Arial, sans-serif;
   color: #ffffff;
@@ -92,11 +92,11 @@ button {
   width: 100%;
 }
 
-button:hover {
+.stripe-button:hover {
   filter: contrast(115%);
 }
 
-button:disabled {
+.stripe-button:disabled {
   opacity: 0.5;
   cursor: default;
 }

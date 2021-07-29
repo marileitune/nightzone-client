@@ -4,7 +4,7 @@ import axios from 'axios';
 import {API_URL} from '../../config.js'
 import Profile from './Profile'
 import Account from './Account'
-
+import {CircularProgress} from '@material-ui/core';
 
 class SetupAccount extends Component {
     state = {
@@ -13,7 +13,6 @@ class SetupAccount extends Component {
     }
     
     componentDidMount = async () => {
-        console.log(this.props.match.params.userId, this.state.user._id )
         try {
             let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
             await this.setState({
@@ -26,6 +25,9 @@ class SetupAccount extends Component {
         }
     }
     render() {
+        if (this.state.fetchingUser){
+            return <CircularProgress color="secondary" />
+          }
         const {user} = this.state
         return (
             <div>

@@ -7,6 +7,7 @@ import { TabList, TabPanel, TabContext} from '@material-ui/lab'
 import EventIcon from '@material-ui/icons/Event';
 import PlaceIcon from '@material-ui/icons/Place';
 
+
 class Account extends Component {
 
     state = {
@@ -120,7 +121,7 @@ class Account extends Component {
                                         </Link>     
                                     </CardActionArea>
                                         {/* CHECK IN */}
-                                        <Grid container wrap="nowrap" spacing={2}>
+                                        <Grid container wrap="nowrap" spacing={2} direction="column">
                                                 {
                                                     event.canCheckIn ? (<>
                                                     <Grid item>
@@ -185,7 +186,7 @@ class Account extends Component {
                                                 {/* CHECK IN */}
                                                 <Grid container wrap="nowrap" spacing={2}>
                                                     <Grid item>
-                                                        <Typography style={{fontWeight: 700}}>{event.ckeckIn.length}</Typography>
+                                                        <Typography style={{fontWeight: 700}}>{event.checkIn.length}</Typography>
                                                     </Grid>
                                                     <Grid item xs>
                                                         <Typography variant="body2" component="p">
@@ -194,8 +195,8 @@ class Account extends Component {
                                                     </Grid> 
                                                 </Grid>
                                                 <Divider light />
-                                               <Link to={`/events/${event._id}/edit`}>
-                                                    <Button variant="contained">EDIT</Button>
+                                               <Link to={`/events/${event._id}/edit`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
+                                                    <Button variant="contained" className="CustomButton">EDIT</Button>
                                                 </Link>
                                             </Grid>
                                         </CardContent>

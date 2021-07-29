@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import {withRouter, Redirect} from  'react-router-dom';
 import {API_URL} from '../../config.js'
 import axios from 'axios';
-import { TextField, Button, FormControl, InputLabel, Select, MenuItem, TextareaAutosize, Checkbox, FormControlLabel, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
+import { TextField, Typography, Button, FormControl, InputLabel, Select, MenuItem, Grid, FormControlLabel, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import {CssTextField, CustomCheckbox, CustomSelect, CustomDateInput} from '../../DefaultTheme'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 class EditEvent extends Component {
 
@@ -214,127 +216,170 @@ class EditEvent extends Component {
             }
         }
         return (
-            <div>
-                <TextField 
-                    id="outlined-basic" 
-                    label="Name" 
-                    variant="outlined" 
-                    type="text"
-                    value={name}
-                    onChange={this.handleChange('name')}
-                    required />
-                <TextField
-                    id="datetime-local"
-                    label="Start date and time"
-                    type="datetime-local"
-                    value={start}
-                    onChange={this.handleChange('start')}
-                    required
-                />
-                <TextField
-                    id="datetime-local"
-                    label="End date and time"
-                    type="datetime-local"
-                    value={end}
-                    onChange={this.handleChange('end')}
-                    required
-                />
-                <TextField 
-                    id="outlined-basic" 
-                    label="Address" 
-                    variant="outlined" 
-                    type="text"
-                    value={address}
-                    onChange={this.handleChange('address')}
-                    required />
-                {/* country */}
-                <FormControl variant="outlined" width="100px">
+            < Grid container direction="column" className="both-centered">
+                <Grid item>
+                    <CssTextField 
+                        id="outlined-basic" 
+                        label="Name" 
+                        variant="outlined" 
+                        type="text"
+                        value={name}
+                        onChange={this.handleChange('name')}
+                        required />
+                    </Grid>
+                <Grid container>
+                    <Grid item>
+                        <CustomDateInput
+                            variant="outlined"
+                            id="datetime-local"
+                            label="Start date and time"
+                            type="datetime-local"
+                            value={start}
+                            onChange={this.handleChange('start')}
+                            required
+                        />
+                    </Grid>
+                    <Grid item >
+                        <CustomDateInput
+                            variant="outlined"
+                            id="datetime-local"
+                            label="End date and time"
+                            type="datetime-local"
+                            value={end}
+                            onChange={this.handleChange('end')}
+                            required
+                        />
+                    </Grid>
+                </Grid>
+                <Grid item>
+                    <CssTextField 
+                        id="outlined-basic" 
+                        label="Address" 
+                        variant="outlined" 
+                        type="text"
+                        value={address}
+                        onChange={this.handleChange('address')}
+                        required />
+                </Grid>
+                <Grid container>
+                    <Grid item>
+                    <CustomSelect variant="outlined">
                     <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={country}
-                    onChange={this.handleCountry}
-                    label="Country"
-                    >
-                    {this.state.countriesOptions.map((option, i) => (
-                        <MenuItem key={i} value={option.country}>
-                        {option.country}
-                        </MenuItem>
-                    ))}
-                    </Select>
-                </FormControl>
-                {/* city */}
-                    {
-                      this.state.CountrySelected!== null && <FormControl variant="outlined">
-                      <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
-                      <Select 
-                      labelId="demo-simple-select-outlined-label"
-                      id="demo-simple-select-outlined"
-                      value={city}
-                      onChange={this.handleCity}
-                      label="City"
-                      >
-                      {this.state.citiesOptions.map((option, i) => (
-                          <MenuItem key={i} value={option}>
-                          {option}
-                          </MenuItem>
-                      ))}
-                      </Select>
-                  </FormControl> 
+                        <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={this.handleCountry}
+                        label="Country"
+                        value={country}
+                        >
+                        {this.state.countriesOptions.map((option, i) => (
+                            <MenuItem key={i} value={option.country}>
+                            {option.country}
+                            </MenuItem>
+                        ))}
+                        </Select>
+                    </CustomSelect>
+                    </Grid>
+                    <Grid item xs>
+                    {   this.state.CountrySelected!== null && <CustomSelect variant="outlined">
+                        <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={this.handleCity}
+                        label="City"
+                        value={city}
+                        >
+                        {this.state.citiesOptions.map((option, i) => (
+                            <MenuItem key={i} value={option}>
+                            {option}
+                            </MenuItem>
+                        ))}
+                        </Select>
+                    </CustomSelect>
                     }
-                <FormControlLabel control={
-                    <Checkbox 
-                    checked = {isPaid}
-                        name="isPaid"   
+                    </Grid>
+                </Grid>
+                <Grid item>
+                    <FormControlLabel control={
+                        <CustomCheckbox 
+                        checked = {isPaid}
+                            name="isPaid"   
 
-                            onChange={this.handleCheck}/>}
-                        label="The event is going to be paid."
-                    />
+                                onChange={this.handleCheck}/>}
+                            label="The event is going to be paid."
+                        />
+                </Grid>
                 {
                     
-                    isPaid && <><p>How much is the ticket?</p> <TextField id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" value={ticketsPrice}required onChange={this.handleChange('ticketsPrice')}/> </> 
+                    isPaid && <><Typography>How much is the ticket?</Typography> <CssTextField id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" value={ticketsPrice}required onChange={this.handleChange('ticketsPrice')}/> </> 
                 }
-                <p>Which is the party capacity?</p>
-                <TextField id="outlined-basic" label="capacity" variant="outlined" type="number" value={capacity} required onChange={this.handleChange('capacity')}/>
-
-                <TextField
-                    id="outlined-textarea"
-                    label="Multiline"
-                    placeholder="Description "
-                    multiline
-                    value={description}
-                    rows={4}
-                    onChange={this.handleChange('description')}
-                    variant="outlined"
-                />  
-                                
-                <Button
-                    variant="contained"
-                    component="label"
-                    >
-                        Add an image
-                    <input
+                <Grid item>
+                    <Typography>Which is the party capacity?</Typography>
+                    <CssTextField id="outlined-basic" label="capacity" variant="outlined" type="number" value={capacity} required onChange={this.handleChange('capacity')}/>
+                </Grid>
+                <Grid item>
+                    <CssTextField
+                        id="outlined-textarea"
+                        label="Multiline"
+                        placeholder="Description "
+                        multiline
+                        value={description}
+                        rows={4}
+                        onChange={this.handleChange('description')}
+                        variant="outlined"
+                    />  
+                </Grid>
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        color="default"
+                        className="CustomButton"
                         type="file"
                         name="imageEvent"
                         accept="image/png, image/jpg"
                         onChange={this.handleImage}
-                        hidden
-                    />
-                </Button>
-                <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("houseParty")} onChange={() => this.handleCategories('houseParty')}/>}label="House party"/>
-                <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("outdoorParty")} onChange={() => this.handleCategories('outdoorParty')}/>}label="Outdoor party"/>
-                <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("music")} onChange={() => this.handleCategories('music')}/>}label="Music"/>
-                <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("karaoke")} onChange={() => this.handleCategories('karaoke')}/>}label="Karaoke"/>
-                <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("gameParty")} onChange={() => this.handleCategories('gameParty')}/>}label="Game party"/>
-                <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("drinks")} onChange={() => this.handleCategories('drinks')}/>}label="Drinks"/>
-                <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("costumeParty")} onChange={() => this.handleCategories('costumeParty')}/>}label="Costume party"/>
-                <FormControlLabel control={<Checkbox name="categories" checked={categories.includes("swimmingPool")} onChange={() => this.handleCategories('swimmingPool')}/>}label="Swimming pool"/>
-                <Button variant="contained" color="primary" onClick={this.handleEditEvent}>EDIT</Button>
-                <Button variant="contained" color="primary" onClick={this.handleClickOpen} >DELETE</Button>
+                        startIcon={<CloudUploadIcon />}
+                    >
+                        Upload
+                    </Button>
+                </Grid>
+                <Grid container spacing={5} direction="row">
+                    <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("houseParty")} onChange={() => this.handleCategories('houseParty')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>House party</Typography>}/>
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("outdoorParty")} onChange={() => this.handleCategories('outdoorParty')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Outdoor party</Typography>}/>
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("music")} onChange={() => this.handleCategories('music')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Music</Typography>}/>   
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("karaoke")} onChange={() => this.handleCategories('karaoke')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Karaoke</Typography>}/> 
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("gameParty")} onChange={() => this.handleCategories('gameParty')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Game party</Typography>}/>
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("drinks")} onChange={() => this.handleCategories('drinks')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Drinks</Typography>}/>    
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("costumeParty")} onChange={() => this.handleCategories('costumeParty')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Costume party</Typography>}/>
+                    </Grid>
+                    <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("swimmingPool")} onChange={() => this.handleCategories('swimmingPool')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Swimming pool</Typography>}/> 
+                    </Grid>
+                </Grid>
+                <Grid container direction="column" spacing={24}>
+                    <Grid>
+                        <Button variant="contained" className="CustomButton" onClick={this.handleEditEvent}>EDIT</Button>
+                    </Grid>
+                    <Grid>
+                        <Button className="CustomStrokeButton" onClick={this.handleClickOpen} >DELETE</Button>
+                    </Grid>
+                </Grid>
 
                 {/* dialog */}
-
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -348,19 +393,16 @@ class EditEvent extends Component {
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">
-                        No
-                    </Button>
-                    <Button onClick={this.handleDeleteEvent} color="primary" autoFocus>
+                    <Button onClick={this.handleDeleteEvent} variant="outlined" className="CustomStrokeButton"  >
                         Yes
+                    </Button>
+                    <Button onClick={this.handleClose} variant="contained" autoFocus className="CustomButton" >
+                        No
                     </Button>
                     </DialogActions>
                 </Dialog>
 
-                {/* {
-                    this.state.error && <Alert severity="error">{this.state.error}</Alert>
-                } */}
-            </div>
+            </Grid>
         )
     }
 }

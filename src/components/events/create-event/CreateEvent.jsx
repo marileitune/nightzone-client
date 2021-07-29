@@ -67,7 +67,6 @@ class CreateEvent extends Component {
     }
 
     handleImage = (e) => {
-        console.log(e)
         this.setState({ imageEvent: e.target.files[0] });
     }
 

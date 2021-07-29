@@ -3,9 +3,9 @@ import axios from 'axios';
 import { Redirect, withRouter } from "react-router-dom";
 import {API_URL} from '../../config.js'
 import {CircularProgress, Grid, Button, Avatar, Typography, Divider, TextField} from '@material-ui/core'
-// import { loadStripe } from "@stripe/stripe-js";
-// import { Elements } from "@stripe/react-stripe-js";
-// import CheckoutForm from "./CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
 import EventIcon from '@material-ui/icons/Event';
 import PlaceIcon from '@material-ui/icons/Place';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
@@ -146,7 +146,7 @@ class EventDetail extends Component {
         
         const {eventDetail, showPayment, canBuy, comments} = this.state
         const {user} = this.props
-        // const promise = loadStripe("pk_test_51JFxmQGLw6mfE9JvfuXfSeVyUAiedGg0atoexZN0VMTrvtdSsIqfWycGgvcym3tSYV8eElXrGlHobUphaJe5z8ko00MEIHTnt7")
+        const promise = loadStripe(process.env.REACT_APP_STRIPE_ID)
         return (
             <Grid container direction="column" style={{color:"#DEEEEA"}} className="horizontal-centered">
                 <Grid item>
@@ -239,10 +239,6 @@ class EventDetail extends Component {
                             </Typography>
                         </Grid>
 
-                        {
-                            //if there is ticket available and the state showPayment is true, show the Payment form. If not, check if the canBuy is true, and if yes show the button to BUY a ticket. If not, show nothing.
-                            eventDetail.capacity - eventDetail.ticketsSold.length > 0 && canBuy ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment} user={user} />) : (<Button variant="contained" className="CustomButton" onClick={this.handleShowPayment}>BUY</Button>) : ""   
-                        } 
                     </Grid>       
                   
                     {/* CATEGORIES */}

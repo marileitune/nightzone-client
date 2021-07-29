@@ -2,26 +2,29 @@ import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core';
 import {withRouter} from  'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 class DescriptionEvent extends Component {
     render() {
-        const { onPreview, onChange, onNext, onCheck, error, onAddImage} = this.props
+        const { onPreview, onChange, onNext, error, onAddImage} = this.props
         return (
             <div>
                 <TextField
                     id="outlined-textarea"
-                    label="Multiline"
+                    label="Description"
                     placeholder="Description "
                     multiline
                     rows={4}
                     onChange={onChange('description')}
                     variant="outlined"
                 />            
-                <Button
+<Button
                     variant="contained"
                     component="label"
+                    className="CustomButton"
+                    startIcon={<CloudUploadIcon />}
                     >
-                        Add an image
+                        add an image
                     <input
                         type="file"
                         name="imageEvent"

@@ -46,7 +46,6 @@ const BorderLinearProgress = withStyles({
       backgroundColor: '#DEEEEA'
     },
     bar: {
-      borderRadius: 5,
       backgroundColor: '#39A6A3',
     },
   })(LinearProgress);
@@ -59,7 +58,6 @@ const BorderLinearProgress = withStyles({
       backgroundColor: '#DEEEEA'
     },
     bar: {
-      borderRadius: 5,
       backgroundColor: '#894F7D',
     },
   })(LinearProgress);
@@ -72,7 +70,6 @@ const BorderLinearProgress = withStyles({
       backgroundColor: '#DEEEEA'
     },
     bar: {
-      borderRadius: 5,
       backgroundColor: '#BF1363',
     },
   })(LinearProgress);

@@ -240,7 +240,7 @@ class EventsList extends Component {
 
             <div style={{marginTop: '60px'}}>
                 <TabContext value={value}>
-                    <AppBar color="#231E23" position="fixed">
+                    <AppBar color="#231E23" position="static">
                         <TabList onChange={this.handleChange} aria-label="simple tabs example" value={value} >
                             <Tab label="Next events" value="1" style={{color: '#DEEEEA', fontWeight: 700}} />
                             <Tab label="Hot zone" value="2" style={{color: '#DEEEEA', fontWeight: 700}} />

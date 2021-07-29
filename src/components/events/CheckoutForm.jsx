@@ -85,8 +85,7 @@ function CheckoutForm(props) {
       //if the payment is successful, we need to call our payment route
       try {
         await axios.get(`${API_URL}/api/events/${eventId}/buy`, {withCredentials: true})
-        console.log(props)
-        props.history.push(`/account/${user._id}}`)
+        props.history.push(`/account/${user._id}`)
       }
       catch(err) {
           console.log('Event fetch failed', err)
@@ -99,6 +98,7 @@ function CheckoutForm(props) {
     <form id="payment-form" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
       <button
+      className="stripe-button"
         disabled={processing || disabled || succeeded}
         id="submit"
       >

@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import {withRouter} from  'react-router-dom';
 import {API_URL} from '../../config.js'
 import axios from 'axios';
-import { TextField, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
+import { Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-
+import {CssTextField} from '../../DefaultTheme'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 class EditAccount extends Component {
 
@@ -126,16 +127,35 @@ class EditAccount extends Component {
         const {firstName, lastName, email, password, confirmPassword, imageAccount} = this.state
         return (
             <div>
-                <TextField id="outlined-basic" label="First name" variant="outlined" type="text" value={firstName} required onChange={this.handleChange('firstName')}/>
-                <TextField id="outlined-basic" label="Last name" variant="outlined" type="text" value={lastName} required onChange={this.handleChange('lastName')}/>
-                <TextField id="outlined-basic" label="Email" variant="outlined" type="email" value={email} required onChange={this.handleChange('email')}/>
-                <TextField id="outlined-basic" label="Password" variant="outlined" type="password" value={password} required onChange={this.handleChange('password')}/>
-                <TextField id="outlined-basic" label="Confirm password" variant="outlined" type="password" value={confirmPassword} required onChange={this.handleChange('confirmPassword')}/>
+                <Grid container className="both-centered">
+                    <Grid container>
+                        <Grid item>
+                            <CssTextField id="outlined-basic" label="First name" variant="outlined" type="text" value={firstName} required onChange={this.handleChange('firstName')}/>
+                        </Grid>
+                        <Grid item>
+                            <CssTextField id="outlined-basic" label="Last name" variant="outlined" type="text" value={lastName} required onChange={this.handleChange('lastName')}/>
+                        </Grid>
+                    </Grid>
+                    <Grid container>
+                        <Grid item>
+                            <CssTextField id="outlined-basic" label="Email" variant="outlined" type="email" value={email} required onChange={this.handleChange('email')}/>
+                        </Grid>
+                    </Grid>
+                    <Grid container>
+                        <Grid item>
+                            <CssTextField id="outlined-basic" label="Password" variant="outlined" type="password" value={password} required onChange={this.handleChange('password')}/>
+                        </Grid>
+                        <Grid item>
+                            <CssTextField id="outlined-basic" label="Confirm password" variant="outlined" type="password" value={confirmPassword} required onChange={this.handleChange('confirmPassword')}/>
+                        </Grid>
+                    </Grid>
                 <Button
                     variant="contained"
                     component="label"
+                    className="CustomButton"
+                    startIcon={<CloudUploadIcon />}
                     >
-                        Add an image
+                        add an image
                     <input
                         type="file"
                         name="imageAccount"
@@ -144,9 +164,14 @@ class EditAccount extends Component {
                         hidden
                     />
                 </Button>
-                <Button variant="contained" className="CustomButton" onClick={this.handleEditAccount}>EDIT</Button>
-                <Button variant="contained" className="CustomButton"  onClick={this.handleClickOpen} >DELETE</Button>
-
+                <Grid container direction="column" spacing={24}>
+                    <Grid>
+                        <Button variant="contained" className="CustomButton" onClick={this.handleEditAccount}>EDIT</Button>
+                    </Grid>
+                    <Grid>
+                        <Button className="CustomStrokeButton" onClick={this.handleClickOpen} >DELETE</Button>
+                    </Grid>
+                </Grid>
                 {/* dialog */}
 
                 <Dialog
@@ -162,8 +187,8 @@ class EditAccount extends Component {
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                   
-                    <Button onClick={this.handleDeleteEvent} variant="outlined" className="CustomStrokeButton"  >
+        
+                    <Button onClick={this.handleDeleteAccount} variant="outlined" className="CustomStrokeButton"  >
                         Yes
                     </Button>
                     <Button onClick={this.handleClose} variant="contained" autoFocus className="CustomButton" >
@@ -171,9 +196,13 @@ class EditAccount extends Component {
                     </Button>
                     </DialogActions>
                 </Dialog>
+                {/* error */}
                 {
                     this.state.error && <Alert severity="error">{this.state.error}</Alert>
                 } 
+                </Grid> 
+
+
             </div>
         )
     }
