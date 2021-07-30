@@ -250,7 +250,7 @@ class EventsList extends Component {
                         showFilter && <Filter onSearch={this.handleSearchName} text={searchText} city={city} startDate={startDate} ticketType={ticketType} onDate={this.filterDate} onTicketType={this.filterTicketType} cities={cities} onCity={this.filterCity} onClean={this.handleClean}/>
                     }
                         
-                            <Grid container spacing={3} direction="row">
+                            <Grid container spacing={3} direction="row" style={{paddingTop: '2%'}}>
                             {
                             filteredEvents.map((event, i) => {
                             return <>
@@ -268,14 +268,14 @@ class EventsList extends Component {
                                         <CardContent>
                                             <Grid container  wrap="nowrap" spacing={2} direction="column">
                                                 {/* NAME */}
-                                                <Grid>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
                                                         {event.name}
                                                     </Typography>
                                                 <Divider light />
                                                 </Grid>                                       
                                                 {/* START */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <EventIcon/>
                                                     </Grid>
@@ -288,7 +288,7 @@ class EventsList extends Component {
                                                 </Grid>
                                                 <Divider light />
                                                 {/* ADDRESS */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <PlaceIcon/>
                                                     </Grid>
@@ -301,7 +301,7 @@ class EventsList extends Component {
                                                 </Grid>
                                                 <Divider light />
                                                 {/* TICKETS AVAILABLE */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '5%'}}>
                                                         <Grid item>
                                                             <ConfirmationNumberIcon/>
                                                         </Grid>
@@ -312,10 +312,10 @@ class EventsList extends Component {
                                                         </Grid>         
                                                 </Grid>
                                                 {/* CATEGORIES*/}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '5%', paddingLeft: '8.5px'}}>
                                                 {
                                                     event.categories.map((category) => {
-                                                        return <div>
+                                                        return <div style={{paddingRight: '5%'}}>
                                                             <Grid item xs>{
                                                                 this.getCategoryIcon(category)
                                                             }
@@ -367,7 +367,7 @@ class EventsList extends Component {
                                                 <Divider light />
                                                 </Grid>                                       
                                                 {/* START */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <EventIcon/>
                                                     </Grid>
@@ -380,7 +380,7 @@ class EventsList extends Component {
                                                 </Grid>
                                                 <Divider light />
                                                 {/* ADDRESS */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <PlaceIcon/>
                                                     </Grid>
@@ -393,7 +393,7 @@ class EventsList extends Component {
                                                 </Grid>
                                                 <Divider light />
                                                 {/* TICKETS AVAILABLE */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '5%'}}>
                                                         <Grid item>
                                                             <ConfirmationNumberIcon/>
                                                         </Grid>
@@ -404,10 +404,10 @@ class EventsList extends Component {
                                                         </Grid>         
                                                 </Grid>
                                                 {/* CATEGORIES*/}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '5%', paddingLeft: '8.5px'}}>
                                                 {
                                                     zoneEvent.categories.map((category) => {
-                                                        return <div>
+                                                        return <div style={{paddingRight: '5%'}}>
                                                             <Grid item xs>{
                                                                 this.getCategoryIcon(category)
                                                             }
@@ -417,7 +417,7 @@ class EventsList extends Component {
                                                 }
                                                 </Grid>
                                                 {/* CHECK IN */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                         <Grid item>
                                                             <Typography style={{fontWeight: 700}}>{zoneEvent.checkIn.length}</Typography>
                                                         </Grid>

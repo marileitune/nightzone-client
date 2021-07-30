@@ -12,7 +12,7 @@ function FacebookButton(props) {
   
 
     return (
-        <div>
+        <div style={{paddingRight: '1%'}}>
             <FacebookLogin
             appId={process.env.REACT_APP_FACEBOOK_ID}
             fields="name,email,picture"

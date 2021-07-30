@@ -94,13 +94,13 @@ class Account extends Component {
                                             <Grid container  wrap="nowrap" spacing={2} direction="column">
                                                 {/* NAME */}
                                                 <Grid>
-                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
+                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700, paddingBottom: '2%'}}>
                                                         {event.event.name}
                                                     </Typography>
                                                 <Divider light />
                                                 </Grid>                                       
                                                 {/* START */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <EventIcon/>
                                                     </Grid>
@@ -113,7 +113,7 @@ class Account extends Component {
                                                 </Grid>
                                                 <Divider light />
                                                 {/* ADDRESS */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <PlaceIcon/>
                                                     </Grid>
@@ -138,12 +138,12 @@ class Account extends Component {
                                                         <Typography style={{fontWeight: 700}}>Please, only click this button when the receptionist order to.</Typography>
                                                     </Grid>
                                                     <Grid item xs>
-                                                        <Button variant="contained" className="CustomButton" onClick={this.handleClickOpen}>CHECK IN</Button>
+                                                        <Button variant="contained" className="CustomButton" onClick={this.handleClickOpen} style={{width: '100%'}}>CHECK IN</Button>
                                                     </Grid>
                                                     </>)  :
                                                     (<>
                                                         <Grid item xs>
-                                                            <Button variant="outlined" className="CustomDisableButton" >CANNOT CHECK IN</Button>
+                                                            <Button variant="outlined" className="CustomDisableButton" style={{width: '100%'}}>CANNOT CHECK IN</Button>
                                                         </Grid>
                                                     </>) 
                                                             
@@ -176,13 +176,13 @@ class Account extends Component {
                                             <Grid container direction="column">
                                                 {/* NAME */}
                                                 <Grid>
-                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
+                                                    <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700, paddingBottom: '2%'}}>
                                                         {event.name}
                                                     </Typography>
                                                 <Divider light />
                                                 </Grid>                                       
                                                 {/* TICKETS SOLD */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <Typography style={{fontWeight: 700}}>{event.ticketsSold.length}</Typography>
                                                     </Grid>
@@ -194,7 +194,7 @@ class Account extends Component {
                                                 </Grid>
                                                 <Divider light />
                                                 {/* CHECK IN */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <Typography style={{fontWeight: 700}}>{event.checkIn.length}</Typography>
                                                     </Grid>
@@ -207,7 +207,7 @@ class Account extends Component {
                                                 <Divider light />
                                                 {
                                                     event.ticketsSold.length == 0 && <Link to={`/events/${event._id}/edit`} style={{ textDecoration: 'none', color:"#DEEEEA" }}>
-                                                    <Button variant="contained" className="CustomButton">EDIT</Button>
+                                                    <Button variant="contained" className="CustomButton" style={{width: '100%'}}>EDIT</Button>
                                                 </Link>
                                                 }
                                                

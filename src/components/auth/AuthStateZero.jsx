@@ -15,11 +15,11 @@ class AuthStateZero extends Component {
         const {onFacebookResponse, onGoogleResponse, onNext, } = this.props
         return (
             <Grid className="both-centered" >
-               <Brand variant="h1" > <Link to="/" style={{ textDecoration: 'inherit', color:'linear-gradient(90deg, #39A6A3 30%, #BF1363 90%)'}}>NIGHTZONE</Link></Brand>
-                <Subtitle variant="h5">Sign in or sign up with</Subtitle>
-                <Link to="/auth" style={{ textDecoration: 'none' }}><Button className="CustomButton" variant="contained" size="large" onClick={onNext}><MailOutlineIcon/> EMAIL</Button></Link>
+               <Brand variant="h1" style={{paddingBottom: '2%'}}> <Link to="/" style={{ textDecoration: 'inherit', color:'linear-gradient(90deg, #39A6A3 30%, #BF1363 90%)'}}>NIGHTZONE</Link></Brand>
+                <Subtitle variant="h5" style={{paddingBottom: '2.5%'}}>Sign in or sign up with</Subtitle>
+                <Link to="/auth" style={{ textDecoration: 'none', paddingBottom: '2%'}}><Button className="CustomButton" variant="contained" size="large" onClick={onNext} ><MailOutlineIcon/> EMAIL</Button></Link>
                 <Grid container spacing={24} direction="row" justifyContent='center' alignItems="center" >
-                    <FacebookButton onFacebookResponse={onFacebookResponse} />
+                    <FacebookButton onFacebookResponse={onFacebookResponse}/>
                     <GoogleButton onGoogleResponse={onGoogleResponse}/> 
                 </Grid> 
             </Grid>
