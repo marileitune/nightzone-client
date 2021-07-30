@@ -46,7 +46,7 @@ class EventsList extends Component {
                 events: response.data,
                 filteredEvents: response.data
         })
-
+            
             response.data.forEach((elem) => {
                 !this.state.cities.includes(elem.city) && this.state.cities.push(elem.city)
             })

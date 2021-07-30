@@ -150,6 +150,28 @@ class Account extends Component {
                                                 }
                                         </Grid>
                             </Card>
+                            {/* dialog */}
+                            <Dialog
+                                    open={this.state.open}
+                                    onClose={this.handleClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">{"Are you sure you want to check in?"}</DialogTitle>
+                                    <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        This is your unique ticket for the event and this action cannot be undone.
+                                    </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                    <Button variant="outlined" className="CustomStrokeButton" onClick={() => this.handleCheckIn(event.event._id)} >
+                                        Yes
+                                    </Button>
+                                    <Button onClick={this.handleClose} variant="contained" autoFocus className="CustomButton" >
+                                        No
+                                    </Button>
+                                    </DialogActions>
+                                </Dialog>
                                 </Grid>
                             </>
                             })
@@ -215,31 +237,8 @@ class Account extends Component {
                                         </CardContent>
                                     </CardActionArea>
                                 </Link>
-
                             </Card>
                             </Grid>
-                             {/* dialog */}
-                                <Dialog
-                                    open={this.state.open}
-                                    onClose={this.handleClose}
-                                    aria-labelledby="alert-dialog-title"
-                                    aria-describedby="alert-dialog-description"
-                                >
-                                    <DialogTitle id="alert-dialog-title">{"Are you sure you want to check in?"}</DialogTitle>
-                                    <DialogContent>
-                                    <DialogContentText id="alert-dialog-description">
-                                        This is your unique ticket for the event and this action cannot be undone.
-                                    </DialogContentText>
-                                    </DialogContent>
-                                    <DialogActions>
-                                    <Button variant="outlined" className="CustomStrokeButton" onClick={() => this.handleCheckIn(event.event._id)} >
-                                        Yes
-                                    </Button>
-                                    <Button onClick={this.handleClose} variant="contained" autoFocus className="CustomButton" >
-                                        No
-                                    </Button>
-                                    </DialogActions>
-                                </Dialog>
                             </>
                             })
                             }
