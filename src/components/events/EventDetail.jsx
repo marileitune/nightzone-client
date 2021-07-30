@@ -255,7 +255,7 @@ class EventDetail extends Component {
                     <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '1%'}}>
                         <Grid item>
                             <Typography >
-                                {eventDetail.ticketsPrice}
+                                {eventDetail.description}
                             </Typography>
                         </Grid>
 
