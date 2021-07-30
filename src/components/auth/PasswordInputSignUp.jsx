@@ -19,7 +19,7 @@ class PasswordInputSignUp extends Component {
                
                 <FormControlLabel control={<CustomCheckbox name="age" required onChange={onCheck}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>I am older than 18.</Typography>}/>
                 <Grid container spacing={24} direction="row" justifyContent='center' alignItems="center" >
-                    <Button variant="contained" className="CustomButton" onClick={onPreview}>BACK</Button>
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
                     <Button variant="contained" className="CustomButton" onClick={onRegister}>SIGN UP</Button>
                 </Grid> 
                 {

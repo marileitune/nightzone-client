@@ -27,7 +27,7 @@ const CssTextField = withStyles({
             borderColor: "#BF1363"
           },
           "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
-            color: "#39A6A3"
+            color: "#DEEEEA"
           },
           "& .MuiInputLabel-root.Mui-focused": {
             color: "#39A6A3"

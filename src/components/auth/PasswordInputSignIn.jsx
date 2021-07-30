@@ -15,7 +15,7 @@ class PasswordInputSignIn extends Component {
                 <Subtitle variant="h5">What is your password?</Subtitle>
                 <CssTextField id="outlined-basic" className="CustomInput"label="Password" variant="outlined" type="password" required onChange={onChange('password')} />
                 <Grid container spacing={24} direction="row" justifyContent='center' alignItems="center" >
-                    <Button variant="contained" className="CustomButton" onClick={onPreview}>BACK</Button>
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
                     <Button variant="contained" className="CustomButton" onClick={onLogin}>NEXT</Button>
                 </Grid>                 
                 {

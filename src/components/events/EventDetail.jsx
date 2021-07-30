@@ -160,15 +160,22 @@ class EventDetail extends Component {
         const {user} = this.props
         const promise = loadStripe(process.env.REACT_APP_STRIPE_ID)
         return (
-            <Grid container direction="column" style={{color:"#DEEEEA"}} className="horizontal-centered">
-                <Grid item>
-                    <img src={`${eventDetail.imageEvent}`} alt="event image" height="400px" />
-                </Grid>
-                <Grid item>
-                    <Subtitle style={{fontWeight: 700, fontSize: '1.8rem'}}>{eventDetail.name}</Subtitle>
-                </Grid>                               
-                {/* START */}
-                <Grid container wrap="nowrap" spacing={2}>
+            <Grid
+            container
+            spacing={0}
+            align="left"
+            justify="center"
+            alignItems="center"
+            direction="column"
+            style={{ color: '#DEEEEA', width: '90%' }}
+            
+            
+            >
+            <Grid item >
+            <img src={`${eventDetail.imageEvent}`} alt="event image"  style={{marginTop: '12%', width: '40%', borderRadius: '5%'}}/>
+            <Subtitle style={{fontWeight: 700, fontSize: '1.8rem'}}>{eventDetail.name}</Subtitle>
+            {/* START */}
+            <Grid container wrap="nowrap" spacing={2}>
                      <Grid item>
                         <EventIcon/>
                     </Grid>
@@ -303,7 +310,7 @@ class EventDetail extends Component {
 
                     }
                     </Grid>
-                   
+            </Grid>
             </Grid>
         )
     }

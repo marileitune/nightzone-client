@@ -14,7 +14,7 @@ class NameInput extends Component {
                 <CssTextField id="outlined-basic" label="First name" variant="outlined" type="text" value={firstName} required onChange={onChange('firstName')} />
                 <CssTextField id="outlined-basic" label="Last name" variant="outlined" type="text" value={lastName} required onChange={onChange('lastName')} />
                 <Grid container spacing={24} direction="row" justifyContent='center' alignItems="center" >
-                    <Button variant="contained" className="CustomButton" onClick={onPreview}>BACK</Button>
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
                     <Button variant="contained" className="CustomButton" onClick={onNext}>NEXT</Button>
                 </Grid> 
                 {

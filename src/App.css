@@ -38,3 +38,15 @@ body {
 	flex-direction: column;
 	height: 100vh;
 }
+
+.responsive {
+	  min-width: 50%;
+	  min-height: 50%;
+	  width: auto;
+	  height: 100%;
+
+	  transform: translateX(-50%) translateY(-50%);
+
+	  padding: 0;
+	  margin: 0
+  }
