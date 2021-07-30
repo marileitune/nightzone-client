@@ -12,7 +12,7 @@ function GoogleButton(props) {
                 clientId={process.env.REACT_APP_GOOGLE_ID}
                 render={renderProps => (
                     <Button onClick={renderProps.onClick} className="CustomFab" >
-                    <GTranslateIcon color="#DEEEEA"/>
+                    <img src={"https://res.cloudinary.com/dplgnsjzm/image/upload/v1627618124/nightzone-backend/images/google_ng6swy.svg"} width="25px"/>
                 </Button>
                 )}
                 buttonText="Login"

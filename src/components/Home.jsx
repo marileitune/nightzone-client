@@ -29,11 +29,6 @@ class Home extends Component {
                             <Subtitle variant="h1" style={{fontWeight: 700, textAlign: 'center'}}>JUST ENJOY</Subtitle>
                             <Subtitle  variant="h4" style={{letterSpacing: 3, textAlign: 'center'}}>Life is made of moments. Memories. And parties.</Subtitle>
                        </Grid>
-                            
-            
-                
-            
-                     
                 </Grid>
                 
 

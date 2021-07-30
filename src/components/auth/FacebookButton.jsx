@@ -20,7 +20,7 @@ function FacebookButton(props) {
             callback={onFacebookResponse}
             render={renderProps => (
                 <Button onClick={renderProps.onClick}  className="CustomFab">
-                    <FacebookIcon color="#DEEEEA"/>
+                    <img src={"https://res.cloudinary.com/dplgnsjzm/image/upload/v1627618495/nightzone-backend/images/facebook_wmxk1p.svg"} width="25px"/>
                 </Button>
                 )}
             />
