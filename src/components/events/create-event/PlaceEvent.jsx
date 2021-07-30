@@ -66,14 +66,14 @@ class PlaceEvent extends Component {
         const {countries, cities} = this.state
         return (
             <Grid container direction="column" className="both-centered">
-                <Grid item >
+                <Grid item  style={{ marginBottom: '2.5%'}} >
                     <Subtitle variant="h5" color="secondary">Where the event is going to happen?</Subtitle>
                 </Grid>
-                <Grid item >
+                <Grid item  style={{ marginBottom: '2%'}} >
                     <CssTextField id="outlined-basic" label="Address" variant="outlined" type="text" value={address} required onChange={onChange('address')}/>
                 </Grid>
-                <Grid container container justify="center" alignItems="center">
-                    <Grid item >
+                <Grid container container justify="center" alignItems="center"  style={{ marginBottom: '2%'}}>
+                    <Grid item  style={{ marginRight: '2%'}}>
                         <CustomSelect variant="outlined">
                         <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
                             <Select
@@ -93,7 +93,7 @@ class PlaceEvent extends Component {
                     </Grid>
                     
                     { country && 
-                    <Grid item >
+                    <Grid item  >
                         {   this.state.CountrySelected!== null && <CustomSelect variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
                             <Select
@@ -114,8 +114,8 @@ class PlaceEvent extends Component {
                     </Grid>
                     }
                 </Grid>
-            <Grid container justify="center" alignItems="center" >
-                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
+            <Grid container justify="center" alignItems="center" style={{ marginBottom: '2%'}}>
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview} style={{ marginRight: '2%'}}>BACK</Button>
                     <Button variant="contained" className="CustomButton" onClick={onNext}>NEXT</Button>
             </Grid> 
             {

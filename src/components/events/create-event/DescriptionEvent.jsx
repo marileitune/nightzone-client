@@ -11,8 +11,15 @@ class DescriptionEvent extends Component {
     render() {
         const { onPreview, onChange, onNext, error, onAddImage, description, imageEvent} = this.props
         return (
-            <Grid container direction="column" className="both-centered" flexGrow={1}>
-                <Grid container justify="center"  >
+            <Grid
+            container
+            spacing={0}
+            align="center"
+            justify="center"
+            alignItems="center"
+            direction="column">
+                <Grid item >
+                <Grid container justify="center" style={{ marginBottom: '2.5%', marginTop: '6%'}}>
                     <img 
                         component="img"
                         alt="image-event"
@@ -21,23 +28,7 @@ class DescriptionEvent extends Component {
                         title="image-event"
                     />
                 </Grid>
-                <Grid item >
-                    <Subtitle variant="h5" color="secondary">How would you describe your event?</Subtitle>
-                </Grid>
-    
-                <Grid item>
-                    <CssTextField
-                        id="outlined-textarea"
-                        label="Description"
-                        placeholder="Description "
-                        multiline
-                        rows={4}
-                        value={description}
-                        onChange={onChange('description')}
-                        variant="outlined"
-                    />            
-                </Grid>
-                <Grid item>
+                <Grid item  style={{ marginBottom: '2%'}}>
                     <Button
                         variant="contained"
                         component="label"
@@ -54,14 +45,31 @@ class DescriptionEvent extends Component {
                         />
                      </Button>
                 </Grid>
-                <Grid container justify="center" alignItems="center" >
-                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
+                <Grid item  style={{ marginBottom: '2%'}}>
+                    <Subtitle variant="h5" color="secondary">How would you describe your event?</Subtitle>
+                </Grid>
+                <Grid item  style={{ marginBottom: '2%'}}>
+                    <CssTextField
+                        id="outlined-textarea"
+                        label="Description"
+                        placeholder="Description "
+                        multiline
+                        rows={4}
+                        value={description}
+                        onChange={onChange('description')}
+                        variant="outlined"
+                    />            
+                </Grid>
+                
+                <Grid container justify="center" alignItems="center"  style={{ marginBottom: '2%'}}>
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}  style={{ marginRight: '2%'}}>BACK</Button>
                     <Button variant="contained" className="CustomButton" onClick={onNext}>NEXT</Button>
                 </Grid> 
-                {
-                    error && <Alert severity="error">{error}</Alert>
+               
+            </Grid>
+            {
+                    error && <Alert severity="error" style={{ marginBottom: '2%'}}>{error}</Alert>
                 }
-            
             </Grid>
         )
     }

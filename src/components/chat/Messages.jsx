@@ -30,10 +30,10 @@ class Messages extends Component {
   render() {
     const {conversationList} = this.state
   return (
-    <List>
+    <List style={{marginTop: '5%'}}>
       {
         conversationList.map((user, i) => {
-          return <Link to={`/chat/${user._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}><ListItem alignItems="flex-start" key={i}>
+          return <Link to={`/chat/${user._id}`} style={{ textDecoration: 'none', color:"#DEEEEA" }}><ListItem alignItems="center" key={i}>
           <ListItemAvatar>
             <Avatar alt="user photo" src={`${user.imageAccount}`} />
           </ListItemAvatar>

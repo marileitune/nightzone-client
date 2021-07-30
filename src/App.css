@@ -50,3 +50,7 @@ body {
 	  padding: 0;
 	  margin: 0
   }
+
+  header.solid {
+	  background-color: aquamarine;
+  }

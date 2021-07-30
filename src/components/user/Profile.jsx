@@ -52,20 +52,25 @@ class Profile extends Component {
         const {userFriend, ticketsBought, eventsCreated, value} = this.state
         return (
             <div>
-                <Grid container direction="column" style={{color:"#DEEEEA"}} className="horizontal-centered">
-                <Grid item>
-                    
-                 <Avatar src={`${userFriend.imageAccount}`} width="40%" styles={{borderRadius:'50%'}} />
-                </Grid>                              
-                {/* NAME */}
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                    <Typography>
+                <Grid container direction="column" style={{color:"#DEEEEA"}}>
+                <Grid container direction="column" style={{marginTop:"7%"}} 
+                spacing={0}
+                    align="left"
+                    justify="center"
+                    alignItems="center"
+                    direction="column" >
+                 <img src={`${userFriend.imageAccount}`} style={{width: '10%', borderRadius: '50%', marginBottom:"1%"}}  />
+                 <Grid item wrap="nowrap" spacing={2} style={{marginBottom:"1%"}}>
+                    <Grid item >
+                    <Typography style={{fontWeight: 700}}>
                         {userFriend.firstName} {userFriend.lastName} 
                     </Typography>
                     </Grid>
                 </Grid>
-                <Link to={`/chat/${this.props.match.params.userId }`} style={{ textDecoration: 'none', color:"#DEEEEA" }}><Button variant="contained" className="CustomButton" >CHAT</Button></Link>
+                <Link to={`/chat/${this.props.match.params.userId }`} style={{ textDecoration: 'none', color:"#DEEEEA", marginBottom: '2%' }}><Button variant="contained" className="CustomButton"  >CHAT</Button></Link>
+                </Grid>                              
+                {/* NAME */}
+                
                 <Divider light />
                 <TabContext value={value}>
                     <AppBar color="#231E23" position="static">
@@ -93,7 +98,7 @@ class Profile extends Component {
                                         <CardContent>
                                         <Grid container wrap="nowrap" spacing={2}>     
                                         </Grid>
-                                            <Grid container  wrap="nowrap" spacing={2} direction="column">
+                                            <Grid container  wrap="nowrap" spacing={2} direction="column" style={{paddingBottom: '2%'}}>
                                                 {/* NAME */}
                                                 <Grid>
                                                     <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
@@ -102,7 +107,7 @@ class Profile extends Component {
                                                 <Divider light />
                                                 </Grid>                                       
                                                 {/* START */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <EventIcon/>
                                                     </Grid>
@@ -115,7 +120,7 @@ class Profile extends Component {
                                                 </Grid>
                                                 <Divider light />
                                                 {/* ADDRESS */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <PlaceIcon/>
                                                     </Grid>
@@ -155,7 +160,7 @@ class Profile extends Component {
                                         title="image-event"
                                         />
                                         <CardContent>
-                                            <Grid container direction="column">
+                                            <Grid container direction="column" style={{paddingBottom: '2%'}}>
                                                 {/* NAME */}
                                                 <Grid>
                                                     <Typography gutterBottom variant="h5" component="h2" style={{fontWeight: 700}}>
@@ -164,7 +169,7 @@ class Profile extends Component {
                                                 <Divider light />
                                                 </Grid>                                       
                                                 {/* TICKETS SOLD */}
-                                                <Grid container wrap="nowrap" spacing={2}>
+                                                <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '2%'}}>
                                                     <Grid item>
                                                         <Typography style={{fontWeight: 700}}>{event.ticketsSold.length}</Typography>
                                                     </Grid>

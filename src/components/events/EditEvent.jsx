@@ -215,8 +215,14 @@ class EditEvent extends Component {
             }
         }
         return (
-            < Grid container direction="column" className="both-centered">
-                <Grid item>
+            < Grid container container
+            spacing={0}
+            align="left"
+            justify="center"
+            alignItems="center"
+            direction="column">
+                <Grid item style={{marginTop: '12%', marginLeft: '7%'}}> 
+                <Grid item style={{paddingBottom: '1.5%'}}>
                     <CssTextField 
                         id="outlined-basic" 
                         label="Name" 
@@ -226,7 +232,7 @@ class EditEvent extends Component {
                         onChange={this.handleChange('name')}
                         required />
                     </Grid>
-                <Grid container>
+                <Grid container style={{paddingBottom: '1.5%'}}>
                     <Grid item>
                         <CustomDateInput
                             variant="outlined"
@@ -250,7 +256,7 @@ class EditEvent extends Component {
                         />
                     </Grid>
                 </Grid>
-                <Grid item>
+                <Grid item style={{paddingBottom: '1.5%'}}>
                     <CssTextField 
                         id="outlined-basic" 
                         label="Address" 
@@ -260,7 +266,7 @@ class EditEvent extends Component {
                         onChange={this.handleChange('address')}
                         required />
                 </Grid>
-                <Grid container>
+                <Grid container style={{paddingBottom: '1.5%'}}>
                     <Grid item>
                     <CustomSelect variant="outlined">
                     <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
@@ -299,28 +305,26 @@ class EditEvent extends Component {
                     }
                     </Grid>
                 </Grid>
-                <Grid item>
+                <Grid item style={{paddingBottom: '1.5%'}}>
                     <FormControlLabel control={
                         <CustomCheckbox 
                         checked = {isPaid}
                             name="isPaid"   
 
                                 onChange={this.handleCheck}/>}
-                            label="The event is going to be paid."
-                        />
+                                label={<Typography variant="body1" style={{color: '#DEEEEA'}}>The event is going to be paid</Typography>}/>
                 </Grid>
                 {
                     
-                    isPaid && <><Typography>How much is the ticket?</Typography> <CssTextField id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" value={ticketsPrice}required onChange={this.handleChange('ticketsPrice')}/> </> 
+                    isPaid && <><CssTextField style={{paddingBottom: '1.5%'}} id="outlined-basic" label="ticketsPrice" variant="outlined" type="number" value={ticketsPrice}required onChange={this.handleChange('ticketsPrice')}/> </> 
                 }
-                <Grid item>
-                    <Typography>Which is the party capacity?</Typography>
-                    <CssTextField id="outlined-basic" label="capacity" variant="outlined" type="number" value={capacity} required onChange={this.handleChange('capacity')}/>
+                <Grid item style={{paddingBottom: '1.5%'}}>
+                    <CssTextField id="outlined-basic" label="Capacity" variant="outlined" type="number" value={capacity} required onChange={this.handleChange('capacity')}/>
                 </Grid>
-                <Grid item>
+                <Grid item style={{paddingBottom: '1.5%'}}>
                     <CssTextField
                         id="outlined-textarea"
-                        label="Multiline"
+                        label="Description"
                         placeholder="Description "
                         multiline
                         value={description}
@@ -329,7 +333,7 @@ class EditEvent extends Component {
                         variant="outlined"
                     />  
                 </Grid>
-                <Grid item>
+                <Grid item style={{paddingBottom: '1.5%'}}>
                     <Button
                         variant="contained"
                         color="default"
@@ -343,7 +347,7 @@ class EditEvent extends Component {
                         Upload
                     </Button>
                 </Grid>
-                <Grid container spacing={5} direction="row">
+                <Grid container spacing={5} direction="row" style={{marginBottom: '2%'}}>
                     <Grid item xs={6} sm={6} md={4} lg={4} xl={4} spacing={5} direction="column">
                         <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("houseParty")} onChange={() => this.handleCategories('houseParty')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>House party</Typography>}/>
                     </Grid>
@@ -369,15 +373,14 @@ class EditEvent extends Component {
                         <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("swimmingPool")} onChange={() => this.handleCategories('swimmingPool')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Swimming pool</Typography>}/> 
                     </Grid>
                 </Grid>
-                <Grid container direction="column" spacing={24}>
-                    <Grid>
-                        <Button variant="contained" className="CustomButton" onClick={this.handleEditEvent}>EDIT</Button>
-                    </Grid>
-                    <Grid>
-                        <Button className="CustomStrokeButton" onClick={this.handleClickOpen} >DELETE</Button>
-                    </Grid>
+                <Grid container direction="row" spacing={24} >
+                    <Button className="CustomStrokeButton" onClick={this.handleClickOpen} style={{marginRight: '2%'}}>DELETE</Button> 
+                    <Button variant="contained" className="CustomButton" onClick={this.handleEditEvent}>EDIT</Button>
+                    
                 </Grid>
 
+                </Grid>
+                
                 {/* dialog */}
                 <Dialog
                     open={this.state.open}

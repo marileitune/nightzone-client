@@ -1,4 +1,4 @@
-import {createTheme, LinearProgress, withStyles, Typography, responsiveFontSizes, TextField, Checkbox, FormControl} from '@material-ui/core'
+import {createTheme, LinearProgress, Avatar, withStyles, Typography, responsiveFontSizes, TextField, Checkbox, FormControl} from '@material-ui/core'
 import PropTypes from 'prop-types';
 
 
@@ -162,6 +162,8 @@ const Subtitle = withStyles({
       WebkitTextFillColor: "transparent"
     }
   })(Typography);
+
+
 
 const CustomCheckbox = withStyles({
     root: {

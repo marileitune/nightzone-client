@@ -126,29 +126,18 @@ class EditAccount extends Component {
 
         const {firstName, lastName, email, password, confirmPassword, imageAccount} = this.state
         return (
-            <div>
-                <Grid container className="both-centered">
-                    <Grid container>
-                        <Grid item>
-                            <CssTextField id="outlined-basic" label="First name" variant="outlined" type="text" value={firstName} required onChange={this.handleChange('firstName')}/>
-                        </Grid>
-                        <Grid item>
-                            <CssTextField id="outlined-basic" label="Last name" variant="outlined" type="text" value={lastName} required onChange={this.handleChange('lastName')}/>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item>
-                            <CssTextField id="outlined-basic" label="Email" variant="outlined" type="email" value={email} required onChange={this.handleChange('email')}/>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item>
-                            <CssTextField id="outlined-basic" label="Password" variant="outlined" type="password" value={password} required onChange={this.handleChange('password')}/>
-                        </Grid>
-                        <Grid item>
-                            <CssTextField id="outlined-basic" label="Confirm password" variant="outlined" type="password" value={confirmPassword} required onChange={this.handleChange('confirmPassword')}/>
-                        </Grid>
-                    </Grid>
+                <Grid container
+                spacing={0}
+                align="left"
+                justify="center"
+                alignItems="center"
+                direction="column">
+                <Grid item style={{marginLeft: '5%', marginTop: '13%', paddingBottom: '2%'}}>
+                <CssTextField style={{marginRight: '1%', paddingBottom: '1%'}}id="outlined-basic" label="First name" variant="outlined" type="text" value={firstName} required onChange={this.handleChange('firstName')}/>
+                <CssTextField style={{marginRight: '1%', paddingBottom: '1%'}} id="outlined-basic" label="Last name" variant="outlined" type="text" value={lastName} required onChange={this.handleChange('lastName')}/>
+                 <CssTextField style={{marginRight: '1%', paddingBottom: '1%'}} id="outlined-basic" label="Email" variant="outlined" type="email" value={email} required onChange={this.handleChange('email')}/>
+                <CssTextField style={{marginRight: '1%', paddingBottom: '1%'}} id="outlined-basic" label="Password" variant="outlined" type="password" value={password} required onChange={this.handleChange('password')}/>
+                <CssTextField style={{marginRight: '1%', paddingBottom: '1%'}} id="outlined-basic" label="Confirm password" variant="outlined" type="password" value={confirmPassword} required onChange={this.handleChange('confirmPassword')}/>
                 <Button
                     variant="contained"
                     component="label"
@@ -196,14 +185,13 @@ class EditAccount extends Component {
                     </Button>
                     </DialogActions>
                 </Dialog>
+                    </Grid>
+                   
                 {/* error */}
                 {
                     this.state.error && <Alert severity="error">{this.state.error}</Alert>
                 } 
                 </Grid> 
-
-
-            </div>
         )
     }
 }

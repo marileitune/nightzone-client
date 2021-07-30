@@ -99,35 +99,50 @@ class ChatPage extends Component {
         }
 
         return (
-            <div>
-                <Grid container direction="column" className="chatContainer" className="both-centered">
-                    <Grid className="messages">
-                        {
-                            messageList.map((val) => {
-                                return (
-                                    <Grid key={val._id} className="messageContainer" id={val.sender._id == user._id ? "You" : "Other"}>
-                                        <Typography color="secondary" className="messageIndividual">
-                                            {val.sender._id == user._id?  "You" : val.sender.firstName }: {val.message}
-                                        </Typography>
-                                    </Grid>
-                                );
-                            })
-                        }
-                        <div style={{ float:"left", clear: "both" }}
-                            ref={(el) => { this.messagesEnd = el; }}>
-                        </div>
-                    </Grid>
-                    <Grid className="messageInputs">
-                        <CssTextField id="outlined-basic" variant="outlined" value={this.state.currentMessage} type="text" placeholder="Write a message"
-                            onChange={this.handleMessageInput}
-                        />
-                        <Grid>
-                            <Button variant="contained" className="CustomButton" onClick={this.sendMessage}>Send</Button>
+            <>
+                <Grid
+                    container
+                    className="chatContainer"
+                    spacing={0}
+                    align="left"
+                    justify="center"
+                    alignItems="center"
+                    direction="column"
+                    style={{ color: '#DEEEEA', marginTop: '12%'}}
+            >
+                    <Grid item >
+                        <Grid className="messages" style={{ marginBottom: '5%'}}>
+                            {
+                                messageList.map((val) => {
+                                    return (
+                                        <Grid style={{ marginBottom: '2.5%'}} key={val._id} className="messageContainer" id={val.sender._id == user._id ? "You" : "Other"}>
+                                            <Typography color="secondary" className="messageIndividual">
+                                                {val.sender._id == user._id?  "You" : val.sender.firstName }: {val.message}
+                                            </Typography>
+                                        </Grid>
+                                    );
+                                })
+                            }
+                            <div style={{ float:"left", clear: "both" }}
+                                ref={(el) => { this.messagesEnd = el; }}>
+                            </div>
                         </Grid>
+                        <Grid className="messageInputs" >
+                            <CssTextField style={{ marginBottom: '3%'}}  id="outlined-basic" variant="outlined" value={this.state.currentMessage} type="text" placeholder="Write a message"
+                                onChange={this.handleMessageInput}
+                            />
+                            <Grid>
+                                <Button variant="contained" className="CustomButton" onClick={this.sendMessage}>Send</Button>
+                            </Grid>
 
+                        </Grid>
                     </Grid>
                 </Grid>
-            </div>
+            
+          
+                    
+           
+            </>
         )
     }
 }

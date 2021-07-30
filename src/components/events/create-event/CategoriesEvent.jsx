@@ -8,11 +8,16 @@ class CategoriesEvent extends Component {
     render() {
         const {onPreview, onCreate, onCheck, error, categories} = this.props
         return (
-            <Grid container className="both-centered">
-                <Grid>
-                    <Subtitle variant="h5">How would you classify your party? (max 3 categories)</Subtitle>
-                </Grid>
-                <Grid container spacing={5} direction="row">
+            <Grid container
+            spacing={0}
+            align="left"
+            justify="center"
+            alignItems="center"
+            direction="column">
+                <Grid  item style={{marginTop: '12%', marginLeft: '3%'}}>
+                    <Subtitle style={{marginBottom: '2.5%'}} variant="h5">How would you classify your party? (max 3 categories)</Subtitle>
+
+                    <Grid spacing={5} direction="row">
                     <Grid item xs={6} sm={6} md={4} lg={4} xl={4}  direction="column">
                         <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("houseParty")} onChange={() => onCheck('houseParty')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>House party</Typography>}/>
                     </Grid>
@@ -39,10 +44,12 @@ class CategoriesEvent extends Component {
                     </Grid>
                 </Grid>
                 {/* buttons */}
-                <Grid container justify="center" alignItems="center" >
-                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
+                <Grid container justify="center" alignItems="center" style={{marginBottom: '4%'}}  >
+                    <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview} style={{marginRight: '4%'}} >BACK</Button>
                     <Button variant="contained" className="CustomButton" onClick={onCreate}>NEXT</Button>
                 </Grid> 
+                </Grid>
+             
                 {
                     error && <Alert severity="error">{error}</Alert>
                 }  

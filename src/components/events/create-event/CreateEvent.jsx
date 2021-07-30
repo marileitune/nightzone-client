@@ -96,7 +96,7 @@ class CreateEvent extends Component {
                 }
                 break;
             case 6:
-                if (this.state.categories && this.state.categories.length<4){
+                if (this.state.categories.length>0 && this.state.categories.length<4){
                     await this.setState({ step: step +1, error: null})
                 } else {
                     await this.setState({ error: "Please choose at least one and a maximum of 3 categories"})

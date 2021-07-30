@@ -9,11 +9,11 @@ class DateEvent extends Component {
         const {onNext, onPreview, onChange, error} = this.props
         return (
             <Grid container direction="column" className="both-centered">
-                <Grid item >
-                    <Subtitle variant="h5" color="secondary">When the event is going to happen?</Subtitle>
+                <Grid item  style={{ marginBottom: '2.5%'}}>
+                    <Subtitle variant="h5" color="secondary" >When the event is going to happen?</Subtitle>
                 </Grid>
-                <Grid container justify="center" alignItems="center">
-                    <Grid item>
+                <Grid container justify="center" alignItems="center" style={{ marginBottom: '2.5%'}}>
+                    <Grid item  style={{ marginRight: '2%'}}>
                         <CustomDateInput     
                             variant="outlined"
                             id="datetime-local"
@@ -40,8 +40,8 @@ class DateEvent extends Component {
                         />    
                     </Grid>
                 </Grid>
-                <Grid container justify="center" alignItems="center" >
-                        <Button variant="outlined" className="CustomStrokeButton" onClick={onPreview}>BACK</Button>
+                <Grid container justify="center" alignItems="center" style={{ marginBottom: '2%'}} >
+                        <Button variant="outlined" className="CustomStrokeButton" style={{ marginRight: '2.5%'}} onClick={onPreview}>BACK</Button>
                         <Button variant="contained" className="CustomButton" onClick={onNext}>NEXT</Button>
                 </Grid> 
                 {
