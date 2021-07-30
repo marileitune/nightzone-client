@@ -15,7 +15,7 @@ class CategoriesEvent extends Component {
             alignItems="center"
             direction="column">
                 <Grid  item style={{marginTop: '12%', marginLeft: '3%'}}>
-                    <Subtitle style={{marginBottom: '2.5%'}} variant="h5">How would you classify your party? (max 3 categories)</Subtitle>
+                    <Subtitle style={{marginBottom: '2.5%'}} variant="h5">How would you classify your party?</Subtitle>
 
                     <Grid spacing={5} direction="row">
                     <Grid item xs={6} sm={6} md={4} lg={4} xl={4}  direction="column">
@@ -40,7 +40,7 @@ class CategoriesEvent extends Component {
                         <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("costumeParty")} onChange={() => onCheck('costumeParty')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Costume party</Typography>}/>
                     </Grid>
                     <Grid item xs={6} sm={6} md={4} lg={4} xl={4} direction="column">
-                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("swimingPool")} onChange={() => onCheck('swimmingPool')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Swimming pool</Typography>}/> 
+                        <FormControlLabel control={<CustomCheckbox name="categories" checked={categories.includes("swimmingPool")} onChange={() => onCheck('swimmingPool')}/>}label={<Typography variant="body1" style={{color: '#DEEEEA'}}>Swimming pool</Typography>}/> 
                     </Grid>
                 </Grid>
                 {/* buttons */}

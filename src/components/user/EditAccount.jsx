@@ -48,7 +48,7 @@ class EditAccount extends Component {
     }
 
     handleImage = (e) => {
-        console.log(e)
+      
         this.setState({ imageFile: e.target.files[0] });
     }
     
@@ -77,7 +77,8 @@ class EditAccount extends Component {
                 confirmPassword: confirmPassword,
                 imageAccount: imageAccount
             }
-            console.log(editedAccount)
+          
+
 
 
             // pass a second parameter to the patch for sending info to your server inside req.body
