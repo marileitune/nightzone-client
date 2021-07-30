@@ -173,9 +173,9 @@ class EventDetail extends Component {
             >
             <Grid item >
             <img src={`${eventDetail.imageEvent}`} alt="event image"  style={{marginTop: '12%', width: '40%', borderRadius: '5%'}}/>
-            <Subtitle style={{fontWeight: 700, fontSize: '1.8rem'}}>{eventDetail.name}</Subtitle>
+            <Subtitle style={{fontWeight: 700, fontSize: '1.8rem', paddingBottom: '1%'}}>{eventDetail.name}</Subtitle>
             {/* START */}
-            <Grid container wrap="nowrap" spacing={2}>
+            <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '1%'}}>
                      <Grid item>
                         <EventIcon/>
                     </Grid>
@@ -187,7 +187,7 @@ class EventDetail extends Component {
                     </Grid>
                     <Divider light />
                     {/* ADDRESS */}
-                    <Grid container wrap="nowrap" spacing={2}>
+                    <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '1%'}}>
                         <Grid item>
                             <PlaceIcon/>
                         </Grid>
@@ -199,7 +199,7 @@ class EventDetail extends Component {
                     </Grid>
                     <Divider light />
                     {/* HOST */}
-                    <Grid container wrap="nowrap" spacing={2}>
+                    <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '1%'}}>
                         <Grid item>
                             <PersonIcon/>
                         </Grid>
@@ -211,7 +211,7 @@ class EventDetail extends Component {
                     </Grid>
                     <Divider light />
                     {/* TICKETS SOLD */}
-                    <Grid container wrap="nowrap" spacing={2}>
+                    <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '1%'}}>
                         <Grid item>
                             <GroupIcon/>
                         </Grid>
@@ -223,7 +223,7 @@ class EventDetail extends Component {
                     </Grid>
                     <Divider light />
                     {/* TICKETS AVAILABLE */}
-                    <Grid container wrap="nowrap" spacing={2}>
+                    <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '1%'}}>
                         <Grid item>
                             <ConfirmationNumberIcon/>
                         </Grid>
@@ -234,7 +234,7 @@ class EventDetail extends Component {
                         </Grid>         
                     </Grid>
                     {/* ticket price */}
-                    <Grid container wrap="nowrap" spacing={2}>
+                    <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '1%'}}>
                         <Grid item>
                             <EuroIcon/>
                         </Grid>
@@ -243,15 +243,16 @@ class EventDetail extends Component {
                             {eventDetail.ticketsPrice}
                             </Typography>
                         </Grid>  
-                        <Grid item xs>
+                         
+                    </Grid>
+                    <Grid item xs style={{paddingBottom: '1%'}}>
                         {
                             //if there is ticket available and the state showPayment is true, show the Payment form. If not, check if the canBuy is true, and if yes show the button to BUY a ticket. If not, show nothing.
                             eventDetail.capacity - eventDetail.ticketsSold.length > 0 && canBuy ? (showPayment) ? (<Payment eventId={eventDetail._id} onClose={this.handleClosePayment} user={user} />) : (<Button variant="contained" className="CustomButton"  onClick={this.handleShowPayment}>RESERVE SPOT</Button>) : ""   
                         } 
-                        </Grid>       
-                    </Grid>
+                        </Grid>     
                     {/* DESCRIPTION */}
-                    <Grid container wrap="nowrap" spacing={2}>
+                    <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '1%'}}>
                         <Grid item>
                             <Typography >
                                 {eventDetail.ticketsPrice}
@@ -261,11 +262,11 @@ class EventDetail extends Component {
                     </Grid>       
                   
                     {/* CATEGORIES */}
-                    <Grid container wrap="nowrap" spacing={2}>
+                    <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '3%'}}>
                         {
                             eventDetail.categories.map((category) => {
-                                return <div>
-                                    <Grid item xs>
+                                return <div style={{paddingRight: '1%'}}>
+                                    <Grid item xs >
                                         <Button className="CustomFab">{this.getCategoryIcon(category)}</Button>
                                     </Grid>  
                                 </div>
@@ -288,22 +289,21 @@ class EventDetail extends Component {
                         </Grid>      
                     </Grid>
                         {/* SUBMIT COMMENT */}
-                        <Grid container wrap="nowrap" spacing={2}>
+                        <Grid container wrap="nowrap" spacing={2} style={{paddingBottom: '3%'}}>
                             <Grid item xs>
-                                <Button variant="contained" color="primary" onClick={this.handleSubmit}>SUBMIT</Button>
+                                <Button variant="contained" className="CustomButton" onClick={this.handleSubmit}>SUBMIT</Button>
                             </Grid> 
                         </Grid>
                     {/* COMMENTS */}
-                    <Grid container wrap="nowrap" direction="column" spacing={2}>
+                    <Grid container wrap="nowrap" direction="column" spacing={2} >
                     {
                         comments.map((comment) => {
                             return <>
-                            <Grid container wrap="nowrap" direction="column" spacing={2} direction="row">
+                            <Grid container wrap="nowrap" spacing={2} direction="row" alignItems="center" > 
                                 <Grid item ><Avatar alt="user photo" src={`${comment.authorId.imageAccount}`}/></Grid>
-                                <Grid item xs><Typography>{comment.authorId.firstName} {comment.authorId.lastName}</Typography></Grid>
+                                <Grid item xs><Typography style={{fontWeight: 700}}>{comment.authorId.firstName} {comment.authorId.lastName}<Typography style={{fontSize: '0.7rem'}}>{comment.date}</Typography></Typography></Grid>
                             </Grid>                            
-                            <Grid item ><Typography>{comment.date}</Typography></Grid> 
-                            <Grid item ><Typography>{comment.comment}</Typography></Grid>
+                            <Grid item style={{paddingLeft: '56px', paddingBottom: '2%'}}><Typography>{comment.comment}</Typography></Grid>
                   
                             </>
                         })
