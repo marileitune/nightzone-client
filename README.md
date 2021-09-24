@@ -1,5 +1,7 @@
 # nightzone
 
+[Check out](https://nightzoneapp.herokuapp.com/)
+
 ## Description
 
 This is a website where the user can find parties to go, buy tickets, see which parties are rocking and who already is at the party. The user can also add parties and charge tickets.
@@ -251,13 +253,10 @@ https://www.npmjs.com/package/react-dom
 
 ### Trello
 
-[Board Link](https://trello.com/b/RQA4nfqp/nightzone}
+[Board Link](https://trello.com/b/RQA4nfqp/nightzone)
 
 ### Git
 
 [Server Repository Link](https://github.com/marileitune/nightzone-server)
 [Client Repository Link](https://github.com/marileitune/nightzone-client)
 
-### Slides
-
-[Slides Link]
